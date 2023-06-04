@@ -1,6 +1,6 @@
 <h1 align="center">Registro de Atualizações</h1>
 
-<span align="center">Todas as atualizações de prioridades, tarefas, e listas de afazeres serão feitas aqui.</span>
+<div align="center">Todas as atualizações de prioridades, tarefas, e listas de afazeres serão feitas aqui.</div>
 
 ## 02 jun. 2023
 
