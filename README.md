@@ -16,6 +16,7 @@
     <p><strong>Orientado por:</strong>
         <a href="https://github.com/alissonrs-cefet">Alisson R. Santos</a><span>, professor de Linguagens e Técnicas de Programação II</span>
     </p>
+    <p>Para saber sobre as atualizações do projeto, confira o <a href="#CHANGES.md">Registro de Atualizações</a></p>
 </div>
 
 
