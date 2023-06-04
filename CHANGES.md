@@ -31,7 +31,7 @@ O arquivo README.md foi atualizado e o arquivo CHANGES.md (Registro de Atualiza�
 
 ## 04 jun. 2023
 
-Adicionados os arquivos que serão utilizados para desenvolver os diagramas UML que serão desenvolvidos.
+Adicionados os arquivos que serão utilizados para desenvolver os diagramas UML que serão desenvolvidos. Projeto da libGDX criado.
 
 #### Alterações
 
