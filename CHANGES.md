@@ -35,9 +35,9 @@ Adicionados os arquivos que serão utilizados para desenvolver os diagramas UML 
 
 #### Alterações
 
-<span style="font-size: 18px"> **+** </span> Adicionado o arquivo <a href="https://github.com/victorZoro/neocontra.grupolaz.lp2/blob/main/CLASS_DIAGRAM.drawio">CLASS_DIAGRAM</a>, que contém um modelo de diagrama de classes da UML.
+<span style="font-size: 18px"> **+** </span> Adicionado o arquivo <a href="https://github.com/victorZoro/neocontra.grupolaz.lp2/blob/main/CLASS_DIAGRAM.svg">CLASS_DIAGRAM</a>, que contém um modelo de diagrama de classes da UML.
 
-<span style="font-size: 18px"> **+** </span> Adicionado o arquivo <a href="https://github.com/victorZoro/neocontra.grupolaz.lp2/blob/main/PACKAGE_DIAGRAM.drawio">PACKAGE_DIAGRAM</a>, que contém um modelo de diagrama de pacotes da UML.
+<span style="font-size: 18px"> **+** </span> Adicionado o arquivo <a href="https://github.com/victorZoro/neocontra.grupolaz.lp2/blob/main/PACKAGE_DIAGRAM.svg">PACKAGE_DIAGRAM</a>, que contém um modelo de diagrama de pacotes da UML.
 
 <span style="font-size: 18px"> **+** </span> Tarefa: "Fazer um Diagrama de Pacotes baseado nos pacotes que serão criados ao longo do desenvolvimento.".
 
