@@ -29,10 +29,23 @@ O arquivo README.md foi atualizado e o arquivo CHANGES.md (Registro de Atualiza�
 
 <span style="font-size: 18px"> **+** </span> Criação do Registro de Atualizações.
 
+## 04 jun. 2023
+
+Adicionados os arquivos que serão utilizados para desenvolver os diagramas UML que serão desenvolvidos.
+
+#### Alterações
+
+<span style="font-size: 18px"> **+** </span> Adicionado o arquivo <a href="https://github.com/victorZoro/neocontra.grupolaz.lp2/blob/main/CLASS_DIAGRAM.drawio">CLASS_DIAGRAM</a>, que contém um modelo de diagrama de classes da UML.
+
+<span style="font-size: 18px"> **+** </span> Adicionado o arquivo <a href="https://github.com/victorZoro/neocontra.grupolaz.lp2/blob/main/PACKAGE_DIAGRAM.drawio">PACKAGE_DIAGRAM</a>, que contém um modelo de diagrama de pacotes da UML.
+
+<span style="font-size: 18px"> **+** </span> Tarefa: "Fazer um Diagrama de Pacotes baseado nos pacotes que serão criados ao longo do desenvolvimento.".
+
 ## Lista de tarefas
 
 - [ ] Criar a pasta da libGDX para o jogo.
 - [ ] Fazer um Diagrama de Classes pensando mais na estrutura do jogo.
+- [ ] Fazer um Diagrama de Pacotes baseado nos pacotes que serão criados ao longo do desenvolvimento.
 - [ ] Criar um sistema de evolução baseado em coletáveis.
 - [ ] Reconsiderar viabilidade de fazer as fases de costas.
 - [ ] Reconsiderar viabilidade de um sistema de armas.
