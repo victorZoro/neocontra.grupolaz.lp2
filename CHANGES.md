@@ -41,9 +41,11 @@ Adicionados os arquivos que serão utilizados para desenvolver os diagramas UML 
 
 <span style="font-size: 18px"> **+** </span> Tarefa: "Fazer um Diagrama de Pacotes baseado nos pacotes que serão criados ao longo do desenvolvimento.".
 
+<span style="font-size: 18px"> **+** </span> Criado o projeto da libGDx.
+
 ## Lista de tarefas
 
-- [ ] Criar a pasta da libGDX para o jogo.
+- [X] Criar a pasta da libGDX para o jogo.
 - [ ] Fazer um Diagrama de Classes pensando mais na estrutura do jogo.
 - [ ] Fazer um Diagrama de Pacotes baseado nos pacotes que serão criados ao longo do desenvolvimento.
 - [ ] Criar um sistema de evolução baseado em coletáveis.
