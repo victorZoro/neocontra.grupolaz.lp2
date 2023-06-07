@@ -45,13 +45,23 @@ Adicionados os arquivos que serão utilizados para desenvolver os diagramas UML 
 
 ## 06 jun. 2023
 
-Refeito o esboço do diagrama de classes e adicionadas algumas referências. [os esboços serão adicionados ao arquivo em breve.]
+Refeito o esboço do diagrama de classes e adicionadas algumas referências.
 
 <span style="font-size: 18px"> **+** </span> Referência: <a href="https://github.com/libgdx/libgdx-demo-cuboc">Demo Cuboc, um jogo platformer em libGDX por Nathan Sweet.</a>
 
 <span style="font-size: 18px"> **+** </span> Referência: <a href="https://www.youtube.com/playlist?list=PLZm85UZQLd2SXQzsF-a0-pPF6IWDDdrXt">LibGDX Super Mario Bros por Brent Aureli Codes</a>
 
 <span style="font-size: 18px"> **+** </span> Referência: <a href="https://www.youtube.com/playlist?list=PLVNiGun9focYT2OVFUzL30wUtOToo6frD">2D Platformer por Small Pixel Games</a>
+
+<span style="font-size: 18px"> **+** </span> Referência: <a href="https://obviam.net/posts/2012/02.libgdx-create-prototype-tutorial-part1/">Create a 2D Platformer with libGDX por Obviam</a>
+
+<span style="font-size: 18px"> **+** </span> Referência: <a href="https://stackoverflow.com/questions/34479099/what-is-a-delta-time-in-libgdx/">What is a Delta time in LIBGDX (pergunta no stackoverflow)</a>
+
+<span style="font-size: 18px"> **+** </span> Referência: <a href="https://libgdx.com/wiki/extensions/physics/box2d/">Setting up Box2D with libGDX</a>
+
+<span style="font-size: 18px"> **+** </span> Referência: <a href="https://box2d.org/documentation/">Documentação Box2D</a>
+
+<span style="font-size: 18px"> **+** </span> Referência: <a href="https://gafferongames.com/post/fix_your_timestep/">Fix Your Timestep! por Gaffer on Games</a>
 
 ## Lista de tarefas
 
