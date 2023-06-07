@@ -43,6 +43,16 @@ Adicionados os arquivos que serão utilizados para desenvolver os diagramas UML 
 
 <span style="font-size: 18px"> **+** </span> Criado o projeto da libGDx.
 
+## 06 jun. 2023
+
+Refeito o esboço do diagrama de classes e adicionadas algumas referências. [os esboços serão adicionados ao arquivo em breve.]
+
+<span style="font-size: 18px"> **+** </span> Referência: <a href="https://github.com/libgdx/libgdx-demo-cuboc">Demo Cuboc, um jogo platformer em libGDX por Nathan Sweet.</a>
+
+<span style="font-size: 18px"> **+** </span> Referência: <a href="https://www.youtube.com/playlist?list=PLZm85UZQLd2SXQzsF-a0-pPF6IWDDdrXt">LibGDX Super Mario Bros por Brent Aureli Codes</a>
+
+<span style="font-size: 18px"> **+** </span> Referência: <a href="https://www.youtube.com/playlist?list=PLVNiGun9focYT2OVFUzL30wUtOToo6frD">2D Platformer por Small Pixel Games</a>
+
 ## Lista de tarefas
 
 - [X] Criar a pasta da libGDX para o jogo.
