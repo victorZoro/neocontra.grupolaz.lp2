@@ -65,7 +65,7 @@ Refeito o esboço do diagrama de classes e adicionadas algumas referências.
 
 ## 07 jun. 2023
 
-Resumo do dia...
+Feita uma pesquisa mais extensa sobre jogos de plataforma ou jogos 2D utilizando a libGDX e sobre diagramas UML.
 
 <span style="font-size: 18px"> **+** </span> Referência: <a href="https://www.youtube.com/watch?v=WnMQ8HlmeXc">UML Diagrams Full Course (Unified Modeling Language) por freeCodeCamp.org.</a>
 
