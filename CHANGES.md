@@ -63,11 +63,30 @@ Refeito o esboço do diagrama de classes e adicionadas algumas referências.
 
 <span style="font-size: 18px"> **+** </span> Referência: <a href="https://gafferongames.com/post/fix_your_timestep/">Fix Your Timestep! por Gaffer on Games</a>
 
+## 07 jun. 2023
+
+Resumo do dia...
+
+<span style="font-size: 18px"> **+** </span> Referência: <a href="https://www.youtube.com/watch?v=WnMQ8HlmeXc">UML Diagrams Full Course (Unified Modeling Language) por freeCodeCamp.org.</a>
+
+<span style="font-size: 18px"> **+** </span> Referência: <a href="https://www.visual-paradigm.com/guide/uml-unified-modeling-language/what-is-package-diagram/">What is Package Diagram? por Visual Paradigm</a>
+
+<span style="font-size: 18px"> **+** </span> Referência: <a href="https://www.youtube.com/watch?v=DPIeERAm2ao">Introduction to Scene2D in LibGDX por Gamefromscratch</a>
+
+<span style="font-size: 18px"> **+** </span> Referência: <a href="https://www.youtube.com/playlist?list=PLrnO5Pu2zAHKAIjRtTLAXtZKMSA6JWnmf">LibGDX 2D Tutorials por HollowBit</a>
+
+<span style="font-size: 18px"> **+** </span> Referência: <a href="https://github.com/wmora/martianrun">Martian Run por William Mora</a>
+
+<span style="font-size: 18px"> **+** </span> Primeira versão do diagrama de pacotes.
+
+<span style="font-size: 18px"> **+** </span> Tarefa:  "Revisar e organizar o diagrama de pacotes".
+
 ## Lista de tarefas
 
 - [X] Criar a pasta da libGDX para o jogo.
 - [ ] Fazer um Diagrama de Classes pensando mais na estrutura do jogo.
-- [ ] Fazer um Diagrama de Pacotes baseado nos pacotes que serão criados ao longo do desenvolvimento.
+- [X] Fazer um Diagrama de Pacotes baseado nos pacotes que serão criados ao longo do desenvolvimento.
+- [ ] Revisar e organizar o Diagrama de Pacotes.
 - [ ] Criar um sistema de evolução baseado em coletáveis.
 - [ ] Reconsiderar viabilidade de fazer as fases de costas.
 - [ ] Reconsiderar viabilidade de um sistema de armas.
