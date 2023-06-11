@@ -1,0 +1,46 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "mapinha.tmx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 4
+        },
+        "#lilspook_tiles": {
+            "scaleInDock": 4
+        },
+        "mapinha.tmx": {
+            "scale": 4,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 128.875,
+                "y": 84.75
+            }
+        },
+        "mapinha.tmx#lilspook_tiles": {
+            "scaleInDock": 4
+        }
+    },
+    "last.imagePath": "D:/GitHub/neocontra.grupolaz.lp2/assets/map-tileset",
+    "map.height": 15,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 8,
+    "map.tileWidth": 8,
+    "map.width": 100,
+    "openFiles": [
+        "mapinha.tmx"
+    ],
+    "project": "sem título.tiled-project",
+    "recentFiles": [
+        "mapinha.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.tileSize": {
+        "height": 8,
+        "width": 8
+    }
+}
