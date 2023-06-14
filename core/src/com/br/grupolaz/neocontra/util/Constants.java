@@ -18,5 +18,8 @@ public class Constants {
     public static int SEALEVEL_LAYER = 6;
     public static int CEILING_LAYER = 7;
 
-    
+
+    public static int STATIC_BODY = 0;
+    public static int DYNAMIC_BODY = 1;
+    public static int KINEMATIC_BODY = 2;
 }

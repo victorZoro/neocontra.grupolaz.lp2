@@ -1,7 +1,5 @@
 package com.br.grupolaz.neocontra.util;
 
-import javax.swing.JOptionPane;
-
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -16,17 +14,6 @@ public class MapLoader {
         loader = new TmxMapLoader();
         map = loader.load(path_to_map_file);
         renderer = new OrthogonalTiledMapRenderer(map);
-    }
-
-    public enum Layers {
-        BACKGROUND,
-        GROUND_BLOCK,
-        GROUND,
-        STAIRS,
-        PLATFORMS,
-        WALLS,
-        SEALEVEL,
-        CEILING,
     }
 
     /**

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.br.grupolaz.neocontra.NeoContra;
 import com.br.grupolaz.neocontra.stages.HudStage;
+import com.br.grupolaz.neocontra.util.GameUtils;
 import com.br.grupolaz.neocontra.util.MapLoader;
 import com.br.grupolaz.neocontra.util.WorldUtils;
 
@@ -22,7 +23,7 @@ public class GameScreen implements Screen {
         this.game = game;
         this.mapLoader = new MapLoader("map/mapinha.tmx");
         hud = new HudStage(game.getSpriteBatch());
-        
+
         game.alignCameraToWorldCenter();
 
         b2dRenderer = new Box2DDebugRenderer();
@@ -35,6 +36,9 @@ public class GameScreen implements Screen {
 
     public void update(float delta) {
         createInputHandler(delta);
+
+        GameUtils.fixTimeStep(world.getWorld(), delta);
+
         game.getCamera().update();
 
         mapLoader.getRenderer().setView(game.getCamera());
