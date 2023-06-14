@@ -22,4 +22,7 @@ public class Constants {
     public static int STATIC_BODY = 0;
     public static int DYNAMIC_BODY = 1;
     public static int KINEMATIC_BODY = 2;
+
+    public static Vector2 PLAYER_JUMPING_LINEAR_IMPULSE = new Vector2(0, 13f);
 }
+

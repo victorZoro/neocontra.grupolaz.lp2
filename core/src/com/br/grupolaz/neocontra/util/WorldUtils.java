@@ -34,8 +34,6 @@ public class WorldUtils {
         createObject(Constants.WALLS_LAYER);
         createObject(Constants.SEALEVEL_LAYER);
         createObject(Constants.CEILING_LAYER);
-
-        createDynamicBody(world, new Vector2(10,50), 5);
     }
 
     public void createObject(int layer) {
@@ -64,7 +62,7 @@ public class WorldUtils {
         shape.dispose();
     }
 
-    public void createDynamicBody(World world, Vector2 position, int radius) {
+    public Body createDynamicBody(World world, Vector2 position, int radius) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(position);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -81,5 +79,7 @@ public class WorldUtils {
         body.createFixture(fixtureDef);
 
         shape.dispose();
+
+        return body;
     }
 }
