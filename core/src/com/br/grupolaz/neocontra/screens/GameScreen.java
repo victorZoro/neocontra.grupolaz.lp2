@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.br.grupolaz.neocontra.NeoContra;
+import com.br.grupolaz.neocontra.actors.Player;
 import com.br.grupolaz.neocontra.stages.HudStage;
 import com.br.grupolaz.neocontra.util.GameUtils;
 import com.br.grupolaz.neocontra.util.MapLoader;
@@ -16,6 +18,7 @@ public class GameScreen implements Screen {
     private HudStage hud;
     private MapLoader mapLoader;
     private WorldUtils world;
+    private Player player;
 
     private Box2DDebugRenderer b2dRenderer;
 
@@ -65,6 +68,16 @@ public class GameScreen implements Screen {
         
         hud.draw();
     }
+
+    private void setUpPlayer() {
+        if(player != null) {
+            player.remove();
+        }
+
+        player = new Player(world.createPlayer(world.getWorld()));
+        addActor(player); //doesn't work because class is not a stage
+    }
+
 
     @Override
     public void resize(int width, int height) {

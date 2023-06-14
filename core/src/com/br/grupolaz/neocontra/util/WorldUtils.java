@@ -3,6 +3,7 @@ package com.br.grupolaz.neocontra.util;
 
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.br.grupolaz.neocontra.box2d.PlayerUserData;
 
 public class WorldUtils {
 
@@ -62,21 +64,20 @@ public class WorldUtils {
         shape.dispose();
     }
 
-    public Body createDynamicBody(World world, Vector2 position, int radius) {
+    public Body createPlayer(World world) {
         BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(position);
+        bodyDef.position.set(new Vector2(Constants.PLAYER_X, Constants.PLAYER_Y));
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(Constants.PLAYER_WITDH / 2, Constants.PLAYER_HEIGHT / 2);
+
         Body body;
         body = world.createBody(bodyDef);
-
-        CircleShape shape = new CircleShape();
-        shape.setRadius(radius);
-
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = shape;
-
-        body.createFixture(fixtureDef);
+        body.setGravityScale(Constants.PLAYER_GRAVITY_SCALE);
+        body.createFixture(shape, Constants.PLAYER_DENSITY);
+        body.resetMassData();
+        body.setUserData(new PlayerUserData(Constants.PLAYER_WITDH, Constants.PLAYER_HEIGHT));
 
         shape.dispose();
 

@@ -3,11 +3,11 @@ package com.br.grupolaz.neocontra.box2d;
 import com.br.grupolaz.neocontra.enums.UserDataType;
 
 //Inspired by MartianRun
-public class UserData {
+public abstract class UserData {
     
-    private UserDataType userDataType;
-    private float witdh;
-    private float height;
+    protected UserDataType userDataType;
+    protected float witdh;
+    protected float height;
 
     public UserData(){}
 
