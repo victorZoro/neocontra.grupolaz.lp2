@@ -34,6 +34,10 @@ public class NeoContra extends Game {
 		return viewport;
 	}
 
+	public void alignCameraToWorldCenter() {
+		camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
+	}
+
 	@Override
 	public void render () {
 		super.render();

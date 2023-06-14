@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="100" height="15" tilewidth="8" tileheight="8" infinite="0" nextlayerid="8" nextobjectid="65">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="100" height="15" tilewidth="8" tileheight="8" infinite="0" nextlayerid="14" nextobjectid="107">
  <tileset firstgid="1" name="lilspook_tiles" tilewidth="8" tileheight="8" tilecount="104" columns="8">
-  <image source="D:/GitHub/neocontra.grupolaz.lp2/assets/map-tileset/lilspook_tiles.png" width="64" height="104"/>
+  <image source="../map-tileset/lilspook_tiles.png" width="64" height="104"/>
  </tileset>
  <layer id="1" name="Background" width="100" height="15">
   <data encoding="csv">
@@ -41,51 +41,53 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="Ground">
-  <object id="2" x="16" y="80" width="136" height="8"/>
-  <object id="4" x="152" y="72" width="168" height="8"/>
-  <object id="5" x="328" y="72" width="48" height="8"/>
-  <object id="6" x="376" y="48" width="16" height="8"/>
-  <object id="7" x="400" y="32" width="8" height="8"/>
-  <object id="8" x="416" y="72" width="24" height="8"/>
-  <object id="9" x="464" y="96" width="24" height="8"/>
-  <object id="10" x="504" y="80" width="16" height="8"/>
-  <object id="11" x="528" y="56" width="32" height="8"/>
-  <object id="12" x="568" y="80" width="232" height="8"/>
-  <object id="43" x="8" y="72" width="8" height="8"/>
-  <object id="44" x="0" y="64" width="8" height="8"/>
+ <objectgroup id="8" name="Ground">
+  <object id="65" x="15.2727" y="79.2727" width="136.727" height="8.72727"/>
+  <object id="66" x="151.636" y="72" width="168.364" height="8"/>
+  <object id="67" x="328" y="72" width="48" height="8"/>
+  <object id="68" x="376" y="48" width="16" height="8"/>
+  <object id="69" x="400" y="32" width="8" height="8"/>
+  <object id="70" x="416" y="72" width="24" height="8"/>
+  <object id="71" x="464" y="96" width="24" height="8"/>
+  <object id="72" x="504" y="80" width="16" height="8"/>
+  <object id="73" x="528" y="56" width="32" height="8"/>
+  <object id="74" x="568" y="80" width="232" height="8"/>
  </objectgroup>
- <objectgroup id="4" name="Stairs">
-  <object id="13" x="144" y="72" width="8" height="8"/>
-  <object id="14" x="296" y="64" width="8" height="8"/>
-  <object id="15" x="304" y="56" width="8" height="8"/>
-  <object id="16" x="312" y="48" width="8" height="8"/>
+ <objectgroup id="9" name="Stairs">
+  <object id="76" x="0" y="64" width="8" height="8"/>
+  <object id="77" x="8" y="72" width="8" height="8"/>
+  <object id="78" x="144" y="72" width="8" height="8"/>
+  <object id="79" x="296" y="64" width="8" height="8"/>
+  <object id="80" x="304" y="56" width="8" height="8"/>
+  <object id="81" x="312" y="48" width="8" height="8"/>
  </objectgroup>
- <objectgroup id="5" name="Platforms">
-  <object id="20" x="416" y="24" width="120" height="8"/>
-  <object id="22" x="184" y="48" width="16" height="8"/>
-  <object id="24" x="232" y="48" width="16" height="8"/>
-  <object id="25" x="280" y="48" width="16" height="8"/>
-  <object id="26" x="480.125" y="78.5" width="15.875" height="9.5"/>
-  <object id="28" x="64" y="40" width="16" height="8"/>
-  <object id="29" x="89.4545" y="40.1818" width="14.5455" height="7.81818"/>
-  <object id="45" x="80" y="24" width="8" height="8"/>
-  <object id="46" x="32" y="32" width="8" height="8"/>
-  <object id="47" x="472" y="40" width="40" height="8"/>
-  <object id="55" x="10.7273" y="46.1818" width="13.6364" height="1.45455"/>
-  <object id="56" x="8" y="40" width="16" height="8"/>
-  <object id="57" x="120" y="48" width="16" height="8"/>
+ <objectgroup id="10" name="Platforms">
+  <object id="82" x="8" y="40" width="16" height="8"/>
+  <object id="83" x="64" y="40" width="16" height="8"/>
+  <object id="84" x="88" y="40" width="16" height="8"/>
+  <object id="85" x="120" y="48" width="16" height="8"/>
+  <object id="86" x="80" y="24" width="8" height="8"/>
+  <object id="88" x="32" y="32" width="8" height="8"/>
+  <object id="89" x="128" y="24" width="8" height="8"/>
+  <object id="90" x="184" y="48" width="16" height="8"/>
+  <object id="91" x="232" y="48" width="16" height="8"/>
+  <object id="92" x="280" y="48" width="16" height="8"/>
+  <object id="93" x="416" y="24" width="120" height="8"/>
+  <object id="94" x="472" y="40" width="40" height="8"/>
+  <object id="95" x="664" y="40" width="16" height="8"/>
+  <object id="96" x="688" y="40" width="16" height="8"/>
  </objectgroup>
- <objectgroup id="7" name="CAN'T REACH">
-  <object id="41" x="460.333" y="145"/>
-  <object id="48" x="144" y="8" width="8" height="8"/>
-  <object id="49" x="143.991" y="-0.269192" width="424.5" height="8.25"/>
-  <object id="51" x="312" y="64" width="8" height="8"/>
-  <object id="52" x="312" y="56" width="8" height="8"/>
-  <object id="53" x="304" y="64" width="8" height="8"/>
-  <object id="61" x="0" y="112" width="800" height="8"/>
-  <object id="62" x="144" y="88" width="184" height="24"/>
-  <object id="63" x="144" y="80" width="184" height="8"/>
-  <object id="64" x="320.5" y="46.25" width="7.5" height="33.75"/>
+ <objectgroup id="11" name="Walls">
+  <object id="98" x="144" y="16" width="8" height="96"/>
+  <object id="99" x="320" y="0" width="8" height="112"/>
+  <object id="100" x="560" y="0" width="8" height="112"/>
+ </objectgroup>
+ <objectgroup id="12" name="SeaLevel">
+  <object id="102" x="0" y="112" width="800" height="8"/>
+ </objectgroup>
+ <objectgroup id="13" name="Ceiling">
+  <object id="104" x="144" y="8" width="8" height="8"/>
+  <object id="105" x="144" y="0" width="176" height="8"/>
+  <object id="106" x="328" y="0" width="232" height="8"/>
  </objectgroup>
 </map>
