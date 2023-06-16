@@ -32,7 +32,7 @@ public class Player extends GameActor {
 
     public void crouch() {
         if(!jumping) {
-            body.setTransform(getUserData().getCrouchPosition(), 0);
+            body.setTransform(getUserData().getNormalPosition(), getUserData().getCrouchAngle());
             crouching = true;
         }
     }
@@ -60,5 +60,9 @@ public class Player extends GameActor {
     public void setGravityScale(float gravityScale) {
         body.setGravityScale(gravityScale);
         body.resetMassData();
+    }
+
+    public Body getBody() {
+        return body;
     }
 }

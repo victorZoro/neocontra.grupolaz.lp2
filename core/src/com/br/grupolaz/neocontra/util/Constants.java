@@ -22,14 +22,14 @@ public class Constants {
     public static int DYNAMIC_BODY = 1;
     public static int KINEMATIC_BODY = 2;
     
-    public static final float PLAYER_X = 2;
-    public static final float PLAYER_Y = 50;
-    public static final float PLAYER_WITDH = 1f;
-    public static final float PLAYER_HEIGHT = 2f;
-    public static final float PLAYER_GRAVITY_SCALE = 3f;
+    public static final float PLAYER_X = 30f;
+    public static final float PLAYER_Y = 60f;
+    public static final float PLAYER_WITDH = 10f;
+    public static final float PLAYER_HEIGHT = 20f;
+    public static final float PLAYER_GRAVITY_SCALE = 10f;
     public static final float PLAYER_DENSITY = 0.5f;
-    public static final float PLAYER_CROUCH_X = 2f;
-    public static final float PLAYER_CROUCH_Y = 1f;
+    public static final float PLAYER_CROUCH_X = PLAYER_Y;
+    public static final float PLAYER_CROUCH_Y = PLAYER_Y - PLAYER_HEIGHT;
     public static Vector2 PLAYER_JUMPING_LINEAR_IMPULSE = new Vector2(0, 13f);
 }
 

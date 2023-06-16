@@ -31,4 +31,8 @@ public class PlayerUserData extends UserData {
     public Vector2 getCrouchPosition() {
         return crouchPosition;
     }
+
+    public float getCrouchAngle() {
+        return (float) (-90f * Math.PI / 180f);
+    }
 }
