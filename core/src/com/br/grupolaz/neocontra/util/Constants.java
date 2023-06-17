@@ -3,9 +3,15 @@ package com.br.grupolaz.neocontra.util;
 import com.badlogic.gdx.math.Vector2;
 
 public class Constants {
+
+    public static final int PIXELS_PER_METER = 30;
     
-    public static final int WINDOW_WIDTH = 160;
-    public static final int WINDOW_HEIGHT = 120;
+    public static final int WINDOW_WIDTH = 160 / PIXELS_PER_METER;
+    public static final int WINDOW_HEIGHT = 120 / PIXELS_PER_METER;
+
+    public static final String LEVEL1_MAP = "map/level1_map.tmx";
+    public static final String CHARACTERS_ATLAS = "person/all-in-one.atlas";
+    public static final String PLAYER_REGION = "player-atlas";
 
     public static Vector2 WORLD_GRAVITY = new Vector2(0, -10);
 
@@ -22,14 +28,11 @@ public class Constants {
     public static int DYNAMIC_BODY = 1;
     public static int KINEMATIC_BODY = 2;
     
-    public static final float PLAYER_X = 30f;
-    public static final float PLAYER_Y = 60f;
-    public static final float PLAYER_WITDH = 10f;
-    public static final float PLAYER_HEIGHT = 20f;
-    public static final float PLAYER_GRAVITY_SCALE = 10f;
-    public static final float PLAYER_DENSITY = 0.5f;
-    public static final float PLAYER_CROUCH_X = PLAYER_Y;
-    public static final float PLAYER_CROUCH_Y = PLAYER_Y - PLAYER_HEIGHT;
-    public static Vector2 PLAYER_JUMPING_LINEAR_IMPULSE = new Vector2(0, 13f);
+    public static final float PLAYER_X = 2f / PIXELS_PER_METER;
+    public static final float PLAYER_Y = 60f / PIXELS_PER_METER;
+    public static final float PLAYER_RADIUS = 5f / PIXELS_PER_METER;
+    public static Vector2 PLAYER_JUMPING_LINEAR_IMPULSE = new Vector2(0, 5f);
+    public static Vector2 PLAYER_RIGHT_LINEAR_IMPULSE = new Vector2(0.09f, 0);
+    public static Vector2 PLAYER_LEFT_LINEAR_IMPULSE = new Vector2(-0.09f, 0);
 }
 

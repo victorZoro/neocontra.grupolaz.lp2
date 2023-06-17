@@ -1,49 +1,22 @@
 package com.br.grupolaz.neocontra.actors;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.br.grupolaz.neocontra.box2d.PlayerUserData;
+import com.br.grupolaz.neocontra.util.Constants;
 
 public class Player extends GameActor {
 
     private boolean hit;
-    private boolean jumping;
-    private boolean crouching;
 
-    public Player(Body body) {
-        super(body);
+    public Player(Body body, String region) {
+        super(body, region);
+        textureRegion = new TextureRegion(sprite.getTexture(), 0, 0, 256, 256);
+        setBounds(0, 0, 8 / Constants.PIXELS_PER_METER, 8 / Constants.PIXELS_PER_METER);
+        sprite.setRegion(textureRegion);
         hit = false;
     }
 
-    @Override
-    public PlayerUserData getUserData() {
-        return (PlayerUserData) userData;
-    }
-
-    public void jump() {
-        if(!(jumping || crouching)) {
-            body.applyLinearImpulse(getUserData().getJumpingLinearImpulse(), body.getWorldCenter(), true);
-            jumping = true;
-        }
-    }
-
-    public void land() {
-        jumping = false;
-    }
-
-    public void crouch() {
-        if(!jumping) {
-            body.setTransform(getUserData().getNormalPosition(), getUserData().getCrouchAngle());
-            crouching = true;
-        }
-    }
-
-    public void riseUp() {
-        crouching = false;
-    }
-
-    public boolean isCrouching() {
-        return crouching;
-    }
 
     public void hit() {
         hit = true;
@@ -57,12 +30,12 @@ public class Player extends GameActor {
         return hit;
     }
 
-    public void setGravityScale(float gravityScale) {
-        body.setGravityScale(gravityScale);
-        body.resetMassData();
-    }
-
     public Body getBody() {
         return body;
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        sprite.draw(batch, parentAlpha);
     }
 }

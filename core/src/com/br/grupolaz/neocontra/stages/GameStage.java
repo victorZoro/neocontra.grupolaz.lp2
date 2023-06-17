@@ -1,11 +1,12 @@
 package com.br.grupolaz.neocontra.stages;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.br.grupolaz.neocontra.NeoContra;
 import com.br.grupolaz.neocontra.actors.Player;
+import com.br.grupolaz.neocontra.screens.GameScreen;
+import com.br.grupolaz.neocontra.util.Constants;
 import com.br.grupolaz.neocontra.util.GameUtils;
 import com.br.grupolaz.neocontra.util.MapLoader;
 import com.br.grupolaz.neocontra.util.WorldUtils;
@@ -21,11 +22,11 @@ public class GameStage extends Stage {
     
     private Box2DDebugRenderer b2dRenderer;
 
-    public GameStage(NeoContra game, Screen gameScreen) {
+    public GameStage(NeoContra game, GameScreen gameScreen) {
         this.game = game;
         this.gameScreen = gameScreen;
 
-        this.mapLoader = new MapLoader("map/mapinha.tmx");
+        this.mapLoader = new MapLoader(Constants.LEVEL1_MAP);
         hud = new HudStage(game.getSpriteBatch());
 
         game.alignCameraToWorldCenter();
@@ -39,6 +40,8 @@ public class GameStage extends Stage {
         GameUtils.createInputHandler(player, delta);
 
         GameUtils.fixTimeStep(world.getWorld(), delta);
+
+        game.getCamera().position.x = player.getBody().getPosition().x;
 
         game.getCamera().update();
 
@@ -57,6 +60,10 @@ public class GameStage extends Stage {
         game.getSpriteBatch().setProjectionMatrix(hud.getCamera().combined);
         
         hud.draw();
+
+        game.getSpriteBatch().begin();
+        player.draw(game.getSpriteBatch(), 1);
+        game.getSpriteBatch().end();
     }
 
     private void setUpCharacters() {
@@ -68,8 +75,15 @@ public class GameStage extends Stage {
             player.remove();
         }
 
-        player = new Player(world.createPlayer(world.getWorld()));
-        addActor(player); //doesn't work because class is not a stage
+        player = new Player(world.createPerson(world.getWorld()), Constants.PLAYER_REGION);
+        addActor(player);
     }
+
+    public void dispose() {
+        mapLoader.dispose();
+        world.dispose();
+        b2dRenderer.dispose();
+    }
+
     
 }

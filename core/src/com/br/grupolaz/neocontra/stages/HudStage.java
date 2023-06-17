@@ -40,4 +40,5 @@ public class HudStage extends Stage {
     public void draw() {
         super.draw();
     }
+
 }

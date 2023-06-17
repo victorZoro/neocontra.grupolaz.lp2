@@ -1,0 +1,27 @@
+
+all-in-one.png
+size: 4096, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+enemy-runner-atlas
+  rotate: false
+  xy: 2, 260
+  size: 2048, 512
+  orig: 2048, 512
+  offset: 0, 0
+  index: -1
+enemy-sniper-atlas
+  rotate: false
+  xy: 2, 2
+  size: 2048, 256
+  orig: 2048, 256
+  offset: 0, 0
+  index: -1
+player-atlas
+  rotate: false
+  xy: 2, 774
+  size: 2048, 512
+  orig: 2048, 512
+  offset: 0, 0
+  index: -1

@@ -13,7 +13,7 @@ public class MapLoader {
     public MapLoader(String path_to_map_file) {
         loader = new TmxMapLoader();
         map = loader.load(path_to_map_file);
-        renderer = new OrthogonalTiledMapRenderer(map);
+        renderer = new OrthogonalTiledMapRenderer(map, 1f / Constants.PIXELS_PER_METER);
     }
 
     /**
@@ -42,6 +42,11 @@ public class MapLoader {
      */
     public OrthogonalTiledMapRenderer getRenderer() {
         return renderer;
+    }
+
+    public void dispose() {
+        map.dispose();
+        renderer.dispose();
     }
 
 }
