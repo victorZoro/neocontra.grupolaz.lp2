@@ -9,6 +9,7 @@ import com.br.grupolaz.neocontra.screens.GameScreen;
 import com.br.grupolaz.neocontra.util.Constants;
 import com.br.grupolaz.neocontra.util.GameUtils;
 import com.br.grupolaz.neocontra.util.MapLoader;
+import com.br.grupolaz.neocontra.util.TextureUtils;
 import com.br.grupolaz.neocontra.util.WorldUtils;
 
 public class GameStage extends Stage {
@@ -26,20 +27,23 @@ public class GameStage extends Stage {
         this.game = game;
         this.gameScreen = gameScreen;
 
-        this.mapLoader = new MapLoader(Constants.LEVEL1_MAP);
-        hud = new HudStage(game.getSpriteBatch());
-
         game.alignCameraToWorldCenter();
 
         b2dRenderer = new Box2DDebugRenderer();
+        this.mapLoader = new MapLoader(Constants.LEVEL1_MAP);
         world = new WorldUtils(mapLoader);
+
         setUpCharacters();
+
+        hud = new HudStage(game.getSpriteBatch(), player);
     }
 
     public void update(float delta) {
         GameUtils.createInputHandler(player, delta);
 
         GameUtils.fixTimeStep(world.getWorld(), delta);
+
+        player.updateIdle();
 
         game.getCamera().position.x = player.getBody().getPosition().x;
 
@@ -57,13 +61,15 @@ public class GameStage extends Stage {
 
         b2dRenderer.render(world.getWorld(), game.getCamera().combined);
 
+        game.getSpriteBatch().setProjectionMatrix(game.getCamera().combined);
+        game.getSpriteBatch().begin();
+        player.draw(game.getSpriteBatch(), 0);
+        game.getSpriteBatch().end();
+
         game.getSpriteBatch().setProjectionMatrix(hud.getCamera().combined);
         
+        hud.act(delta);
         hud.draw();
-
-        game.getSpriteBatch().begin();
-        player.draw(game.getSpriteBatch(), 1);
-        game.getSpriteBatch().end();
     }
 
     private void setUpCharacters() {
@@ -75,7 +81,7 @@ public class GameStage extends Stage {
             player.remove();
         }
 
-        player = new Player(world.createPerson(world.getWorld()), Constants.PLAYER_REGION);
+        player = new Player(world.createPerson(world.getWorld()), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION));
         addActor(player);
     }
 

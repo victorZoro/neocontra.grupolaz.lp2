@@ -71,6 +71,7 @@ public class WorldUtils {
         shape.setRadius(Constants.PLAYER_RADIUS);
 
         fixtureDef.shape = shape;
+        fixtureDef.friction = 0.5f;
 
         Body body = world.createBody(bodyDef);
         body.createFixture(fixtureDef);
