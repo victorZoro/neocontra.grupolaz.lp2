@@ -8,7 +8,7 @@ public class Constants {
     public static final int PIXELS_PER_METER = 30; //later will be abandoned
     public static final int WINDOW_WIDTH = 160 / PIXELS_PER_METER;
     public static final int WINDOW_HEIGHT = 120 / PIXELS_PER_METER;
-    public static final int SPRITE_PIXEL_SIZE = 16;
+
 
     //Texture configuration
     public static final String LEVEL1_MAP = "map/level1_map.tmx";

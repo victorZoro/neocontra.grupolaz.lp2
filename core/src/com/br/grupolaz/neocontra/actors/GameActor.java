@@ -9,12 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.br.grupolaz.neocontra.enums.ActorStates;
 import com.br.grupolaz.neocontra.util.Constants;
+import com.br.grupolaz.neocontra.util.TextureUtils;
 
 
 //Inspired by MartianRun and Brent Aureli Codes
 public abstract class GameActor extends Actor {
     protected Body body;
-    protected TextureRegion region;
     protected Sprite sprite;
 
     protected ActorStates currentState;
@@ -30,9 +30,8 @@ public abstract class GameActor extends Actor {
 
     public GameActor(Body body, TextureRegion region) {
         this.body = body;
-        this.sprite = new Sprite(region);
-        this.sprite.setSize(12.5f / Constants.PIXELS_PER_METER, 18f / Constants.PIXELS_PER_METER);
-        this.region = new TextureRegion(region, 0, 0, 25, 36);
+        this.sprite = new Sprite(TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION));
+        this.sprite.setSize(18f / Constants.PIXELS_PER_METER, 20f / Constants.PIXELS_PER_METER);
 
         currentState = previousState = ActorStates.STANDING;
         stateTimer = 0;
@@ -41,7 +40,7 @@ public abstract class GameActor extends Actor {
     }
 
     public void setDrawRegion(int x, int y, int width, int height) {
-        this.region.setRegion(x, y, width, height);
+        sprite.setRegion(x, y, width, height);
     }
 
     protected abstract void setUpAnimations();
@@ -49,7 +48,7 @@ public abstract class GameActor extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        float x = body.getPosition().x - sprite.getWidth() / 3;
+        float x = body.getPosition().x - sprite.getWidth() / 2;
         float y = body.getPosition().y - sprite.getHeight() / 2;
         sprite.setPosition(x, y);
 
@@ -73,7 +72,7 @@ public abstract class GameActor extends Actor {
 
         switch (currentState) {
             case JUMPING: {
-                region = actorJumping.getKeyFrame(stateTimer);
+                region = actorJumping.getKeyFrame(stateTimer, true);
                 break;
             }
 
@@ -130,7 +129,6 @@ public abstract class GameActor extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
 
-        sprite.setRegion(this.region);
         sprite.draw(batch);
     }
 

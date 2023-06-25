@@ -117,17 +117,17 @@ public class Player extends GameActor {
         //Walking
         TextureRegion runningRegion = TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_RUNNING_REGION);
         for(int i = 0; i < 6; i++) {
-            frames.add(new TextureRegion(runningRegion, i * Constants.SPRITE_PIXEL_SIZE, 0, Constants.SPRITE_PIXEL_SIZE, Constants.SPRITE_PIXEL_SIZE));
+            frames.add(new TextureRegion(runningRegion, i * 48, 0, 32, 48));
         }
-        actorRunning = new Animation<TextureRegion>(0.1f, frames);
+        actorRunning = new Animation<TextureRegion>(0.2f, frames);
         frames.clear();
 
         //Jumping
         TextureRegion jumpingRegion = TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_JUMPING_REGION);
         for(int i = 0; i < 4; i++) {
-            frames.add(new TextureRegion(jumpingRegion, i * Constants.SPRITE_PIXEL_SIZE, 0, Constants.SPRITE_PIXEL_SIZE, Constants.SPRITE_PIXEL_SIZE));
+            frames.add(new TextureRegion(jumpingRegion, i * 48, 0, 48, 48));
         }
-        actorJumping = new Animation<TextureRegion>(0.1f, frames);
+        actorJumping = new Animation<TextureRegion>(0.25f, frames);
         frames.clear();
     }
 
