@@ -8,11 +8,14 @@ public class Constants {
     public static final int PIXELS_PER_METER = 30; //later will be abandoned
     public static final int WINDOW_WIDTH = 160 / PIXELS_PER_METER;
     public static final int WINDOW_HEIGHT = 120 / PIXELS_PER_METER;
+    public static final int SPRITE_PIXEL_SIZE = 16;
 
     //Texture configuration
     public static final String LEVEL1_MAP = "map/level1_map.tmx";
     public static final String PLAYER_ATLAS = "atlases/player/player.atlas";
-    public static final String PLAYER_STILL_REGION = "still";
+    public static final String PLAYER_STILL_REGION = "Parado/still_000";
+    public static final String PLAYER_RUNNING_REGION = "Andando/walking_000";
+    public static final String PLAYER_JUMPING_REGION = "Pulando/jump_000";
 
     //PLayer texture configuration - coming soon
     
