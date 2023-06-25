@@ -62,6 +62,7 @@ public class GameStage extends Stage {
         b2dRenderer.render(world.getWorld(), game.getCamera().combined);
 
         game.getSpriteBatch().setProjectionMatrix(game.getCamera().combined);
+        player.act(delta);
         game.getSpriteBatch().begin();
         player.draw(game.getSpriteBatch(), 0);
         game.getSpriteBatch().end();

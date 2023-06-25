@@ -1,9 +1,11 @@
 package com.br.grupolaz.neocontra.actors;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.br.grupolaz.neocontra.util.Constants;
+import com.br.grupolaz.neocontra.util.TextureUtils;
 
 public class Player extends GameActor {
 
@@ -15,12 +17,11 @@ public class Player extends GameActor {
     private boolean alive; //later
     private int lifeCount;
 
-
-
     public Player(Body body, TextureRegion region) {
         super(body, region);
         lifeCount = 3;
         idle = true;
+        setUpAnimations();
     }
 
     public void changeLinearVelocity(Vector2 velocity) {
@@ -106,6 +107,28 @@ public class Player extends GameActor {
 
     public int getLifeCount() {
         return lifeCount;
+    }
+
+    @Override
+    protected void setUpAnimations() {
+        //Standing
+        actorStanding = TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION);
+
+        //Walking
+        TextureRegion runningRegion = TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_RUNNING_REGION);
+        for(int i = 0; i < 6; i++) {
+            frames.add(new TextureRegion(runningRegion, i * Constants.SPRITE_PIXEL_SIZE, 0, Constants.SPRITE_PIXEL_SIZE, Constants.SPRITE_PIXEL_SIZE));
+        }
+        actorRunning = new Animation<TextureRegion>(0.1f, frames);
+        frames.clear();
+
+        //Jumping
+        TextureRegion jumpingRegion = TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_JUMPING_REGION);
+        for(int i = 0; i < 4; i++) {
+            frames.add(new TextureRegion(jumpingRegion, i * Constants.SPRITE_PIXEL_SIZE, 0, Constants.SPRITE_PIXEL_SIZE, Constants.SPRITE_PIXEL_SIZE));
+        }
+        actorJumping = new Animation<TextureRegion>(0.1f, frames);
+        frames.clear();
     }
 
 }
