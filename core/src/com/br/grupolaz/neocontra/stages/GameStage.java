@@ -43,8 +43,6 @@ public class GameStage extends Stage {
 
         GameUtils.fixTimeStep(world.getWorld(), delta);
 
-        player.updateIdle();
-
         game.getCamera().position.x = player.getBody().getPosition().x;
 
         game.getCamera().update();

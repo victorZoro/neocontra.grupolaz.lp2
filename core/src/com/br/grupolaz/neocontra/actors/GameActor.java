@@ -1,9 +1,12 @@
 package com.br.grupolaz.neocontra.actors;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
@@ -16,6 +19,7 @@ import com.br.grupolaz.neocontra.util.TextureUtils;
 public abstract class GameActor extends Actor {
     protected Body body;
     protected Sprite sprite;
+    protected boolean crouching;
 
     protected ActorStates currentState;
     protected ActorStates previousState;
@@ -23,6 +27,7 @@ public abstract class GameActor extends Actor {
     protected Animation<TextureRegion> actorRunning;
     protected Animation<TextureRegion> actorJumping;
     protected TextureRegion actorStanding;
+    protected TextureRegion actorCrouching;
 
     protected boolean runningRight;
     protected float stateTimer;
@@ -31,7 +36,7 @@ public abstract class GameActor extends Actor {
     public GameActor(Body body, TextureRegion region) {
         this.body = body;
         this.sprite = new Sprite(TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION));
-        this.sprite.setSize(18f / Constants.PIXELS_PER_METER, 20f / Constants.PIXELS_PER_METER);
+        this.sprite.setSize(16f / Constants.PIXELS_PER_METER, 20f / Constants.PIXELS_PER_METER);
 
         currentState = previousState = ActorStates.STANDING;
         stateTimer = 0;
@@ -73,19 +78,29 @@ public abstract class GameActor extends Actor {
         switch (currentState) {
             case JUMPING: {
                 region = actorJumping.getKeyFrame(stateTimer, true);
+                sprite.setPosition(sprite.getX(), sprite.getY() - (2f / Constants.PIXELS_PER_METER));
                 break;
             }
 
             case RUNNING: {
+                resetSpriteSize(sprite);
                 region = actorRunning.getKeyFrame(stateTimer, true);
                 break;
             }
 
+            case CROUCHING: {
+                region = actorCrouching;
+                sprite.setSize(25f / Constants.PIXELS_PER_METER, 16f / Constants.PIXELS_PER_METER);
+                sprite.setPosition(sprite.getX(), sprite.getY() - (2f / Constants.PIXELS_PER_METER));
+                break;
+            }
+            
             // Next 3 cases are all the same,
             // so we jump to the next one until
             // we reach the default case.
             case FALLING: case STANDING: default: {
                 region = actorStanding;
+                resetSpriteSize(sprite);
                 break;
             }
         }
@@ -120,15 +135,44 @@ public abstract class GameActor extends Actor {
             return ActorStates.FALLING;
         } else if(body.getLinearVelocity().x != 0 ) {
             return ActorStates.RUNNING;
+        } else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            return ActorStates.CROUCHING;
         } else {
             return ActorStates.STANDING;
         }
     }
 
+    public void changeLinearVelocity(Vector2 velocity) {
+        body.setLinearVelocity(velocity);
+    }
+
+    public void jump() {
+        if(!(currentState == ActorStates.JUMPING)) {
+            body.applyLinearImpulse(Constants.PLAYER_JUMPING_LINEAR_IMPULSE, body.getWorldCenter(), true);
+        }
+    }
+
+    public void walk(boolean right) {
+        if(right) {
+            body.applyLinearImpulse(Constants.PLAYER_RIGHT_LINEAR_IMPULSE, body.getWorldCenter(), true);
+            if(body.getLinearVelocity().x > Constants.MAX_VELOCITY) {
+                body.setLinearVelocity(Constants.MAX_VELOCITY, body.getLinearVelocity().y);
+            }
+        } else {
+            body.applyLinearImpulse(Constants.PLAYER_LEFT_LINEAR_IMPULSE, body.getWorldCenter(), true);
+            if(body.getLinearVelocity().x < Constants.MAX_VELOCITY * -1) {
+                body.setLinearVelocity(Constants.MAX_VELOCITY * -1, body.getLinearVelocity().y);
+            }
+        }
+    }
+
+    public void resetSpriteSize(Sprite sprite) {
+        sprite.setSize(16f / Constants.PIXELS_PER_METER, 20f / Constants.PIXELS_PER_METER);
+    }
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-
         sprite.draw(batch);
     }
 

@@ -16,6 +16,7 @@ public class Constants {
     public static final String PLAYER_STILL_REGION = "Parado/still_000";
     public static final String PLAYER_RUNNING_REGION = "Andando/walking_000";
     public static final String PLAYER_JUMPING_REGION = "Pulando/jump_000";
+    public static final String PLAYER_CROUCHING_REGION = "ParadoAgachado/still-low_000";
 
     //PLayer texture configuration - coming soon
     

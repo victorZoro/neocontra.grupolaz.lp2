@@ -1,5 +1,7 @@
 package com.br.grupolaz.neocontra.util;
 
+import java.util.Vector;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
@@ -20,8 +22,8 @@ public class GameUtils {
             player.walk(true);
         } else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             player.walk(false);
-        } else {
-            player.setWalkingFalse();
+        } else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            player.changeLinearVelocity(new Vector2(0, 0));
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
