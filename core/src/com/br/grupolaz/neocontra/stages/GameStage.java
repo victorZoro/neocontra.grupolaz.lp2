@@ -12,6 +12,7 @@ import com.br.grupolaz.neocontra.util.MapLoader;
 import com.br.grupolaz.neocontra.util.TextureUtils;
 import com.br.grupolaz.neocontra.util.WorldUtils;
 
+//Inspired by Martian Run and Brent Aureli Codes
 public class GameStage extends Stage {
 
     NeoContra game;
@@ -43,11 +44,12 @@ public class GameStage extends Stage {
 
         GameUtils.fixTimeStep(world.getWorld(), delta);
 
-        player.updateIdle();
-
         game.getCamera().position.x = player.getBody().getPosition().x;
 
         game.getCamera().update();
+
+        player.projectileOutOfBounds(game.getCamera());
+
 
         mapLoader.getRenderer().setView(game.getCamera());
     }
@@ -82,7 +84,7 @@ public class GameStage extends Stage {
             player.remove();
         }
 
-        player = new Player(world.createPerson(world.getWorld()), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION));
+        player = new Player(world, world.createPerson(world.getWorld()), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION));
         addActor(player);
     }
 

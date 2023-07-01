@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.br.grupolaz.neocontra.NeoContra;
 import com.br.grupolaz.neocontra.stages.GameStage;
 
+//Inspired by Martian Run
 public class GameScreen implements Screen {
 
     GameStage gameStage;
