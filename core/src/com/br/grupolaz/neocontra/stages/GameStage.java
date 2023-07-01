@@ -50,7 +50,6 @@ public class GameStage extends Stage {
 
         player.projectileOutOfBounds(game.getCamera());
 
-        player.isFiring();
 
         mapLoader.getRenderer().setView(game.getCamera());
     }

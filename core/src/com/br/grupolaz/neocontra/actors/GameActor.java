@@ -28,12 +28,12 @@ public abstract class GameActor extends Actor {
     protected ActorStates previousState;
 
     protected Animation<TextureRegion> actorRunning;
+    protected Animation<TextureRegion> actorRunningAiming;
     protected Animation<TextureRegion> actorJumping;
     protected TextureRegion actorStanding;
     protected TextureRegion actorCrouching;
 
     protected boolean runningRight;
-    protected boolean firing;
     protected float stateTimer;
     protected Array<TextureRegion> frames;
 
@@ -57,6 +57,7 @@ public abstract class GameActor extends Actor {
     }
 
     protected abstract void setUpAnimations();
+
 
     @Override
     public void act(float delta) {
@@ -180,13 +181,13 @@ public abstract class GameActor extends Actor {
             if(currentState == ActorStates.CROUCHING) {
                 projectiles.add(world.createProjectile(body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER, body.getPosition().y - 1.5f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(-3f, 0)));
             } else {
-                projectiles.add(world.createProjectile(body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER, body.getPosition().y, Constants.PLAYER_BULLET_RADIUS, new Vector2(-3f, 0)));
+                projectiles.add(world.createProjectile(body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER, body.getPosition().y + 2f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(-3f, 0)));
             }
         } else {
             if(currentState == ActorStates.CROUCHING) {
                 projectiles.add(world.createProjectile(body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER, body.getPosition().y - 1.5f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(3f, 0)));
             } else {
-                projectiles.add(world.createProjectile(body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER, body.getPosition().y, Constants.PLAYER_BULLET_RADIUS, new Vector2(3f, 0)));
+                projectiles.add(world.createProjectile(body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER, body.getPosition().y + 2f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(3f, 0)));
             }
         }
     }

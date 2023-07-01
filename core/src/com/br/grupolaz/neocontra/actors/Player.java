@@ -2,7 +2,9 @@ package com.br.grupolaz.neocontra.actors;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.br.grupolaz.neocontra.enums.ActorStates;
 import com.br.grupolaz.neocontra.util.Constants;
 import com.br.grupolaz.neocontra.util.TextureUtils;
 import com.br.grupolaz.neocontra.util.WorldUtils;
@@ -50,12 +52,20 @@ public class Player extends GameActor {
         //Crouching
         actorCrouching = TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_CROUCHING_REGION);
 
-        //Walking
+        //Running
         TextureRegion runningRegion = TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_RUNNING_REGION);
         for(int i = 0; i < 6; i++) {
             frames.add(new TextureRegion(runningRegion, i * 48, 0, 32, 48));
         }
         actorRunning = new Animation<TextureRegion>(0.15f, frames);
+        frames.clear();
+
+        //Running and Aiming
+        TextureRegion runningAimingRegion = TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_RUNNING_AIMING_REGION);
+        for(int i = 0; i < 6; i++) {
+            frames.add(new TextureRegion(runningAimingRegion, i * 48, 0, 32, 48));
+        }
+        actorRunningAiming = new Animation<TextureRegion>(0.15f, frames);
         frames.clear();
 
         //Jumping
@@ -66,5 +76,7 @@ public class Player extends GameActor {
         actorJumping = new Animation<TextureRegion>(0.15f, frames);
         frames.clear();
     }
+
+
 
 }
