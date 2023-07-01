@@ -4,6 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import org.w3c.dom.Text;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -17,7 +21,7 @@ import com.br.grupolaz.neocontra.util.TextureUtils;
 import com.br.grupolaz.neocontra.util.WorldUtils;
 
 
-//Inspired by MartianRun and Brent Aureli Codes
+//Inspired by MartianRun
 public abstract class GameActor extends Actor {
     protected WorldUtils world;
     protected Body body;
