@@ -1,9 +1,12 @@
 package com.br.grupolaz.neocontra.stages;
 
+
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.br.grupolaz.neocontra.NeoContra;
+import com.br.grupolaz.neocontra.actors.Enemy;
+import com.br.grupolaz.neocontra.actors.GameActor;
 import com.br.grupolaz.neocontra.actors.Player;
 import com.br.grupolaz.neocontra.screens.GameScreen;
 import com.br.grupolaz.neocontra.util.Constants;
@@ -20,7 +23,8 @@ public class GameStage extends Stage {
     private HudStage hud;
     private MapLoader mapLoader;
     private WorldUtils world;
-    private Player player;
+    private GameActor player;
+    private GameActor enemy;
     
     private Box2DDebugRenderer b2dRenderer;
 
@@ -36,11 +40,11 @@ public class GameStage extends Stage {
 
         setUpCharacters();
 
-        hud = new HudStage(game.getSpriteBatch(), player);
+        hud = new HudStage(game.getSpriteBatch(), (Player) player);
     }
 
     public void update(float delta) {
-        GameUtils.createInputHandler(player, delta);
+        GameUtils.createInputHandler((Player) player, delta);
 
         GameUtils.fixTimeStep(world.getWorld(), delta);
 
@@ -65,8 +69,10 @@ public class GameStage extends Stage {
 
         game.getSpriteBatch().setProjectionMatrix(game.getCamera().combined);
         player.act(delta);
+        enemy.act(delta);
         game.getSpriteBatch().begin();
         player.draw(game.getSpriteBatch(), 0);
+        enemy.draw(game.getSpriteBatch(), 0);
         game.getSpriteBatch().end();
 
         game.getSpriteBatch().setProjectionMatrix(hud.getCamera().combined);
@@ -77,6 +83,7 @@ public class GameStage extends Stage {
 
     private void setUpCharacters() {
         setUpPlayer();
+        setUpEnemy();
     }
 
     private void setUpPlayer() {
@@ -84,8 +91,13 @@ public class GameStage extends Stage {
             player.remove();
         }
 
-        player = new Player(world, world.createPerson(world.getWorld()), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION));
+        player = new Player(world, world.createPerson(world.getWorld(), Constants.PLAYER_X, Constants.PLAYER_Y), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION));
         addActor(player);
+    }
+
+    private void setUpEnemy() {
+        enemy = new Enemy(world, world.createPerson(world.getWorld(), Constants.ENEMY_X, Constants.ENEMY_Y), TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION));
+        addActor(enemy);
     }
 
     public void dispose() {
