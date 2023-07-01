@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.br.grupolaz.neocontra.util.TextureUtils;
 
 //Inspired by Martian Run and Brent Aureli Code
 public class WorldUtils {

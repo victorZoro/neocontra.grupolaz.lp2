@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.br.grupolaz.neocontra.screens.GameScreen;
 import com.br.grupolaz.neocontra.util.Constants;
+import com.br.grupolaz.neocontra.util.SoundsUtils;
 
 public class NeoContra extends Game {
 
@@ -20,6 +21,9 @@ public class NeoContra extends Game {
 		camera = new OrthographicCamera();
 		viewport = new FitViewport(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, camera);
 		setScreen(new GameScreen(this));
+		SoundsUtils.getThemeM().setLooping(true);
+		SoundsUtils.getThemeM().play();
+		SoundsUtils.getThemeM().setVolume(0.2f);
 	}
 
 	public SpriteBatch getSpriteBatch () {

@@ -19,6 +19,7 @@ import com.br.grupolaz.neocontra.enums.ActorStates;
 import com.br.grupolaz.neocontra.util.Constants;
 import com.br.grupolaz.neocontra.util.TextureUtils;
 import com.br.grupolaz.neocontra.util.WorldUtils;
+import com.br.grupolaz.neocontra.util.SoundsUtils;
 
 
 //Inspired by MartianRun
@@ -194,6 +195,8 @@ public abstract class GameActor extends Actor {
                 projectiles.add(world.createProjectile(body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER, body.getPosition().y + 2f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(3f, 0)));
             }
         }
+        SoundsUtils.getShotSound().play();
+        
     }
 
     public void projectileOutOfBounds(OrthographicCamera camera) {
