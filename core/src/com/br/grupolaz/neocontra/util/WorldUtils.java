@@ -64,9 +64,9 @@ public class WorldUtils {
         shape.dispose();
     }
 
-    public Body createPerson(World world) {
+    public Body createPerson(World world, float x, float y) {
         BodyDef bodyDef = new BodyDef();
-        bodyDef.position.set(Constants.PLAYER_X, Constants.PLAYER_Y);
+        bodyDef.position.set(x, y);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         
         FixtureDef fixtureDef = new FixtureDef();
