@@ -8,7 +8,8 @@ public class TextureUtils {
     private static TextureAtlas enemy_atlas = new TextureAtlas(Constants.ENEMY_ATLAS);
     private static final Texture lifeMedal = new Texture("life.png");
     private static final Texture gameOver = new Texture("gameover.png");
-    private static final Texture playerBullet = new Texture("playerBullet.png");
+    
+    // private static final Texture playerBullet = new Texture("playerBullet.png");
 
     public static TextureAtlas getPlayerAtlas() {
         return player_atlas;
@@ -26,8 +27,8 @@ public class TextureUtils {
         return gameOver;
     }
 
-    public static Texture getPlayerBullet(){
-        return playerBullet;
-    }
+    // public static Texture getPlayerBullet(){
+    //     return playerBullet;
+    // }
 
 }

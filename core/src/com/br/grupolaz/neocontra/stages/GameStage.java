@@ -12,6 +12,7 @@ import com.br.grupolaz.neocontra.screens.GameScreen;
 import com.br.grupolaz.neocontra.util.Constants;
 import com.br.grupolaz.neocontra.util.GameUtils;
 import com.br.grupolaz.neocontra.util.MapLoader;
+import com.br.grupolaz.neocontra.util.SoundsUtils;
 import com.br.grupolaz.neocontra.util.TextureUtils;
 import com.br.grupolaz.neocontra.util.WorldUtils;
 
@@ -39,8 +40,10 @@ public class GameStage extends Stage {
         world = new WorldUtils(mapLoader);
 
         setUpCharacters();
+        setUpMusic();
 
         hud = new HudStage(game.getSpriteBatch(), (Player) player);
+
     }
 
     public void update(float delta) {
@@ -100,11 +103,15 @@ public class GameStage extends Stage {
         addActor(enemy);
     }
 
+    private void setUpMusic() {
+        SoundsUtils.getThemeM().setLooping(true);
+		SoundsUtils.getThemeM().play();
+		SoundsUtils.getThemeM().setVolume(0.2f);
+    }
+
     public void dispose() {
         mapLoader.dispose();
         world.dispose();
         b2dRenderer.dispose();
     }
-
-    
 }

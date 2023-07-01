@@ -1,6 +1,5 @@
 package com.br.grupolaz.neocontra.util;
 
-import java.util.Vector;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
