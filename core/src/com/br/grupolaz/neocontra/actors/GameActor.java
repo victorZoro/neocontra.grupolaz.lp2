@@ -2,6 +2,7 @@ package com.br.grupolaz.neocontra.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -13,10 +14,12 @@ import com.badlogic.gdx.utils.Array;
 import com.br.grupolaz.neocontra.enums.ActorStates;
 import com.br.grupolaz.neocontra.util.Constants;
 import com.br.grupolaz.neocontra.util.TextureUtils;
+import com.br.grupolaz.neocontra.util.WorldUtils;
 
 
 //Inspired by MartianRun and Brent Aureli Codes
 public abstract class GameActor extends Actor {
+    protected WorldUtils world;
     protected Body body;
     protected Sprite sprite;
     protected boolean crouching;
@@ -30,13 +33,18 @@ public abstract class GameActor extends Actor {
     protected TextureRegion actorCrouching;
 
     protected boolean runningRight;
+    protected boolean firing;
     protected float stateTimer;
     protected Array<TextureRegion> frames;
 
-    public GameActor(Body body, TextureRegion region) {
+    protected Array<Body> projectiles;
+
+    public GameActor(WorldUtils world, Body body, TextureRegion region) {
+        this.world = world;
         this.body = body;
         this.sprite = new Sprite(TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION));
         this.sprite.setSize(16f / Constants.PIXELS_PER_METER, 20f / Constants.PIXELS_PER_METER);
+        this.projectiles = new Array<Body>();
 
         currentState = previousState = ActorStates.STANDING;
         stateTimer = 0;
@@ -58,6 +66,7 @@ public abstract class GameActor extends Actor {
         sprite.setPosition(x, y);
 
         sprite.setRegion(getFrame(delta));
+
     }
 
     public TextureRegion getFrame(float delta) {
@@ -164,6 +173,43 @@ public abstract class GameActor extends Actor {
                 body.setLinearVelocity(Constants.MAX_VELOCITY * -1, body.getLinearVelocity().y);
             }
         }
+    }
+
+    public void shoot() {
+        if(!runningRight) {
+            if(currentState == ActorStates.CROUCHING) {
+                projectiles.add(world.createProjectile(body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER, body.getPosition().y - 1.5f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(-3f, 0)));
+            } else {
+                projectiles.add(world.createProjectile(body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER, body.getPosition().y, Constants.PLAYER_BULLET_RADIUS, new Vector2(-3f, 0)));
+            }
+        } else {
+            if(currentState == ActorStates.CROUCHING) {
+                projectiles.add(world.createProjectile(body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER, body.getPosition().y - 1.5f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(3f, 0)));
+            } else {
+                projectiles.add(world.createProjectile(body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER, body.getPosition().y, Constants.PLAYER_BULLET_RADIUS, new Vector2(3f, 0)));
+            }
+        }
+    }
+
+    public void projectileOutOfBounds(OrthographicCamera camera) {
+        int i = 0;
+        for(Body projectile : projectiles) {
+            if(isOutOfBounds(projectile, camera)) {
+                world.getWorld().destroyBody(projectile);
+                projectiles.removeIndex(i);
+            }
+            i++;
+        }
+    }
+
+    public boolean isOutOfBounds(Body body, OrthographicCamera camera) {
+        if(body.getPosition().x <= camera.position.x - camera.viewportWidth / 2 ||
+            body.getPosition().x >= camera.position.x + camera.viewportWidth / 2 ||
+            body.getPosition().y <= camera.position.y - camera.viewportHeight / 2 ||
+            body.getPosition().y >= camera.position.y + camera.viewportHeight / 2) {
+                return true;
+            }
+        return false;
     }
 
     public void resetSpriteSize(Sprite sprite) {

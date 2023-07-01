@@ -4,6 +4,7 @@ package com.br.grupolaz.neocontra.util;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+//Inspired by Martian Run and Brent Aureli Code
 public class WorldUtils {
 
     private MapLoader mapLoader;
@@ -76,6 +78,26 @@ public class WorldUtils {
         Body body = world.createBody(bodyDef);
         body.createFixture(fixtureDef);
         shape.dispose();
+
+        return body;
+    }
+
+    public Body createProjectile(float x, float y, float radius, Vector2 velocity) {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.position.set(x, y);
+        bodyDef.type = BodyDef.BodyType.KinematicBody;
+
+        FixtureDef fixtureDef = new FixtureDef();
+        CircleShape shape = new CircleShape();
+        shape.setRadius(radius);
+
+        fixtureDef.shape = shape;
+        
+        Body body = world.createBody(bodyDef);
+        body.createFixture(fixtureDef);
+        shape.dispose();
+
+        body.setLinearVelocity(velocity);
 
         return body;
     }

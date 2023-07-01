@@ -2,6 +2,7 @@ package com.br.grupolaz.neocontra.util;
 
 import com.badlogic.gdx.math.Vector2;
 
+//Inspired by Martian Run
 public class Constants {
 
     //Global configuration
@@ -44,5 +45,6 @@ public class Constants {
     public static Vector2 PLAYER_RIGHT_LINEAR_IMPULSE = new Vector2(0.1f, 0);
     public static Vector2 PLAYER_LEFT_LINEAR_IMPULSE = new Vector2(-0.1f, 0);
     public static final float MAX_VELOCITY = 1.5f;
+    public static final float PLAYER_BULLET_RADIUS = 1f / PIXELS_PER_METER;
 }
 

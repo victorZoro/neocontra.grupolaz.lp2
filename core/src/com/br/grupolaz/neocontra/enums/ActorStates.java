@@ -6,6 +6,5 @@ public enum ActorStates {
     RUNNING,
     STANDING,
     CROUCHING,
-    FIRING,
-    AIMING
+    AIMING_UP,
 }

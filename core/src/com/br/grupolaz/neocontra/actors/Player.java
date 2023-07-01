@@ -2,10 +2,10 @@ package com.br.grupolaz.neocontra.actors;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.br.grupolaz.neocontra.util.Constants;
 import com.br.grupolaz.neocontra.util.TextureUtils;
+import com.br.grupolaz.neocontra.util.WorldUtils;
 
 public class Player extends GameActor {
 
@@ -13,8 +13,8 @@ public class Player extends GameActor {
     private boolean alive; //later
     private int lifeCount;
 
-    public Player(Body body, TextureRegion region) {
-        super(body, region);
+    public Player(WorldUtils world, Body body, TextureRegion region) {
+        super(world, body, region);
         lifeCount = 3;
         setUpAnimations();
     }
@@ -41,6 +41,7 @@ public class Player extends GameActor {
         return lifeCount;
     }
 
+    //Inspired by Brent Aureli Codes
     @Override
     protected void setUpAnimations() {
         //Standing

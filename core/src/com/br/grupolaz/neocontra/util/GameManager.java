@@ -2,7 +2,7 @@ package com.br.grupolaz.neocontra.util;
 
 import com.br.grupolaz.neocontra.enums.GameState;
 
-//Inspired by MartianRun
+//Inspired by Martian Run
 public class GameManager {
     private static GameManager instance = new GameManager();
 

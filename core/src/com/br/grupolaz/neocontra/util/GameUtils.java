@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.br.grupolaz.neocontra.actors.Player;
 
+//Inspired by Martian Run
 public class GameUtils {
     public static void fixTimeStep(World world, float delta) {
         world.step(1/60f, 6, 2);
@@ -32,7 +33,7 @@ public class GameUtils {
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            player.hit();
+            player.shoot();
         }
     }
 }
