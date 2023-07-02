@@ -22,16 +22,16 @@ import com.badlogic.gdx.audio.Sound;
  * <p>+static getThemeM(): Music</p>
  */
 public class SoundsUtils {
-    private static final Music THEMEMUSIC = Gdx.audio.newMusic(Gdx.files.internal("sounds/ThemeMusic.wav"));
-    private static final Sound SHOT_SOUND = Gdx.audio.newSound(Gdx.files.internal("sounds/shot.wav"));
+    private static Music themeMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/ThemeMusic.wav"));
+    private static Sound shotSound = Gdx.audio.newSound(Gdx.files.internal("sounds/shot.wav"));
 
     /**
      * <h2>getShotSound</h2>
      * <P>retorna o efeito sonoro do disparo/p>
-     * @return SHOT_SOUND tipo Sound(get)
+     * @return shotSound tipo Sound(get)
      */
     public static Sound getShotSound(){
-        return SHOT_SOUND;
+        return shotSound;
     }
 
     /**
@@ -40,7 +40,7 @@ public class SoundsUtils {
      * @return  THEMEMUSIC tipo Music(get)
      */
     public static Music getThemeM(){
-        return THEMEMUSIC;
+        return themeMusic;
     }
 }
 
