@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.br.grupolaz.neocontra.enums.ActorStates;
@@ -140,16 +141,22 @@ public abstract class GameActor extends Actor {
     protected boolean crouching;
     protected boolean alive;
 
+    protected boolean setToDestroy;
+    protected boolean destroyed;
+
     protected ActorStates currentState;
     protected ActorStates previousState;
 
     protected Animation<TextureRegion> actorRunning;
     protected Animation<TextureRegion> actorRunningAiming;
+    protected Animation<TextureRegion> actorDying;
     protected TextureRegion actorStanding;
     protected TextureRegion actorCrouching;
 
     protected boolean runningRight;
     protected float stateTimer;
+    protected float stateTime;
+
     protected Array<TextureRegion> frames;
 
     protected Array<Projectile> projectiles;
@@ -212,37 +219,7 @@ public abstract class GameActor extends Actor {
         return region;
     }
 
-    protected TextureRegion checkCurrentState() {
-        TextureRegion region;
-
-        switch (currentState) {
-            case RUNNING: {
-                resetSpriteSize(sprite);
-                region = actorRunning.getKeyFrame(stateTimer, true);
-                break;
-            }
-
-            case CROUCHING: {
-                region = actorCrouching;
-                sprite.setSize(25f / Constants.PIXELS_PER_METER, 16f / Constants.PIXELS_PER_METER);
-                sprite.setPosition(sprite.getX(), sprite.getY() - (2f / Constants.PIXELS_PER_METER));
-                break;
-            }
-
-            // Next 3 cases are all the same,
-            // so we jump to the next one until
-            // we reach the default case.
-            case FALLING:
-            case STANDING:
-            default: {
-                region = actorStanding;
-                resetSpriteSize(sprite);
-                break;
-            }
-        }
-
-        return region;
-    }
+    protected abstract TextureRegion checkCurrentState();
 
     private void flipSprite(TextureRegion region) {
         if ((body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
@@ -265,13 +242,14 @@ public abstract class GameActor extends Actor {
     }
 
     public ActorStates getState() {
-        if (body.getLinearVelocity().y > 0
-                || (body.getLinearVelocity().y < 0 && previousState == ActorStates.JUMPING)) {
+        if (body.getLinearVelocity().y != 0) {
             return ActorStates.JUMPING;
         } else if (body.getLinearVelocity().y < 0) {
             return ActorStates.FALLING;
         } else if (body.getLinearVelocity().x != 0) {
             return ActorStates.RUNNING;
+        } else if(setToDestroy) {
+            return ActorStates.DEAD;
         } else {
             return ActorStates.STANDING;
         }
@@ -313,11 +291,15 @@ public abstract class GameActor extends Actor {
     }
 
     protected abstract void setUpAnimations();
-
     public abstract void shoot();
+    public abstract void collision();
 
     public Body getBody() {
         return body;
+    }
+
+    public Array<Projectile> getProjectiles() {
+        return projectiles;
     }
 
     public void resetSpriteSize(Sprite sprite) {
@@ -334,7 +316,13 @@ public abstract class GameActor extends Actor {
         return false;
     }
 
-    public abstract void collision();
+    public void setCategoryFilter(short filterBit) {
+        Filter filter = new Filter();
+        filter.categoryBits = filterBit;
+        body.getFixtureList().get(0).setFilterData(filter);
+    }
+
+
 
     @Override
     public void act(float delta) {

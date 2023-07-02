@@ -62,6 +62,10 @@ public class GameUtils {
             player.spawn();
         }
 
+        if(Gdx.input.isKeyJustPressed(Input.Keys.X)) {
+            player.hit();
+        }
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             player.shoot();
         }

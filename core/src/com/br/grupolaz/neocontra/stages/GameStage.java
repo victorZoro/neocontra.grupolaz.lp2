@@ -170,7 +170,7 @@ public class GameStage extends Stage {
             player.remove();
         }
 
-        player = new Player(world, world.createPerson(world.getWorld(), Constants.PLAYER_X, Constants.PLAYER_Y, "player"), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION));
+        player = new Player(world, world.createPerson(world.getWorld(), Constants.PLAYER_X, Constants.PLAYER_Y), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION));
         addActor(player);
     }
 
@@ -179,7 +179,7 @@ public class GameStage extends Stage {
      * <p>Esse método é reposnsavel por configurar o ator inimigo</p>
      */
     private void setUpEnemy() {
-        enemy = new Enemy(world, world.createPerson(world.getWorld(), Constants.ENEMY_X, Constants.ENEMY_Y, "enemy"), TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION), (Player) player);
+        enemy = new Enemy(world, world.createPerson(world.getWorld(), Constants.ENEMY_X, Constants.ENEMY_Y), TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION), (Player) player);
         addActor(enemy);
     }
 

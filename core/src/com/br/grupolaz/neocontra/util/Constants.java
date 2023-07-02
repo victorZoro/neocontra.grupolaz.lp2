@@ -12,13 +12,20 @@ import com.badlogic.gdx.math.Vector2;
  * <h3>package<h3>
  * <p>ultil</p>
  */
-//Inspired by Martian Run
+//Inspired by Martian Run and Brent Aureli Code
 public class Constants {
 
     //Global configuration
     public static final int PIXELS_PER_METER = 30; //later will be abandoned
     public static final int WINDOW_WIDTH = 160 / PIXELS_PER_METER;
     public static final int WINDOW_HEIGHT = 120 / PIXELS_PER_METER;
+
+    //Bits configuration
+    public static final short DEFAULT_BIT = 1;
+    public static final short PLAYER_BIT = 2;
+    public static final short ENEMY_BIT = 4;
+    public static final short BULLET_BIT = 8;
+    public static final short DEAD_BIT = 16;
 
 
     //Texture configuration
@@ -29,11 +36,13 @@ public class Constants {
     public static final String PLAYER_JUMPING_REGION = "Pulando/jump_000";
     public static final String PLAYER_CROUCHING_REGION = "ParadoAgachado/still-low_000";
     public static final String PLAYER_RUNNING_AIMING_REGION = "AndandoMirando/walking-aiming_000";
+    public static final String PLAYER_DYING_REGION = "Morreu/died_000";
 
     public static final String ENEMY_ATLAS = "atlases/player/enemy.atlas";
     public static final String ENEMY_STILL_REGION = "enemy_aiming000";
     public static final String ENEMY_RUNNING_REGION = "enemy_walking000";
     public static final String ENEMY_JUMPING_REGION = "enemy_walking006";
+    public static final String ENEMY_DYING_REGION = "explosion000";
     
     //PLayer texture configuration - coming soon
     
