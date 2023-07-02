@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.br.grupolaz.neocontra.actors.GameActor;
 
 /**
  * <h2>WorldUtils</h2>
@@ -137,7 +138,7 @@ public class WorldUtils {
      * @return body
      */
 
-    public Body createPerson(World world, float x, float y, String userData) {
+    public Body createPerson(World world, float x, float y) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(x, y);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -150,7 +151,7 @@ public class WorldUtils {
         fixtureDef.friction = 0.5f;
 
         Body body = world.createBody(bodyDef);
-        body.createFixture(fixtureDef).setUserData(userData);
+        body.createFixture(fixtureDef);
         shape.dispose();
 
         return body;
@@ -173,7 +174,7 @@ public class WorldUtils {
      * @param velocity tipo Vector2
      * @return body
      */
-    public Body createProjectile(float x, float y, float radius, Vector2 velocity, String userData) {
+    public Body createProjectile(float x, float y, float radius, Vector2 velocity, String userData, short categoryBit) {
         BodyDef bodyDef = new BodyDef();
 
         bodyDef.position.set(x, y);
@@ -182,6 +183,8 @@ public class WorldUtils {
         FixtureDef fixtureDef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(radius);
+        fixtureDef.filter.categoryBits = categoryBit;
+        fixtureDef.filter.maskBits = Constants.PLAYER_BIT | Constants.ENEMY_BIT;
 
         fixtureDef.shape = shape;
         fixtureDef.isSensor = true;

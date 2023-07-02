@@ -181,8 +181,37 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/InimigoAndando/Default/enemy_walking000.png</key>
-            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/InimigoAndando/Default/enemy_walking003.png</key>
+            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Ef_Explosions/Explosion1/explosion000.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1.5</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>7,7,13,13</rect>
+                <key>scale9Paddings</key>
+                <rect>7,7,13,13</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Ef_Explosions/Explosion1/explosion001.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1.5</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>8,8,15,15</rect>
+                <key>scale9Paddings</key>
+                <rect>8,8,15,15</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Ef_Explosions/Explosion1/explosion002.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -191,15 +220,14 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>5,8,9,17</rect>
+                <rect>9,9,17,17</rect>
                 <key>scale9Paddings</key>
-                <rect>5,8,9,17</rect>
+                <rect>9,9,17,17</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/InimigoAndando/Default/enemy_walking001.png</key>
-            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/InimigoAndando/Default/enemy_walking004.png</key>
-            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/InimigoAndando/Default/enemy_walking005.png</key>
+            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_aiming000.png</key>
+            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_hidden000.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -208,45 +236,14 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>5,9,9,17</rect>
+                <rect>7,9,13,17</rect>
                 <key>scale9Paddings</key>
-                <rect>5,9,9,17</rect>
+                <rect>7,9,13,17</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/InimigoAndando/Default/enemy_walking002.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>4,9,9,17</rect>
-                <key>scale9Paddings</key>
-                <rect>4,9,9,17</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/InimigoAndando/Default/enemy_walking006.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>5,8,9,15</rect>
-                <key>scale9Paddings</key>
-                <rect>5,8,9,15</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/InimigoMirando/MirandoBaixo/enemy_aiming_low001.png</key>
-            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/InimigoMirando/MirandoReto/enemy_aiming001.png</key>
-            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/InimigoMirandoEscondido/Default/enemy_hidden001.png</key>
+            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_aiming001.png</key>
+            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_hidden001.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -261,7 +258,8 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/InimigoMirando/MirandoCima/enemy_aiming_up000.png</key>
+            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_walking000.png</key>
+            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_walking003.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -270,13 +268,15 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>5,10,10,21</rect>
+                <rect>5,8,9,17</rect>
                 <key>scale9Paddings</key>
-                <rect>5,10,10,21</rect>
+                <rect>5,8,9,17</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/InimigoMirando/MirandoCima/enemy_aiming_up001.png</key>
+            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_walking001.png</key>
+            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_walking004.png</key>
+            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_walking005.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -285,14 +285,13 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>5,10,10,20</rect>
+                <rect>5,9,9,17</rect>
                 <key>scale9Paddings</key>
-                <rect>5,10,10,20</rect>
+                <rect>5,9,9,17</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/InimigoMirando/MirandoReto/enemy_aiming000.png</key>
-            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/InimigoMirandoEscondido/Default/enemy_hidden000.png</key>
+            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_walking002.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -301,18 +300,44 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>7,9,13,17</rect>
+                <rect>4,9,9,17</rect>
                 <key>scale9Paddings</key>
-                <rect>7,9,13,17</rect>
+                <rect>4,9,9,17</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_walking006.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>5,8,9,15</rect>
+                <key>scale9Paddings</key>
+                <rect>5,8,9,15</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
         </map>
         <key>fileList</key>
         <array>
-            <filename>C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/InimigoMirando</filename>
-            <filename>C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/InimigoMirandoEscondido</filename>
-            <filename>C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/InimigoAndando</filename>
+            <filename>C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_walking002.png</filename>
+            <filename>C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_walking003.png</filename>
+            <filename>C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_walking004.png</filename>
+            <filename>C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_walking005.png</filename>
+            <filename>C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_walking006.png</filename>
+            <filename>C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_hidden001.png</filename>
+            <filename>C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_aiming000.png</filename>
+            <filename>C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_aiming001.png</filename>
+            <filename>C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_hidden000.png</filename>
+            <filename>C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_walking000.png</filename>
+            <filename>C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Inimigos/enemy_walking001.png</filename>
+            <filename>C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Ef_Explosions/Explosion1/explosion001.png</filename>
+            <filename>C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Ef_Explosions/Explosion1/explosion002.png</filename>
+            <filename>C:/Users/victo/Downloads/Assets Contra - Jogo de Plataforma-20230618T205801Z-001/Assets Contra - Jogo de Plataforma/Animations/Ef_Explosions/Explosion1/explosion000.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

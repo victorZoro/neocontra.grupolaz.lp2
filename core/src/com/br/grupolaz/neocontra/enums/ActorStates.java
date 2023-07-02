@@ -26,4 +26,5 @@ public enum ActorStates {
     STANDING,
     CROUCHING,
     AIMING_UP,
+    DEAD
 }

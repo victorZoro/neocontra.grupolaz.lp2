@@ -1,10 +1,11 @@
 package com.br.grupolaz.neocontra.actors;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.br.grupolaz.neocontra.enums.ActorStates;
 import com.br.grupolaz.neocontra.util.Constants;
 import com.br.grupolaz.neocontra.util.TextureUtils;
 import com.br.grupolaz.neocontra.util.WorldUtils;
@@ -30,7 +31,6 @@ public class Enemy extends GameActor {
 
     private Player player;
 
-
     /**
      * <h2>Enemy</h2>
      * <p>A função do construtor Enemy
@@ -51,7 +51,11 @@ public class Enemy extends GameActor {
     
     public Enemy(WorldUtils world, Body body, TextureRegion region, Player player) {
         super(world, body, region);
+        body.getFixtureList().get(0).setUserData(this);
+        setCategoryFilter(Constants.ENEMY_BIT);
         this.player = player;
+        setToDestroy = false;
+        destroyed = false;
         setUpAnimations();
     }
 
@@ -80,10 +84,28 @@ public class Enemy extends GameActor {
         }
     }
 
+    public void update(float delta) {
+        stateTime += delta;
+        if(setToDestroy && !destroyed) {
+            world.getWorld().destroyBody(body);
+            currentState = ActorStates.DEAD;
+            destroyed = true;
+            stateTime = 0;
+        }
+    }
+
     @Override
     public void act(float delta) {
         super.act(delta);
+        update(delta);
         facePlayer();
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        if(!destroyed | stateTime < 1f) {
+            super.draw(batch, parentAlpha);
+        }
     }
 
 
@@ -91,15 +113,21 @@ public class Enemy extends GameActor {
     protected void setUpAnimations() {
         actorStanding = TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION);
 
-        // TextureRegion actorJumping = TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_JUMPING_REGION);
-
         //Running
         TextureRegion runningRegion = TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_RUNNING_REGION);
-        for(int i = 0; i < 6; i++) {
+        for(int i = 0; i < 5; i++) {
             frames.add(new TextureRegion(runningRegion, i * 48, 0, 32, 48));
         }
         actorRunning = new Animation<TextureRegion>(0.15f, frames);
         frames.clear();
+        
+        TextureRegion dyingRegion = TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_DYING_REGION);
+        for(int i = 0; i < 3; i++) {
+            frames.add(new TextureRegion(dyingRegion, i * 48, 0, 48, 64));
+        }
+        actorDying = new Animation<TextureRegion>(0.1f, frames);
+        frames.clear();
+        System.out.println("Created dying region");
     }
 
     @Override
@@ -108,7 +136,39 @@ public class Enemy extends GameActor {
 
     @Override
     public void collision() {
-        Gdx.app.log("Enemy", "Collision");
+        setToDestroy = true;
+    }
+
+    @Override
+    protected TextureRegion checkCurrentState() {
+        TextureRegion region;
+
+        switch (currentState) {
+            case RUNNING: {
+                System.out.println("running in the 90s");
+                resetSpriteSize(sprite);
+                region = actorRunning.getKeyFrame(stateTimer, true);
+                break;
+            }
+
+            case DEAD: {
+                region = actorDying.getKeyFrame(stateTimer, false);
+                break;
+            }
+
+            // Next 3 cases are all the same,
+            // so we jump to the next one until
+            // we reach the default case.
+            case FALLING:
+            case STANDING:
+            default: {
+                region = actorStanding;
+                resetSpriteSize(sprite);
+                break;
+            }
+        }
+
+        return region;
     }
     
 }

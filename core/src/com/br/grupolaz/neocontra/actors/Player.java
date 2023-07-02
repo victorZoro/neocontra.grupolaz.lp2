@@ -1,8 +1,7 @@
 package com.br.grupolaz.neocontra.actors;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -58,6 +57,8 @@ public class Player extends GameActor {
      */
     public Player(WorldUtils world, Body body, TextureRegion region) {
         super(world, body, region);
+        body.getFixtureList().get(0).setUserData(this);
+        setCategoryFilter(Constants.PLAYER_BIT);
         spawn();
         lifeCount = 3;
         setUpAnimations();
@@ -89,6 +90,10 @@ public class Player extends GameActor {
         hit = true;
         lifeCount--;
         System.out.println(lifeCount);
+    }
+
+    public void die() {
+        setToDestroy = true;
     }
 
     /**
@@ -131,37 +136,35 @@ public class Player extends GameActor {
         return lifeCount;
     }
 
+    public void update(float delta) {
+        stateTime += delta;
+
+        if(lifeCount <= 0) {
+            die();
+        }
+
+        if(setToDestroy && !destroyed) {
+            world.getWorld().destroyBody(body);
+            currentState = ActorStates.DEAD;
+            destroyed = true;
+            stateTime = 0;
+        }
+    }
+
     @Override
     public void act(float delta) {
         super.act(delta);
+        update(delta);
         stayInBounds();
     }
-    
 
-    /**
-     * <h2>getState</h2>
-     * <P>O método getState() 
-     * retorna o estado atual 
-     * do jogador com base em 
-     * sua velocidade linear e
-     *  nas teclas pressionadas pelo jogador</p>
-     * <p> Os possíveis estados são: "JUMPING" (pulando),
-     *  "FALLING" (caindo), "RUNNING" (correndo), 
-     * "CROUCHING" (agachado) e "STANDING" (parado).</p>
-     * @return retorna o esta atual do jogador
-     */
     @Override
-    public ActorStates getState() {
-        if(body.getLinearVelocity().y != 0) {
-            return ActorStates.JUMPING;
-        } else if(body.getLinearVelocity().x != 0 ) {
-            return ActorStates.RUNNING;
-        } else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            return ActorStates.CROUCHING;
-        } else {
-            return ActorStates.STANDING;
+    public void draw(Batch batch, float parentAlpha) {
+        if(!destroyed || stateTime < 1) {
+            super.draw(batch, parentAlpha);
         }
     }
+    
     
     /**
      * <h2>checkCurrentState</h2>
@@ -187,6 +190,12 @@ public class Player extends GameActor {
             case RUNNING: {
                 resetSpriteSize(sprite);
                 region = actorRunning.getKeyFrame(stateTimer, true);
+                break;
+            }
+
+            case DEAD: {
+                sprite.setPosition(sprite.getX(), sprite.getY() - (5f / Constants.PIXELS_PER_METER));
+                region = actorDying.getKeyFrame(stateTimer, false);
                 break;
             }
 
@@ -244,21 +253,29 @@ public class Player extends GameActor {
         }
         actorJumping = new Animation<TextureRegion>(0.15f, frames);
         frames.clear();
+
+        //Dying
+        TextureRegion dyingRegion = TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_DYING_REGION);
+        for(int i = 0; i < 5; i++) {
+            frames.add(new TextureRegion(dyingRegion, i * 48, 0, 32, 48));
+        }
+        actorDying = new Animation<TextureRegion>(0.25f, frames);
+        frames.clear();
     }
 
     @Override
     public void shoot() {
         if(!runningRight) {
             if(currentState == ActorStates.CROUCHING) {
-                projectiles.add(new Bullet(world.createProjectile(body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER, body.getPosition().y - 1.5f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(-3f, 0), "bullet")));
+                projectiles.add(new Bullet(world.createProjectile(body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER, body.getPosition().y - 1.5f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(-3f, 0), "bullet", Constants.BULLET_BIT)));
             } else {
-                projectiles.add(new Bullet(world.createProjectile(body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER, body.getPosition().y + 2f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(-3f, 0), "bullet")));
+                projectiles.add(new Bullet(world.createProjectile(body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER, body.getPosition().y + 2f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(-3f, 0), "bullet", Constants.BULLET_BIT)));
             }
         } else {
             if(currentState == ActorStates.CROUCHING) {
-                projectiles.add(new Bullet(world.createProjectile(body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER, body.getPosition().y - 1.5f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(3f, 0), "bullet")));
+                projectiles.add(new Bullet(world.createProjectile(body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER, body.getPosition().y - 1.5f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(3f, 0), "bullet", Constants.BULLET_BIT)));
             } else {
-                projectiles.add(new Bullet(world.createProjectile(body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER, body.getPosition().y + 2f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(3f, 0), "bullet")));
+                projectiles.add(new Bullet(world.createProjectile(body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER, body.getPosition().y + 2f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(3f, 0), "bullet", Constants.BULLET_BIT)));
             }
         }
         SoundsUtils.getShotSound().play();
