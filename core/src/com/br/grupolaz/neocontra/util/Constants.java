@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
  * tamanho de janela, nomes de arquivos de textura, configurações
  *  de mapa, configurações de corpos do Box2D e 
  * configurações do jogador.</p>
+ * 
  * <h3>package<h3>
  * <p>ultil</p>
  */

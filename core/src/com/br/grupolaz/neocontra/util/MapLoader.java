@@ -12,12 +12,22 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
  * função para descartar os recursos do mapa quando não são
  *  mais necessários. Isso simplifica a utilização e o gerenciamento 
  * de mapas em um ambiente de jogo.</p>
- * <h3>Variaveis</h3>
- * <p>loader: TmxMapLoader </p>
- * <p> map: TiledMap </p>
- * <p> renderer: OrthogonalTiledMapRenderer</p>
- *<h3>package</h3>
+ * 
+ * *<h3>package</h3>
  * <p>Util</p>
+ * 
+ * <h3>Variaveis</h3>
+ * <p>-loader: TmxMapLoader </p>
+ * <p>-map: TiledMap </p>
+ * <p>-renderer: OrthogonalTiledMapRenderer</p>
+ * 
+ * <h3>Métodos</h3>
+ * <p>+MapLoader(String)</p>
+ * <p>+getLoader(): TmxMapLoader</p>
+ * <p>+getMap(): TiledMap </p>
+ * <p>+setMap(TiledMap): void</p>
+ * <p>+getRenderer(): OrthogonalTiledMapRenderer</p>
+ * <p>+dispose(): void</p> 
  */
 //Inspired by Brent Aureli Code
 public class MapLoader {
@@ -32,7 +42,7 @@ public class MapLoader {
      * Tiled com base no caminho do arquivo fornecido</p>
      * @param path_to_map_file tipo String
      */
-    public MapLoader(String path_to_map_file) {
+    public  MapLoader(String path_to_map_file) {
         loader = new TmxMapLoader();
         map = loader.load(path_to_map_file);
         renderer = new OrthogonalTiledMapRenderer(map, 1f / Constants.PIXELS_PER_METER);

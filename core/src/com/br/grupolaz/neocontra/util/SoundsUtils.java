@@ -9,11 +9,17 @@ import com.badlogic.gdx.audio.Sound;
  * aos arquivos de áudio do jogo, fornecendo
  *  métodos para obter o efeito sonoro do disparo 
  * e a música de tema.</p>
+ * 
  * <h3>package</h3>
  * <p>util</p>
+ * 
  * <h3>Variavies</h3>
- * <p>THEMEMUSIC: Music</p>
- * <p>SHOT_SOUND: Sound</p>
+ * <p>-THEMEMUSIC: Music</p>
+ * <p>-SHOT_SOUND: Sound</p>
+ * 
+ * <h3>Métodos</h3>
+ * <p>+static getShotSound(): Sound</p>
+ * <p>+static getThemeM(): Music</p>
  */
 public class SoundsUtils {
     private static final Music THEMEMUSIC = Gdx.audio.newMusic(Gdx.files.internal("sounds/ThemeMusic.wav"));

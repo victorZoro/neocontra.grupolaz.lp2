@@ -12,11 +12,23 @@ import com.br.grupolaz.neocontra.stages.GameStage;
  * <p>GameScreen , que representa uma tela do jogo. 
  * Essa classe é responsável por renderizar a tela, atualizar as informações visuais e lidar 
  * com eventos relacionados à interação do jogador.</p>
+ * 
  * <h3>package</h3> 
  * <p>Screen</p>
-    <h3>variavei</h3>
-    <p>gameStage: GameStage</p>
-    <p>game: NeoContra</p>
+ * 
+ * <h3>variaveis</h3>
+ * <p>+gameStage: GameStage</p>
+ * <p>-game: NeoContra</p>
+ * 
+ * <h3>métodos</h3>
+ * <p>+GameScreen(NeoContra)</p>
+ * <p>+show(): void</p>
+ * <p>+render(float): void</p>
+ * <p>+resize(int, int): void </p> 
+ * <p>+pause(): void</p>
+ * <p>+resume(): void</p>
+ * <p>+hide(): void</p>
+ * <p>+dispose(): void</p>
  */
 public class GameScreen implements Screen {
 

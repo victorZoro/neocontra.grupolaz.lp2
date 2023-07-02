@@ -13,8 +13,13 @@ import com.br.grupolaz.neocontra.actors.Player;
  * manipular as entradas do usuário para controlar o jogador.</p>
  * <p>Os metodos presentes nessa classe são projetados para serem 
  * chamados em momentos específicos no loop principal do jogo, garantindo um controle preciso e uma simulação suave.</p>
+ * 
  * <h3>package</h3>
  * <p>util</p>
+ * 
+ * <h3>Métodos</h3>
+ * <p>+Static fixTimeStep(World, float): void </p>
+ * <p>+Static createInputHandler(Player,float): void</p>
  */
 //Inspired by Martian Run
 public class GameUtils {

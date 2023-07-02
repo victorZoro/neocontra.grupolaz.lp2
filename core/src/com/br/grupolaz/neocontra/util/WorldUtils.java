@@ -19,11 +19,22 @@ import com.br.grupolaz.neocontra.util.TextureUtils;
  * com base nas informações do mapa. Isso permite a 
  * simulação de física e interações realistas entre 
  * os objetos no jogo.</p>
- * <h3>Variaveis</h3>
- * <p>mapLoader: MapLoader</p>
- * <p>world: World</p>
- * <h3>package</h3>
+ * 
+ *  <h3>package</h3>
  * <p>ultil<p>
+ * 
+ * <h3>Variaveis</h3>
+ * <p>-mapLoader: MapLoader</p>
+ * <p>-world: World</p>
+ * 
+ * <h3>Métodos</h3>
+ * <p>+WorldUtils(MapLoader mapLoader)</p>
+ * <p>+getWorld(): World</p>
+ * <p>+createWorldBodies(): void</p>
+ * <p>+createObject(int): void</p>
+ * <p>+createStaticBody(World, Rectangle): void</p>
+ * <p>+createPerson(World, float, float): Body</p>
+ * <p>+dispose(): void</p> 
  */
 //Inspired by Martian Run and Brent Aureli Code
 public class WorldUtils {

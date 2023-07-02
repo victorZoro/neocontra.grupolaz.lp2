@@ -8,13 +8,22 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
  * e o uso de texturas e atlases de texturas 
  * no jogo, fornecendo métodos para obter as 
  * texturas desejadas.</p>
- * <h3>Variaveis</h3>
- * <p>player_atlas: TextureAtlas</p>
- * <p>lifeMedal: Texture</p>
- * <p>gameOver: Texture</p>
- * <p> playerBullet: Texture</p>
+ * 
  * <h3>package</h3>
  * <p>util</p>
+ * 
+ * <h3>Variaveis</h3>
+ * <p>-player_atlas: TextureAtlas</p>
+ * <p>-lifeMedal: Texture</p>
+ * <p>-gameOver: Texture</p>
+ * <p>-playerBullet: Texture</p>
+ * 
+ * <h3>Métodos</h3>
+ * <p>+static getPlayerAtlas(): TextureAtlas </p>
+ * <p>+static getEnemyAtlas(): TextureAtlas</p>
+ * <p>+static getLifeMedal(): Texture </p>
+ * <p>+static getGameOver(): Texture</p>
+ * <p>+static getPlayerBullet(): Texture</p>
  */
 public class TextureUtils {
     private static TextureAtlas player_atlas = new TextureAtlas(Constants.PLAYER_ATLAS);

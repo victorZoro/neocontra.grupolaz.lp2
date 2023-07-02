@@ -16,10 +16,23 @@ import com.br.grupolaz.neocontra.util.SoundsUtils;
  * várias componentes essenciais, como o SpriteBatch, 
  * a OrthographicCamera e o FitViewport. Ela também define a tela inicial do jogo como 
  * GameScreen e lida com a reprodução de sons.</p>
+ * 
+ * <h3>package</h3>
+ * <p>neocontra</p>
+ * 
  * <h3>Variaveis</h3>
- * <p>batch: SpriteBatch </p>
- * <p>camera: OrthographicCamera </p>
- * <p>viewport: Viewport</p>
+ * <p>-batch: SpriteBatch </p>
+ * <p>-camera: OrthographicCamera </p>
+ * <p>-viewport: Viewport</p>
+ * 
+ * <h3>Metoodos</h3>
+ * <p>+create(): void</p>
+ * <p>+getSpriteBatch(): SpriteBatch</p>
+ * <p>+getCamera(): OrthographicCamera</p>
+ * <p>+getViewport(): Viewport</p> 
+ * <p>+alignCameraToWorldCenter():void</p>
+ * <p>+render(): void</p>
+ * <p>+dispose(): void</p>
  */
 public class NeoContra extends Game {
 

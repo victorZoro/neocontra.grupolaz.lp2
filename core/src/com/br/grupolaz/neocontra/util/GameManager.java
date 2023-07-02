@@ -4,16 +4,23 @@ import com.br.grupolaz.neocontra.enums.GameState;
 
 /**
  * <h2>GameManager</h2>
- * <h3>Função</h3>
- * <p>GemeManager tem a função de gerenciar o estado do jogo</p>
- * <>A classe GemeManager armazena o estado atual do jogo, permite que outros componentes 
+ * <p>GemeManager tem a função de gerenciar o estado do jogo.</p>
+ * <p>A classe GemeManager armazena o estado atual do jogo, permite que outros componentes 
  * acessem e modifiquem esse estado. Ela também fornece uma única instância 
  * globalmente acessível para garantir um gerenciamento consistente do estado 
- * do jogo em várias partes do código.
+ * do jogo em várias partes do código.</p>
+ * 
  * <h3>package</h3>
  * <p>util</p>
+ * 
  *  <h3>variaveis</h3>
- * <p>gameState: GameState</p>
+ * <p>-gameState: GameState</p>
+ * 
+ * <h3>Métodos</h3>
+ * <p>+static getInstance(): GameManager</p>
+ * <p>-GameManager()</p>
+ * <p>+getGameState(): GameState </p>
+ * <p>+setGameState(GameState): void <p>
  */
 //Inspired by Martian Run
 public class GameManager {
