@@ -1,5 +1,7 @@
 package com.br.grupolaz.neocontra.actors;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -250,6 +252,8 @@ public abstract class GameActor extends Actor {
             return ActorStates.RUNNING;
         } else if(setToDestroy) {
             return ActorStates.DEAD;
+        } else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            return ActorStates.CROUCHING;
         } else {
             return ActorStates.STANDING;
         }
