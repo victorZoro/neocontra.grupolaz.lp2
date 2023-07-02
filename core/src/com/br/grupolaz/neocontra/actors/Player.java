@@ -20,8 +20,22 @@ public class Player extends GameActor {
 
     public Player(WorldUtils world, Body body, TextureRegion region) {
         super(world, body, region);
+        spawn();
         lifeCount = 3;
         setUpAnimations();
+    }
+
+    public void spawn() {
+        jump();
+        body.setLinearVelocity(2f, 0);
+    }
+    
+    public void stayInBounds() {
+        if(body.getPosition().x < 0){
+            body.setTransform(0, body.getPosition().y, body.getAngle());
+        } else if(body.getPosition().x >= 25.5f) {
+            body.setTransform(25.5f, body.getPosition().y, body.getAngle());
+        }
     }
 
     public void hit() {
@@ -41,14 +55,18 @@ public class Player extends GameActor {
     public int getLifeCount() {
         return lifeCount;
     }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        stayInBounds();
+    }
     
 
     @Override
     public ActorStates getState() {
-        if(body.getLinearVelocity().y > 0 || (body.getLinearVelocity().y < 0 && previousState == ActorStates.JUMPING)) {
+        if(body.getLinearVelocity().y != 0) {
             return ActorStates.JUMPING;
-        } else if(body.getLinearVelocity().y < 0) {
-            return ActorStates.FALLING;
         } else if(body.getLinearVelocity().x != 0 ) {
             return ActorStates.RUNNING;
         } else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {

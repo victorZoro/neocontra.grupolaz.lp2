@@ -68,7 +68,6 @@ public abstract class GameActor extends Actor {
         sprite.setPosition(x, y);
 
         sprite.setRegion(getFrame(delta));
-
     }
 
     public TextureRegion getFrame(float delta) {

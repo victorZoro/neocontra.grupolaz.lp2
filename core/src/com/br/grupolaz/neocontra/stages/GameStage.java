@@ -99,7 +99,7 @@ public class GameStage extends Stage {
 
         GameUtils.fixTimeStep(world.getWorld(), delta);
 
-        game.getCamera().position.x = player.getBody().getPosition().x;
+        followPlayer();
 
         game.getCamera().update();
 
@@ -176,8 +176,19 @@ public class GameStage extends Stage {
      * <p>Esse método é reposnsavel por configurar o ator inimigo</p>
      */
     private void setUpEnemy() {
-        enemy = new Enemy(world, world.createPerson(world.getWorld(), Constants.ENEMY_X, Constants.ENEMY_Y), TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION));
+        enemy = new Enemy(world, world.createPerson(world.getWorld(), 23f, Constants.ENEMY_Y), TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION), (Player) player);
         addActor(enemy);
+    }
+
+    private void followPlayer() {
+        if(player.getBody().getPosition().x <= 2.5f) {
+            game.getCamera().position.x = 2.5f;
+        } else if(player.getBody().getPosition().x >= 23f) {
+            game.getCamera().position.x = 23f;
+        } else {
+            game.getCamera().position.x = player.getBody().getPosition().x;
+        }
+
     }
 
     private void setUpMusic() {

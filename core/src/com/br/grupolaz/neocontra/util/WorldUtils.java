@@ -76,8 +76,8 @@ public class WorldUtils {
     public void createWorldBodies() {
         createObject(Constants.GROUND_LAYER);
         createObject(Constants.STAIRS_LAYER);
-        createObject(Constants.PLATFORMS_LAYER);
-        createObject(Constants.WALLS_LAYER);
+        // createObject(Constants.PLATFORMS_LAYER);
+        // createObject(Constants.WALLS_LAYER);
         createObject(Constants.SEALEVEL_LAYER);
         createObject(Constants.CEILING_LAYER);
     }
