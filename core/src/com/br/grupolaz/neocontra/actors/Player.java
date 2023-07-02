@@ -250,18 +250,24 @@ public class Player extends GameActor {
     public void shoot() {
         if(!runningRight) {
             if(currentState == ActorStates.CROUCHING) {
-                projectiles.add(new Bullet(world.createProjectile(body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER, body.getPosition().y - 1.5f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(-3f, 0))));
+                projectiles.add(new Bullet(world.createProjectile(body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER, body.getPosition().y - 1.5f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(-3f, 0), "bullet")));
             } else {
-                projectiles.add(new Bullet(world.createProjectile(body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER, body.getPosition().y + 2f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(-3f, 0))));
+                projectiles.add(new Bullet(world.createProjectile(body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER, body.getPosition().y + 2f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(-3f, 0), "bullet")));
             }
         } else {
             if(currentState == ActorStates.CROUCHING) {
-                projectiles.add(new Bullet(world.createProjectile(body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER, body.getPosition().y - 1.5f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(3f, 0))));
+                projectiles.add(new Bullet(world.createProjectile(body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER, body.getPosition().y - 1.5f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(3f, 0), "bullet")));
             } else {
-                projectiles.add(new Bullet(world.createProjectile(body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER, body.getPosition().y + 2f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(3f, 0))));
+                projectiles.add(new Bullet(world.createProjectile(body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER, body.getPosition().y + 2f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(3f, 0), "bullet")));
             }
         }
         SoundsUtils.getShotSound().play();
+    }
+
+    @Override
+    public void collision() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'collision'");
     }
 
 

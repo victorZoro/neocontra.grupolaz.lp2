@@ -8,7 +8,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.br.grupolaz.neocontra.screens.GameScreen;
 import com.br.grupolaz.neocontra.util.Constants;
 
-import com.br.grupolaz.neocontra.util.SoundsUtils;
 /**
  * @author <p>Anna Luisa, Lucas Vinicios, Victor gabriel</p>
  * <h2>NeoContra</h2>>

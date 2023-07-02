@@ -11,7 +11,7 @@ public class Bullet extends Projectile {
     public Bullet(Body body) {
         super(body);
         this.sprite = new Sprite(TextureUtils.getPlayerBullet());
-        this.sprite.setSize(3f / Constants.PIXELS_PER_METER, 3f / Constants.PIXELS_PER_METER);
+        this.sprite.setSize(Constants.BULLET_SIZE, Constants.BULLET_SIZE);
     }
 
     @Override

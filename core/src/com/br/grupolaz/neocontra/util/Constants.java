@@ -64,7 +64,10 @@ public class Constants {
     public static final float PLAYER_BULLET_RADIUS = 1f / PIXELS_PER_METER;
 
     //Enemy config
-    public static final float ENEMY_X = 30f / PIXELS_PER_METER;
+    public static final float ENEMY_X = 4f;
     public static final float ENEMY_Y = 60f / PIXELS_PER_METER;
+
+    //Projectiles config
+    public static final float BULLET_SIZE = 3f / PIXELS_PER_METER;
 }
 
