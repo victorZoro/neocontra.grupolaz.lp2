@@ -28,9 +28,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 public class TextureUtils {
     private static TextureAtlas player_atlas = new TextureAtlas(Constants.PLAYER_ATLAS);
     private static TextureAtlas enemy_atlas = new TextureAtlas(Constants.ENEMY_ATLAS);
-    private static final Texture lifeMedal = new Texture("life.png");
-    private static final Texture gameOver = new Texture("gameover.png");
-    private static final Texture playerBullet = new Texture("playerBullet.png");
+    private static Texture lifeMedal = new Texture("life.png");
+    private static Texture gameOver = new Texture("gameover.png");
+    private static Texture playerBullet = new Texture("playerBullet.png");
 
     /**
      * <h2>getPlayerAtlas</h2>

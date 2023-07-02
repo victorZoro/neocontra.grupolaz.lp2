@@ -15,7 +15,7 @@ import com.br.grupolaz.neocontra.actors.GameActor;
 
 /**
  * <h2>WorldUtils</h2>
- * <p>A classe WorldUtils fornece utilitários para
+ * <p>A classe WorldUtils fornecer utilitários para
  * criar e manipular corpos físicos no mundo do jogo,
  * com base nas informações do mapa. Isso permite a
  * simulação de física e interações realistas entre
