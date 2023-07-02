@@ -15,7 +15,35 @@ import com.br.grupolaz.neocontra.util.MapLoader;
 import com.br.grupolaz.neocontra.util.SoundsUtils;
 import com.br.grupolaz.neocontra.util.TextureUtils;
 import com.br.grupolaz.neocontra.util.WorldUtils;
-
+/**
+ * <h2>GameStage</h2>
+ * <p>A classe GameStage é responsável por coordenar
+ * a lógica do jogo, incluindo a atualização dos personagens,
+ * a renderização do mapa, a interação física e a exibição
+ * dos elementos na tela.</p>
+ *
+ * <h3>package</h3>
+ * <p>stages</p>
+ *
+ * <h3>Variaveis</h3>
+ * <p>+game: NeoContra</p>
+ * <p>+gameScreen: Screen</p>
+ * <p>-hud:HudStage</p>
+ * <p>-mapLoader: MapLoader</p>
+ * <p>-world: WorldUtils</p>
+ * <p>-player: GameActor</p>
+ * <p>-enemy: GameActor </p>
+ * <p>-b2dRenderer: Box2DDebugRenderer</p>
+ *
+ * <h3>Métodos</h3>
+ * <p>+GameStage(NeoContra, GameScreen)</p>
+ * <p>+update(float): void</p>
+ * <p>+act(float): void</p>
+ * <p>-setUpCharacters(): void</p>
+ * <p>-setUpPlayer(): void </p>
+ * <p>-setUpEnemy(): void</p>
+ * <p>+dispose(): void</p>
+ */
 //Inspired by Martian Run and Brent Aureli Codes
 public class GameStage extends Stage {
 
@@ -26,9 +54,15 @@ public class GameStage extends Stage {
     private WorldUtils world;
     private GameActor player;
     private GameActor enemy;
-    
-    private Box2DDebugRenderer b2dRenderer;
 
+    private Box2DDebugRenderer b2dRenderer;
+    /**
+     * <h2>GameStage</h2>
+     * <p>Contrutor da classe GameStage é responsável
+     * por criar a tela de jogo principal do jogo NeoContra.</p>
+     * @param game tipo NeoContra
+     * @param gameScreen tipo GameScreen
+     */
     public GameStage(NeoContra game, GameScreen gameScreen) {
         this.game = game;
         this.gameScreen = gameScreen;
@@ -46,6 +80,20 @@ public class GameStage extends Stage {
 
     }
 
+
+    /**
+     * <h2>update</h2>
+     * <P>O método update é responsável por atualizar o
+     * estado do jogo em intervalos regulares.</p>
+     *
+     * <h4>O que ele atualiza:</h4>
+     * <p>Atualiza a entrada de controle do jogador.</p>
+     * <p>Atualiza o mundo físico chamando fixTimeStep de GameUtils.</p>
+     * <P>Atualiza a posição da câmera para seguir o personagem principal.</p>
+     * <p>Verifica se os projéteis do jogador estão fora da câmera e os remove, se necessário.</p>
+     * <P>Atualiza a visualização do mapa para a câmera atual.</p>
+     * @param delta tipo float
+     */
     public void update(float delta) {
         GameUtils.createInputHandler((Player) player, delta);
 
@@ -61,7 +109,23 @@ public class GameStage extends Stage {
         mapLoader.getRenderer().setView(game.getCamera());
     }
 
-    @Override
+    /**
+     * <h2>act</h2>
+     * <P>a função act é responsável
+     * por atualizar a lógica e os estados dos atores,
+     *  renderizar o mapa, o mundo físico e os elementos
+     *  do jogo, bem como a interface do usuário (HUD).
+     *  É um componente importante no ciclo de atualização
+     *  e renderização do jogo.</p>
+     *
+     * <h4>O que ele atualiza</h4>
+     * <p>Atualiza o estágio e seus atores.</P>
+     * <p>Renderiza o mapa do jogo.</p>
+     * <p>Renderiza os objetos físicos em modo de depuração.</p>
+     * <p>Renderiza os atores (personagens) usando o SpriteBatch do jogo.</p>
+     * <p>Atualiza e desenha o HudStage para exibir o cabeçalho do jogo.</p>
+     * @param delta tipo float
+     */
     public void act(float delta) {
         super.act(delta);
         update(delta);
@@ -79,16 +143,25 @@ public class GameStage extends Stage {
         game.getSpriteBatch().end();
 
         game.getSpriteBatch().setProjectionMatrix(hud.getCamera().combined);
-        
+
         hud.act(delta);
         hud.draw();
     }
 
+    /**
+     * <h2>setUpCharacters</h2>
+     * <p>Metodo responsavel por chamar <b>setUpPlayer() e
+        setUpEnemy()</b> para configurar os personagens do jogo</p>
+     */
     private void setUpCharacters() {
         setUpPlayer();
         setUpEnemy();
     }
 
+    /**
+     * <h2>setUpPlayer</h2>
+     * <P> Esse método é responsavel por confugurar o ator player</p>
+     */
     private void setUpPlayer() {
         if(player != null) {
             player.remove();
@@ -98,6 +171,10 @@ public class GameStage extends Stage {
         addActor(player);
     }
 
+    /**
+     * <h2>setUpEnemy</h2>
+     * <p>Esse método é reposnsavel por configurar o ator inimigo</p>
+     */
     private void setUpEnemy() {
         enemy = new Enemy(world, world.createPerson(world.getWorld(), Constants.ENEMY_X, Constants.ENEMY_Y), TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION));
         addActor(enemy);
@@ -109,6 +186,11 @@ public class GameStage extends Stage {
 		SoundsUtils.getThemeM().setVolume(0.2f);
     }
 
+    /**
+     * <h2> dispose</h2>
+     * <p> Libera recursos utilizados pelo
+     * MapLoader, WorldUtils e Box2DDebugRenderer.</p>
+     */
     public void dispose() {
         mapLoader.dispose();
         world.dispose();
