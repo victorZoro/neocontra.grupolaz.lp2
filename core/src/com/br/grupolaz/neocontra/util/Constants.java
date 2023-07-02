@@ -1,7 +1,16 @@
 package com.br.grupolaz.neocontra.util;
 
 import com.badlogic.gdx.math.Vector2;
-
+/**
+ * <h2>Constants</h2>
+ * <p>a classe Constants armazena todas as constantes
+ *  utilizadas no jogo, como configurações de 
+ * tamanho de janela, nomes de arquivos de textura, configurações
+ *  de mapa, configurações de corpos do Box2D e 
+ * configurações do jogador.</p>
+ * <h3>package<h3>
+ * <p>ultil</p>
+ */
 //Inspired by Martian Run
 public class Constants {
 
