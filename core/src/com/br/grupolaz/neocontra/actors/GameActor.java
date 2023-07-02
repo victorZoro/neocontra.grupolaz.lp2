@@ -18,7 +18,55 @@ import com.br.grupolaz.neocontra.util.Constants;
 import com.br.grupolaz.neocontra.util.WorldUtils;
 import com.br.grupolaz.neocontra.util.SoundsUtils;
 
-
+/**
+ * <h2>GameActor</h2>
+ * <p>A classe GameActor é uma classe abstrata que 
+ * fornece uma estrutura básica e funcionalidades 
+ * comuns para os atores do jogo, como controle de 
+ * animações, lógica de movimento e renderização. 
+ * Essa classe pode ser estendida por atores específicos 
+ * do jogo para adicionar comportamentos e características adicionais</p>
+ * 
+ * <h3>package</h3>
+ * <p>actors</p>
+ * 
+ * <h3>variaveis</h3>
+ * <p>#world: {@link WorldUtils}</p>
+ * <P>#body: Body</P>
+ * <p>#sprite: Sprite</p>
+ * <P>#crouching: boolean</p>
+ * <p>#alive: boolean</p>
+ * <p>#currentState: ActorStates</p>
+ * <p>#previousState: ActorStates </p>
+ * <p>#actorRunning: Animation <TextureRegion> </p>
+ * <p>#actorRunningAiming: Animation<TextureRegion> </p>
+ * <p>#actorStanding: TextureRegion</p> 
+ * <p>#actorCrouching: TextureRegion</p>
+ * <p>#runningRight: boolean</p> 
+ * <p>#stateTimer: float</p> 
+ * <p>#frames: Array <TextureRegion></P>
+ * <p>#projectiles: Array <Body></p>
+ * 
+ * <h3>Métodos</h3>
+ * <p>+GameActor(WorldUtils, Body, TextureRegion)</p>
+ * <p>+setDrawRegion(int, int, int, int): void </p>
+ * <P>#abstract setUpAnimations(): void </p>
+ * <p>+getBody(): Body</p>
+ * <p>+act(float): void</p>
+ * <p>+getFrame(float): TextureRegion</p>
+ * <p>#checkCurrentState(): TextureRegion</p> 
+ * <p>-flipSprite(TextureRegion): void</p>
+ * <p>-checkStateTimer(float): float</p>
+ * <p>+getState(): ActorStates</p>
+ * <p>+changeLinearVelocity(Vector2): void</p>
+ * <p>+jump(): void</p>
+ * <p>+walk(boolean): void</p>
+ * <P>+shoot(): void </p>
+ * <p>+projectileOutOfBounds(OrthographicCamera): void</p>
+ * <p>+isOutOfBounds(Body, OrthographicCamera): boolean</p>
+ * <p>+resetSpriteSize(Sprite): void</p>
+ * <p>+draw(Batch, float): void</p>
+ */
 //Inspired by MartianRun
 public abstract class GameActor extends Actor {
     protected WorldUtils world;
