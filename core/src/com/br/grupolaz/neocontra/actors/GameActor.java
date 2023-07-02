@@ -1,7 +1,5 @@
 package com.br.grupolaz.neocontra.actors;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import org.w3c.dom.Text;
@@ -17,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.br.grupolaz.neocontra.enums.ActorStates;
 import com.br.grupolaz.neocontra.util.Constants;
-import com.br.grupolaz.neocontra.util.TextureUtils;
 import com.br.grupolaz.neocontra.util.WorldUtils;
 import com.br.grupolaz.neocontra.util.SoundsUtils;
 
@@ -28,13 +25,13 @@ public abstract class GameActor extends Actor {
     protected Body body;
     protected Sprite sprite;
     protected boolean crouching;
+    protected boolean alive;
 
     protected ActorStates currentState;
     protected ActorStates previousState;
 
     protected Animation<TextureRegion> actorRunning;
     protected Animation<TextureRegion> actorRunningAiming;
-    protected Animation<TextureRegion> actorJumping;
     protected TextureRegion actorStanding;
     protected TextureRegion actorCrouching;
 
@@ -47,7 +44,7 @@ public abstract class GameActor extends Actor {
     public GameActor(WorldUtils world, Body body, TextureRegion region) {
         this.world = world;
         this.body = body;
-        this.sprite = new Sprite(TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION));
+        this.sprite = new Sprite(region);
         this.sprite.setSize(16f / Constants.PIXELS_PER_METER, 20f / Constants.PIXELS_PER_METER);
         this.projectiles = new Array<Body>();
 
@@ -63,6 +60,9 @@ public abstract class GameActor extends Actor {
 
     protected abstract void setUpAnimations();
 
+    public Body getBody() {
+        return body;
+    }
 
     @Override
     public void act(float delta) {
@@ -87,16 +87,10 @@ public abstract class GameActor extends Actor {
         return region;
     }
 
-    private TextureRegion checkCurrentState() {
+    protected TextureRegion checkCurrentState() {
         TextureRegion region;
 
         switch (currentState) {
-            case JUMPING: {
-                region = actorJumping.getKeyFrame(stateTimer, true);
-                sprite.setPosition(sprite.getX(), sprite.getY() - (2f / Constants.PIXELS_PER_METER));
-                break;
-            }
-
             case RUNNING: {
                 resetSpriteSize(sprite);
                 region = actorRunning.getKeyFrame(stateTimer, true);
@@ -150,8 +144,6 @@ public abstract class GameActor extends Actor {
             return ActorStates.FALLING;
         } else if(body.getLinearVelocity().x != 0 ) {
             return ActorStates.RUNNING;
-        } else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            return ActorStates.CROUCHING;
         } else {
             return ActorStates.STANDING;
         }

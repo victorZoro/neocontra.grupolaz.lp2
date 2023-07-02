@@ -29,6 +29,11 @@ public class Constants {
     public static final String PLAYER_CROUCHING_REGION = "ParadoAgachado/still-low_000";
     public static final String PLAYER_RUNNING_AIMING_REGION = "AndandoMirando/walking-aiming_000";
 
+    public static final String ENEMY_ATLAS = "atlases/player/enemy.atlas";
+    public static final String ENEMY_STILL_REGION = "enemy_aiming000";
+    public static final String ENEMY_RUNNING_REGION = "enemy_walking000";
+    public static final String ENEMY_JUMPING_REGION = "enemy_walking006";
+    
     //PLayer texture configuration - coming soon
     
     //World Map Configuration
@@ -47,7 +52,7 @@ public class Constants {
     public static int DYNAMIC_BODY = 1;
     public static int KINEMATIC_BODY = 2;
     
-    //Player config -- later will be changed to personconfig...
+    //Player config 
     public static final float PLAYER_X = 2f / PIXELS_PER_METER;
     public static final float PLAYER_Y = 60f / PIXELS_PER_METER;
     public static final float PLAYER_RADIUS = 6f / PIXELS_PER_METER;
@@ -56,5 +61,9 @@ public class Constants {
     public static Vector2 PLAYER_LEFT_LINEAR_IMPULSE = new Vector2(-0.1f, 0);
     public static final float MAX_VELOCITY = 1.5f;
     public static final float PLAYER_BULLET_RADIUS = 1f / PIXELS_PER_METER;
+
+    //Enemy config
+    public static final float ENEMY_X = 10f / PIXELS_PER_METER;
+    public static final float ENEMY_Y = 60f / PIXELS_PER_METER;
 }
 

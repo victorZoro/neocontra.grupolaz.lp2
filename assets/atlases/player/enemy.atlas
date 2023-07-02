@@ -1,0 +1,82 @@
+enemy.png
+size: 512, 64
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+enemy_aiming000
+  rotate: false
+  xy: 0, 0
+  size: 32, 48
+  orig: 26, 34
+  offset: 0, -14
+  index: -1
+enemy_aiming001
+  rotate: false
+  xy: 32, 0
+  size: 32, 48
+  orig: 26, 33
+  offset: 0, -15
+  index: -1
+enemy_hidden000
+  rotate: false
+  xy: 64, 0
+  size: 32, 48
+  orig: 26, 34
+  offset: 0, -14
+  index: -1
+enemy_hidden001
+  rotate: false
+  xy: 96, 0
+  size: 32, 48
+  orig: 26, 33
+  offset: 0, -15
+  index: -1
+enemy_walking000
+  rotate: false
+  xy: 128, 0
+  size: 32, 48
+  orig: 18, 33
+  offset: 0, -15
+  index: -1
+enemy_walking001
+  rotate: false
+  xy: 160, 0
+  size: 32, 48
+  orig: 18, 34
+  offset: 0, -14
+  index: -1
+enemy_walking002
+  rotate: false
+  xy: 192, 0
+  size: 32, 48
+  orig: 17, 34
+  offset: 0, -14
+  index: -1
+enemy_walking003
+  rotate: false
+  xy: 224, 0
+  size: 32, 48
+  orig: 18, 33
+  offset: 0, -15
+  index: -1
+enemy_walking004
+  rotate: false
+  xy: 256, 0
+  size: 32, 48
+  orig: 18, 34
+  offset: 0, -14
+  index: -1
+enemy_walking005
+  rotate: false
+  xy: 288, 0
+  size: 32, 48
+  orig: 18, 34
+  offset: 0, -14
+  index: -1
+enemy_walking006
+  rotate: false
+  xy: 320, 0
+  size: 32, 32
+  orig: 18, 30
+  offset: 0, -2
+  index: -1
