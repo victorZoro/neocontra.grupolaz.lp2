@@ -8,7 +8,7 @@ import com.br.grupolaz.neocontra.stages.GameStage;
 
 //Inspired by Martian Run
 /**
- * <h2>GameStage</h2>
+ * <h2>GameScreen</h2>
  * <p>GameScreen , que representa uma tela do jogo. 
  * Essa classe é responsável por renderizar a tela, atualizar as informações visuais e lidar 
  * com eventos relacionados à interação do jogador.</p>
