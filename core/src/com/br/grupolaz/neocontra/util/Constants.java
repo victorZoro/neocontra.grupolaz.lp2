@@ -54,8 +54,8 @@ public class Constants {
     public static int KINEMATIC_BODY = 2;
     
     //Player config 
-    public static final float PLAYER_X = 2f / PIXELS_PER_METER;
-    public static final float PLAYER_Y = 60f / PIXELS_PER_METER;
+    public static final float PLAYER_X = -10f / PIXELS_PER_METER;
+    public static final float PLAYER_Y = 100f / PIXELS_PER_METER;
     public static final float PLAYER_RADIUS = 6f / PIXELS_PER_METER;
     public static Vector2 PLAYER_JUMPING_LINEAR_IMPULSE = new Vector2(0, 5f);
     public static Vector2 PLAYER_RIGHT_LINEAR_IMPULSE = new Vector2(0.1f, 0);
@@ -64,7 +64,7 @@ public class Constants {
     public static final float PLAYER_BULLET_RADIUS = 1f / PIXELS_PER_METER;
 
     //Enemy config
-    public static final float ENEMY_X = 10f / PIXELS_PER_METER;
+    public static final float ENEMY_X = 30f / PIXELS_PER_METER;
     public static final float ENEMY_Y = 60f / PIXELS_PER_METER;
 }
 

@@ -1,7 +1,10 @@
 package com.br.grupolaz.neocontra.actors;
 
+import java.lang.annotation.Inherited;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.br.grupolaz.neocontra.util.Constants;
 import com.br.grupolaz.neocontra.util.TextureUtils;
@@ -42,8 +45,11 @@ public class Enemy extends GameActor {
      * @param body tipo Body
      * @param region tipo TextureRegion
      */
-    public Enemy(WorldUtils world, Body body, TextureRegion region) {
+    
+    
+    public Enemy(WorldUtils world, Body body, TextureRegion region, Player player) {
         super(world, body, region);
+        this.player = player;
         setUpAnimations();
     }
 
@@ -62,6 +68,24 @@ public class Enemy extends GameActor {
      *  são obtidas do atlas de texturas
      *  usando a classe {@link TextureUtils}</P>
      */
+    public void facePlayer() {
+        TextureRegion region = checkCurrentState();
+
+        if(player.getBody().getPosition().x < body.getPosition().x && !(region.isFlipX())) {
+            region.flip(true, false);
+        } else if(player.getBody().getPosition().x > body.getPosition().x && region.isFlipX()) {
+            region.flip(true, false);
+        }
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        facePlayer();
+    }
+
+
+    @Override
     protected void setUpAnimations() {
         actorStanding = TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION);
 

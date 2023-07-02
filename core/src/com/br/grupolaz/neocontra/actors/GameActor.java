@@ -2,10 +2,6 @@ package com.br.grupolaz.neocontra.actors;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import org.w3c.dom.Text;
-
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -15,8 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.br.grupolaz.neocontra.enums.ActorStates;
 import com.br.grupolaz.neocontra.util.Constants;
-import com.br.grupolaz.neocontra.util.WorldUtils;
 import com.br.grupolaz.neocontra.util.SoundsUtils;
+import com.br.grupolaz.neocontra.util.WorldUtils;
 
 /**
  * <h2>GameActor</h2>
@@ -120,7 +116,6 @@ public abstract class GameActor extends Actor {
         sprite.setPosition(x, y);
 
         sprite.setRegion(getFrame(delta));
-
     }
 
     public TextureRegion getFrame(float delta) {
@@ -236,7 +231,6 @@ public abstract class GameActor extends Actor {
             }
         }
         SoundsUtils.getShotSound().play();
-        
     }
 
     public void projectileOutOfBounds(OrthographicCamera camera) {

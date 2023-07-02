@@ -1,6 +1,5 @@
 package com.br.grupolaz.neocontra.util;
 
-import java.util.Vector;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -59,8 +58,8 @@ public class GameUtils {
 
         
         if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
-            player.changeLinearVelocity(new Vector2(0, 0));
             player.getBody().setTransform(Constants.PLAYER_X, Constants.PLAYER_Y, player.getBody().getAngle());
+            player.spawn();
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
