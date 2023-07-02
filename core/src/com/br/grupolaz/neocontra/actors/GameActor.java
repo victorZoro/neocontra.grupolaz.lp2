@@ -154,6 +154,20 @@ public abstract class GameActor extends Actor {
 
     protected Array<Projectile> projectiles;
 
+    /**
+     * <h2>GameActor</h2>
+     * <p>O contrutor de GameActor é responsável por receber
+     *  e atribuir os objetos necessários ao ator do jogo, definir
+     * seu estado inicial, criar um objeto Sprite com base na região de
+     * textura fornecida e inicializar outras variáveis de
+     * instância relevantes
+     * </p>
+     * <p>Ele recebe um objeto WorldUtils, um 
+     * objeto Body e uma região de textura region</p>
+     * @param world  tipo WorldUtils
+     * @param body   tipo Body
+     * @param region tipo TextureRegion
+     */
     public GameActor(WorldUtils world, Body body, TextureRegion region) {
         this.world = world;
         this.body = body;
@@ -167,6 +181,21 @@ public abstract class GameActor extends Actor {
         frames = new Array<TextureRegion>();
     }
 
+    /**
+     * <h2>setDrawRegion</h2>
+     * <p>O método setDrawRegion permite
+     *  definir a região de textura do sprite
+     *  do ator, especificando as coordenadas
+     *  de início (x, y) e as dimensões (width, height).</p> 
+     * <p>Isso permite que diferentes partes de 
+     * uma única textura sejam exibidas no sprite, 
+     * possibilitando animações, movimentos ou mudanças 
+     * de aparência.</p>
+     * @param x tipo int
+     * @param y tipo int 
+     * @param width  tipo int 
+     * @param height tipo int 
+     */
     public void setDrawRegion(int x, int y, int width, int height) {
         sprite.setRegion(x, y, width, height);
     }
