@@ -31,7 +31,6 @@ public class TextureUtils {
     private static final Texture lifeMedal = new Texture("life.png");
     private static final Texture gameOver = new Texture("gameover.png");
     private static final Texture playerBullet = new Texture("playerBullet.png");
-    // private static final Texture playerBullet = new Texture("playerBullet.png");
 
     /**
      * <h2>getPlayerAtlas</h2>
@@ -62,10 +61,7 @@ public class TextureUtils {
     public static Texture getGameOver() {
         return gameOver;
     }
-
-    // public static Texture getPlayerBullet(){
-    //     return playerBullet;
-    // }
+    
     /**
      * <h2>getPlayerBullet<h2>
      * <p>retorna a imagem bala do jogador</p>

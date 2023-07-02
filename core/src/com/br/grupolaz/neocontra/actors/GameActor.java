@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.br.grupolaz.neocontra.enums.ActorStates;
 import com.br.grupolaz.neocontra.util.Constants;
-import com.br.grupolaz.neocontra.util.SoundsUtils;
 import com.br.grupolaz.neocontra.util.WorldUtils;
 
 /**
@@ -83,14 +82,14 @@ public abstract class GameActor extends Actor {
     protected float stateTimer;
     protected Array<TextureRegion> frames;
 
-    protected Array<Body> projectiles;
+    protected Array<Projectile> projectiles;
 
     public GameActor(WorldUtils world, Body body, TextureRegion region) {
         this.world = world;
         this.body = body;
         this.sprite = new Sprite(region);
         this.sprite.setSize(16f / Constants.PIXELS_PER_METER, 20f / Constants.PIXELS_PER_METER);
-        this.projectiles = new Array<Body>();
+        this.projectiles = new Array<Projectile>();
 
         currentState = previousState = ActorStates.STANDING;
         stateTimer = 0;
@@ -116,6 +115,10 @@ public abstract class GameActor extends Actor {
         sprite.setPosition(x, y);
 
         sprite.setRegion(getFrame(delta));
+
+        for(Projectile projectile : projectiles) {
+            projectile.act(delta);
+        }
     }
 
     public TextureRegion getFrame(float delta) {
@@ -216,28 +219,13 @@ public abstract class GameActor extends Actor {
         }
     }
 
-    public void shoot() {
-        if(!runningRight) {
-            if(currentState == ActorStates.CROUCHING) {
-                projectiles.add(world.createProjectile(body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER, body.getPosition().y - 1.5f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(-3f, 0)));
-            } else {
-                projectiles.add(world.createProjectile(body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER, body.getPosition().y + 2f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(-3f, 0)));
-            }
-        } else {
-            if(currentState == ActorStates.CROUCHING) {
-                projectiles.add(world.createProjectile(body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER, body.getPosition().y - 1.5f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(3f, 0)));
-            } else {
-                projectiles.add(world.createProjectile(body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER, body.getPosition().y + 2f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS, new Vector2(3f, 0)));
-            }
-        }
-        SoundsUtils.getShotSound().play();
-    }
+    public abstract void shoot();
 
     public void projectileOutOfBounds(OrthographicCamera camera) {
         int i = 0;
-        for(Body projectile : projectiles) {
-            if(isOutOfBounds(projectile, camera)) {
-                world.getWorld().destroyBody(projectile);
+        for(Projectile projectile : projectiles) {
+            if(isOutOfBounds(projectile.getBody(), camera)) {
+                world.getWorld().destroyBody(projectile.getBody());
                 projectiles.removeIndex(i);
             }
             i++;
@@ -262,6 +250,10 @@ public abstract class GameActor extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         sprite.draw(batch);
+
+        for(Projectile projectile : projectiles) {
+            projectile.draw(batch, parentAlpha);
+        }
     }
 
 }

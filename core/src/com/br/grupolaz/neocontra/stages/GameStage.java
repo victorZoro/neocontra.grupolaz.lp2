@@ -2,12 +2,15 @@ package com.br.grupolaz.neocontra.stages;
 
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.br.grupolaz.neocontra.NeoContra;
+import com.br.grupolaz.neocontra.actors.Bullet;
 import com.br.grupolaz.neocontra.actors.Enemy;
 import com.br.grupolaz.neocontra.actors.GameActor;
 import com.br.grupolaz.neocontra.actors.Player;
+import com.br.grupolaz.neocontra.actors.Projectile;
 import com.br.grupolaz.neocontra.screens.GameScreen;
 import com.br.grupolaz.neocontra.util.Constants;
 import com.br.grupolaz.neocontra.util.GameUtils;
@@ -105,7 +108,6 @@ public class GameStage extends Stage {
 
         player.projectileOutOfBounds(game.getCamera());
 
-
         mapLoader.getRenderer().setView(game.getCamera());
     }
 
@@ -137,6 +139,7 @@ public class GameStage extends Stage {
         game.getSpriteBatch().setProjectionMatrix(game.getCamera().combined);
         player.act(delta);
         enemy.act(delta);
+
         game.getSpriteBatch().begin();
         player.draw(game.getSpriteBatch(), 0);
         enemy.draw(game.getSpriteBatch(), 0);
