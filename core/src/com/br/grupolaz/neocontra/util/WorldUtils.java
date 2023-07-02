@@ -123,7 +123,7 @@ public class WorldUtils {
      * @param world tipo World
      * @return body 
      */
-    public Body createPerson(World world) {
+
     public Body createPerson(World world, float x, float y) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(x, y);

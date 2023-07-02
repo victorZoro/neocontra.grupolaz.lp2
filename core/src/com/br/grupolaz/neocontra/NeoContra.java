@@ -17,9 +17,9 @@ import com.br.grupolaz.neocontra.util.SoundsUtils;
  * a OrthographicCamera e o FitViewport. Ela também define a tela inicial do jogo como 
  * GameScreen e lida com a reprodução de sons.</p>
  * <h3>Variaveis</h3>
- * <p>batch</p>
- * <p>camera</p>
- * <p>viewport</p>
+ * <p>batch: SpriteBatch </p>
+ * <p>camera: OrthographicCamera </p>
+ * <p>viewport: Viewport</p>
  */
 public class NeoContra extends Game {
 
@@ -43,7 +43,7 @@ public class NeoContra extends Game {
 	}
 	/**
 	 * <h2>getSpriteBatch</h2>
-	 * @return batch
+	 * @return batch 
 	 */
 	public SpriteBatch getSpriteBatch () {
 		return batch;
@@ -78,7 +78,6 @@ public class NeoContra extends Game {
 	 * por renderizar os elementos do jogo.</p>
 	 */
 	public void render () {
-		//chama a função Presente em game.
 		super.render();
 	}
 	
