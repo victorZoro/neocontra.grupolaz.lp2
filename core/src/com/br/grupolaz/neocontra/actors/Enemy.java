@@ -29,6 +29,9 @@ import com.br.grupolaz.neocontra.util.WorldUtils;
  */
 public class Enemy extends GameActor {
 
+    private Player player;
+
+
     /**
      * <h2>Enemy</h2>
      * <p>A função do construtor Enemy

@@ -1,6 +1,7 @@
 package com.br.grupolaz.neocontra.util;
 
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
@@ -42,6 +43,7 @@ public class WorldUtils {
 
     private MapLoader mapLoader;
     private World world;
+    private SpriteBatch batch;
 
     /**
      * <h2>WorldUtils</h2>
@@ -53,6 +55,7 @@ public class WorldUtils {
     public WorldUtils(MapLoader mapLoader) {
         this.mapLoader = mapLoader;
         this.world = new World(Constants.WORLD_GRAVITY, true);
+        this.batch = new SpriteBatch();
         createWorldBodies();
     }
 
@@ -176,12 +179,17 @@ public class WorldUtils {
      */
     public Body createProjectile(float x, float y, float radius, Vector2 velocity) {
         BodyDef bodyDef = new BodyDef();
+
         bodyDef.position.set(x, y);
         bodyDef.type = BodyDef.BodyType.KinematicBody;
 
         FixtureDef fixtureDef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(radius);
+
+        //batch.begin();
+        //batch.draw(TextureUtils.getPlayerBullet(), radius, radius);
+        //batch.end();
 
         fixtureDef.shape = shape;
 
