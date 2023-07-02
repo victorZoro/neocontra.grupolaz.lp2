@@ -132,6 +132,8 @@ public class WorldUtils {
      * usando uma definição de fixação. O corpo é 
      * então adicionado ao mundo do jogo e retornado.</p>
      * @param world tipo World
+     * @param x tipo float
+     * @param y tipo float
      * @return body 
      */
 

@@ -56,14 +56,16 @@ public class NeoContra extends Game {
 	}
 	/**
 	 * <h2>getSpriteBatch</h2>
-	 * @return batch 
+	 * <p>Retona batch que desenha os elementos graficos do jogo</p>
+	 * @return batch tipo SpriteBatch (get)
 	 */
 	public SpriteBatch getSpriteBatch () {
 		return batch;
 	}
 	/**
 	 * <h2>getCamera</h2>
-	 * @return camera
+	 * <p>Retona camera que é utilizada para visualizara acena do jogo</p>
+	 * @return camera tipo OrthographicCamera (get)
 	 */
 	public OrthographicCamera getCamera() {
 		return camera;
@@ -71,6 +73,7 @@ public class NeoContra extends Game {
 
 	/**
 	 * <h2> getViewport</h2>
+	 * <p>Rtorna viewport que controla o redimencionamento da tela</p>
 	 * @return viewport
 	 */
 	public Viewport getViewport() {
