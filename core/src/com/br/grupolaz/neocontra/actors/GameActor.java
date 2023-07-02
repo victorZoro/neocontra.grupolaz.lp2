@@ -200,26 +200,6 @@ public abstract class GameActor extends Actor {
         sprite.setRegion(x, y, width, height);
     }
 
-    protected abstract void setUpAnimations();
-
-    public Body getBody() {
-        return body;
-    }
-
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-        float x = body.getPosition().x - sprite.getWidth() / 2;
-        float y = body.getPosition().y - sprite.getHeight() / 2;
-        sprite.setPosition(x, y);
-
-        sprite.setRegion(getFrame(delta));
-
-        for (Projectile projectile : projectiles) {
-            projectile.act(delta);
-        }
-    }
-
     public TextureRegion getFrame(float delta) {
         currentState = getState();
 
@@ -321,8 +301,6 @@ public abstract class GameActor extends Actor {
         }
     }
 
-    public abstract void shoot();
-
     public void projectileOutOfBounds(OrthographicCamera camera) {
         int i = 0;
         for (Projectile projectile : projectiles) {
@@ -334,18 +312,42 @@ public abstract class GameActor extends Actor {
         }
     }
 
+    protected abstract void setUpAnimations();
+
+    public abstract void shoot();
+
+    public Body getBody() {
+        return body;
+    }
+
+    public void resetSpriteSize(Sprite sprite) {
+        sprite.setSize(16f / Constants.PIXELS_PER_METER, 20f / Constants.PIXELS_PER_METER);
+    }
+
     public boolean isOutOfBounds(Body body, OrthographicCamera camera) {
-        if (body.getPosition().x <= camera.position.x - camera.viewportWidth / 2 ||
-                body.getPosition().x >= camera.position.x + camera.viewportWidth / 2 ||
-                body.getPosition().y <= camera.position.y - camera.viewportHeight / 2 ||
-                body.getPosition().y >= camera.position.y + camera.viewportHeight / 2) {
+        if (body.getPosition().x <= camera.position.x - camera.viewportWidth / 2
+            || body.getPosition().x >= camera.position.x + camera.viewportWidth / 2 
+            || body.getPosition().y <= camera.position.y - camera.viewportHeight / 2
+            || body.getPosition().y >= camera.position.y + camera.viewportHeight / 2) {
             return true;
         }
         return false;
     }
 
-    public void resetSpriteSize(Sprite sprite) {
-        sprite.setSize(16f / Constants.PIXELS_PER_METER, 20f / Constants.PIXELS_PER_METER);
+    public abstract void collision();
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        float x = body.getPosition().x - sprite.getWidth() / 2;
+        float y = body.getPosition().y - sprite.getHeight() / 2;
+        sprite.setPosition(x, y);
+
+        sprite.setRegion(getFrame(delta));
+
+        for (Projectile projectile : projectiles) {
+            projectile.act(delta);
+        }
     }
 
     @Override

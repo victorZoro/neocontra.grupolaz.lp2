@@ -1,6 +1,7 @@
 package com.br.grupolaz.neocontra.actors;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -103,6 +104,11 @@ public class Enemy extends GameActor {
 
     @Override
     public void shoot() {
+    }
+
+    @Override
+    public void collision() {
+        Gdx.app.log("Enemy", "Collision");
     }
     
 }

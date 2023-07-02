@@ -1,7 +1,6 @@
 package com.br.grupolaz.neocontra.util;
 
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
@@ -13,7 +12,6 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-import com.br.grupolaz.neocontra.util.TextureUtils;
 /**
  * <h2>WorldUtils</h2>
  * <p>A classe WorldUtils fornece utilitários para
@@ -43,7 +41,6 @@ public class WorldUtils {
 
     private MapLoader mapLoader;
     private World world;
-    private SpriteBatch batch;
 
     /**
      * <h2>WorldUtils</h2>
@@ -55,7 +52,6 @@ public class WorldUtils {
     public WorldUtils(MapLoader mapLoader) {
         this.mapLoader = mapLoader;
         this.world = new World(Constants.WORLD_GRAVITY, true);
-        this.batch = new SpriteBatch();
         createWorldBodies();
     }
 
@@ -141,7 +137,7 @@ public class WorldUtils {
      * @return body
      */
 
-    public Body createPerson(World world, float x, float y) {
+    public Body createPerson(World world, float x, float y, String userData) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(x, y);
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -154,7 +150,7 @@ public class WorldUtils {
         fixtureDef.friction = 0.5f;
 
         Body body = world.createBody(bodyDef);
-        body.createFixture(fixtureDef);
+        body.createFixture(fixtureDef).setUserData(userData);
         shape.dispose();
 
         return body;
@@ -177,7 +173,7 @@ public class WorldUtils {
      * @param velocity tipo Vector2
      * @return body
      */
-    public Body createProjectile(float x, float y, float radius, Vector2 velocity) {
+    public Body createProjectile(float x, float y, float radius, Vector2 velocity, String userData) {
         BodyDef bodyDef = new BodyDef();
 
         bodyDef.position.set(x, y);
@@ -187,14 +183,11 @@ public class WorldUtils {
         CircleShape shape = new CircleShape();
         shape.setRadius(radius);
 
-        //batch.begin();
-        //batch.draw(TextureUtils.getPlayerBullet(), radius, radius);
-        //batch.end();
-
         fixtureDef.shape = shape;
+        fixtureDef.isSensor = true;
 
         Body body = world.createBody(bodyDef);
-        body.createFixture(fixtureDef);
+        body.createFixture(fixtureDef).setUserData(userData);
         shape.dispose();
 
         body.setLinearVelocity(velocity);

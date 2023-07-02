@@ -2,21 +2,19 @@ package com.br.grupolaz.neocontra.stages;
 
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.br.grupolaz.neocontra.NeoContra;
-import com.br.grupolaz.neocontra.actors.Bullet;
 import com.br.grupolaz.neocontra.actors.Enemy;
 import com.br.grupolaz.neocontra.actors.GameActor;
 import com.br.grupolaz.neocontra.actors.Player;
-import com.br.grupolaz.neocontra.actors.Projectile;
 import com.br.grupolaz.neocontra.screens.GameScreen;
 import com.br.grupolaz.neocontra.util.Constants;
 import com.br.grupolaz.neocontra.util.GameUtils;
 import com.br.grupolaz.neocontra.util.MapLoader;
 import com.br.grupolaz.neocontra.util.SoundsUtils;
 import com.br.grupolaz.neocontra.util.TextureUtils;
+import com.br.grupolaz.neocontra.util.WorldContactListener;
 import com.br.grupolaz.neocontra.util.WorldUtils;
 /**
  * <h2>GameStage</h2>
@@ -80,6 +78,8 @@ public class GameStage extends Stage {
         setUpMusic();
 
         hud = new HudStage(game.getSpriteBatch(), (Player) player);
+
+        world.getWorld().setContactListener(new WorldContactListener());
 
     }
 
@@ -170,7 +170,7 @@ public class GameStage extends Stage {
             player.remove();
         }
 
-        player = new Player(world, world.createPerson(world.getWorld(), Constants.PLAYER_X, Constants.PLAYER_Y), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION));
+        player = new Player(world, world.createPerson(world.getWorld(), Constants.PLAYER_X, Constants.PLAYER_Y, "player"), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION));
         addActor(player);
     }
 
@@ -179,7 +179,7 @@ public class GameStage extends Stage {
      * <p>Esse método é reposnsavel por configurar o ator inimigo</p>
      */
     private void setUpEnemy() {
-        enemy = new Enemy(world, world.createPerson(world.getWorld(), 23f, Constants.ENEMY_Y), TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION), (Player) player);
+        enemy = new Enemy(world, world.createPerson(world.getWorld(), Constants.ENEMY_X, Constants.ENEMY_Y, "enemy"), TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION), (Player) player);
         addActor(enemy);
     }
 
