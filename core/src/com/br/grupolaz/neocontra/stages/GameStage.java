@@ -72,6 +72,7 @@ public class GameStage extends Stage {
         game.alignCameraToWorldCenter();
 
         b2dRenderer = new Box2DDebugRenderer();
+        b2dRenderer.setDrawBodies(false);
         this.mapLoader = new MapLoader(Constants.LEVEL1_MAP);
         world = new WorldUtils(mapLoader);
 
