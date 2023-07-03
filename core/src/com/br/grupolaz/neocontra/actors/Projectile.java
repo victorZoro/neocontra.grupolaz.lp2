@@ -30,4 +30,6 @@ public abstract class Projectile extends Actor {
         super.draw(batch, parentAlpha);
         sprite.draw(batch);
     }
+
+    
 }

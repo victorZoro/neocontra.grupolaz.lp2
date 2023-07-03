@@ -1,0 +1,7 @@
+Para ter acesso ao jogo há duas opções.
+
+1 - Abrir o arquivo neocontra.jar.
+
+2 - Caso o primeiro não funcione, acessar o repositório https://github.com/victorZoro/neocontra.grupolaz.lp2 , clonar, abrir na IDE de sua preferência e executar.
+
+Obs.: Caso a IDE seja o Visual Studio Code, a extensão Java Extension Pack precisa estar instalada.
