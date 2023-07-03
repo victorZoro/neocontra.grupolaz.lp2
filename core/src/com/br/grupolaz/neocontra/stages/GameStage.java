@@ -1,6 +1,7 @@
 package com.br.grupolaz.neocontra.stages;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -198,6 +199,7 @@ public class GameStage extends Stage {
         SoundsUtils.getThemeM().setLooping(true);
 		SoundsUtils.getThemeM().play();
 		SoundsUtils.getThemeM().setVolume(0.2f);
+        System.out.println("Musica Inicializada");
     }
 
     /**

@@ -89,11 +89,12 @@ public class Player extends GameActor {
     public void hit() {
         hit = true;
         lifeCount--;
-        System.out.println(lifeCount);
+        System.out.println("Voce so tem:" + lifeCount + "vidas");
     }
 
     public void die() {
         setToDestroy = true;
+        System.out.println("FALHEI NA MISSÃO! ASPIRANTE MORTO");
     }
 
     /**

@@ -137,6 +137,7 @@ public class Enemy extends GameActor {
     @Override
     public void collision() {
         setToDestroy = true;
+        System.out.println("Death Enemy muahahahaha");
     }
 
     @Override
