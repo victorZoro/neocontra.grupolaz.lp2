@@ -71,9 +71,8 @@
   <object id="120" x="471.636" y="40.3636" width="40.1818" height="1.81818"/>
  </objectgroup>
  <objectgroup id="11" name="Walls">
-  <object id="98" x="144" y="16" width="8" height="96"/>
-  <object id="99" x="320" y="0" width="8" height="112"/>
-  <object id="100" x="560" y="0" width="8" height="112"/>
+  <object id="99" x="320" y="48" width="8" height="32"/>
+  <object id="100" x="560" y="56" width="8" height="56"/>
  </objectgroup>
  <objectgroup id="12" name="SeaLevel">
   <object id="102" x="0" y="112" width="800" height="8"/>

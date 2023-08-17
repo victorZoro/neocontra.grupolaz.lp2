@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.br.grupolaz.neocontra.enums.ActorStates;
+import com.br.grupolaz.neocontra.enums.Bits;
 import com.br.grupolaz.neocontra.util.Constants;
 import com.br.grupolaz.neocontra.util.TextureUtils;
 import com.br.grupolaz.neocontra.util.WorldUtils;
@@ -52,7 +53,7 @@ public class Enemy extends GameActor {
     public Enemy(WorldUtils world, Body body, TextureRegion region, Player player) {
         super(world, body, region);
         body.getFixtureList().get(0).setUserData(this);
-        setCategoryFilter(Constants.ENEMY_BIT);
+        setCategoryFilter(Bits.ENEMY.getBitType());
         this.player = player;
         setToDestroy = false;
         destroyed = false;

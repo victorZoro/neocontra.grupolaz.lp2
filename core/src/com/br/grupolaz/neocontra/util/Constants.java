@@ -20,14 +20,6 @@ public class Constants {
     public static final int WINDOW_WIDTH = 160 / PIXELS_PER_METER;
     public static final int WINDOW_HEIGHT = 120 / PIXELS_PER_METER;
 
-    //Bits configuration
-    public static final short DEFAULT_BIT = 1;
-    public static final short PLAYER_BIT = 2;
-    public static final short ENEMY_BIT = 4;
-    public static final short BULLET_BIT = 8;
-    public static final short DEAD_BIT = 16;
-
-
     //Texture configuration
     public static final String LEVEL1_MAP = "map/level1_map.tmx";
     public static final String PLAYER_ATLAS = "atlases/player/player.atlas";

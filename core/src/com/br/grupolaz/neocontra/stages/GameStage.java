@@ -1,22 +1,20 @@
 package com.br.grupolaz.neocontra.stages;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.br.grupolaz.neocontra.NeoContra;
 import com.br.grupolaz.neocontra.actors.Enemy;
 import com.br.grupolaz.neocontra.actors.GameActor;
 import com.br.grupolaz.neocontra.actors.Player;
+import com.br.grupolaz.neocontra.enums.Layers;
+import com.br.grupolaz.neocontra.interactive.*;
 import com.br.grupolaz.neocontra.screens.GameScreen;
-import com.br.grupolaz.neocontra.util.Constants;
-import com.br.grupolaz.neocontra.util.GameUtils;
-import com.br.grupolaz.neocontra.util.MapLoader;
-import com.br.grupolaz.neocontra.util.SoundsUtils;
-import com.br.grupolaz.neocontra.util.TextureUtils;
-import com.br.grupolaz.neocontra.util.WorldContactListener;
-import com.br.grupolaz.neocontra.util.WorldUtils;
+import com.br.grupolaz.neocontra.util.*;
+
 /**
  * <h2>GameStage</h2>
  * <p>A classe GameStage é responsável por coordenar
@@ -58,11 +56,13 @@ public class GameStage extends Stage {
     private GameActor enemy;
 
     private Box2DDebugRenderer b2dRenderer;
+
     /**
      * <h2>GameStage</h2>
      * <p>Contrutor da classe GameStage é responsável
      * por criar a tela de jogo principal do jogo NeoContra.</p>
-     * @param game tipo NeoContra
+     *
+     * @param game       tipo NeoContra
      * @param gameScreen tipo GameScreen
      */
     public GameStage(NeoContra game, GameScreen gameScreen) {
@@ -72,17 +72,46 @@ public class GameStage extends Stage {
         game.alignCameraToWorldCenter();
 
         b2dRenderer = new Box2DDebugRenderer();
-        b2dRenderer.setDrawBodies(false);
+//        b2dRenderer.setDrawBodies(false);
         this.mapLoader = new MapLoader(Constants.LEVEL1_MAP);
         world = new WorldUtils(mapLoader);
 
         setUpCharacters();
+        setUpMap();
         setUpMusic();
 
         hud = new HudStage(game.getSpriteBatch(), (Player) player);
 
         world.getWorld().setContactListener(new WorldContactListener());
 
+    }
+
+    private void setUpMap() {
+        for (RectangleMapObject object : mapLoader.getMap().getLayers().get(Layers.GROUND.getLayer()).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle r = object.getRectangle();
+            new Ground(world.getWorld(), mapLoader.getMap(), r);
+        }
+
+        for (RectangleMapObject object : mapLoader.getMap().getLayers().get(Layers.WALLS.getLayer()).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle r = object.getRectangle();
+            new Wall(world.getWorld(), mapLoader.getMap(), r);
+        }
+
+        for (RectangleMapObject object : mapLoader.getMap().getLayers().get(Layers.STAIRS.getLayer()).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle r = object.getRectangle();
+            new Stairs(world.getWorld(), mapLoader.getMap(), r);
+        }
+
+
+        for (RectangleMapObject object : mapLoader.getMap().getLayers().get(Layers.SEALEVEL.getLayer()).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle r = object.getRectangle();
+            new SeaLevel(world.getWorld(), mapLoader.getMap(), r);
+        }
+
+        for (RectangleMapObject object : mapLoader.getMap().getLayers().get(Layers.CEILING.getLayer()).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle r = object.getRectangle();
+            new Ceiling(world.getWorld(), mapLoader.getMap(), r);
+        }
     }
 
 
@@ -97,6 +126,7 @@ public class GameStage extends Stage {
      * <P>Atualiza a posição da câmera para seguir o personagem principal.</p>
      * <p>Verifica se os projéteis do jogador estão fora da câmera e os remove, se necessário.</p>
      * <P>Atualiza a visualização do mapa para a câmera atual.</p>
+     *
      * @param delta tipo float
      */
     public void update(float delta) {
@@ -117,10 +147,10 @@ public class GameStage extends Stage {
      * <h2>act</h2>
      * <P>a função act é responsável
      * por atualizar a lógica e os estados dos atores,
-     *  renderizar o mapa, o mundo físico e os elementos
-     *  do jogo, bem como a interface do usuário (HUD).
-     *  É um componente importante no ciclo de atualização
-     *  e renderização do jogo.</p>
+     * renderizar o mapa, o mundo físico e os elementos
+     * do jogo, bem como a interface do usuário (HUD).
+     * É um componente importante no ciclo de atualização
+     * e renderização do jogo.</p>
      *
      * <h4>O que ele atualiza</h4>
      * <p>Atualiza o estágio e seus atores.</P>
@@ -128,6 +158,7 @@ public class GameStage extends Stage {
      * <p>Renderiza os objetos físicos em modo de depuração.</p>
      * <p>Renderiza os atores (personagens) usando o SpriteBatch do jogo.</p>
      * <p>Atualiza e desenha o HudStage para exibir o cabeçalho do jogo.</p>
+     *
      * @param delta tipo float
      */
     public void act(float delta) {
@@ -156,7 +187,7 @@ public class GameStage extends Stage {
     /**
      * <h2>setUpCharacters</h2>
      * <p>Metodo responsavel por chamar <b>setUpPlayer() e
-        setUpEnemy()</b> para configurar os personagens do jogo</p>
+     * setUpEnemy()</b> para configurar os personagens do jogo</p>
      */
     private void setUpCharacters() {
         setUpPlayer();
@@ -168,7 +199,7 @@ public class GameStage extends Stage {
      * <P> Esse método é responsavel por confugurar o ator player</p>
      */
     private void setUpPlayer() {
-        if(player != null) {
+        if (player != null) {
             player.remove();
         }
 
@@ -186,9 +217,9 @@ public class GameStage extends Stage {
     }
 
     private void followPlayer() {
-        if(player.getBody().getPosition().x <= 2.5f) {
+        if (player.getBody().getPosition().x <= 2.5f) {
             game.getCamera().position.x = 2.5f;
-        } else if(player.getBody().getPosition().x >= 23f) {
+        } else if (player.getBody().getPosition().x >= 23f) {
             game.getCamera().position.x = 23f;
         } else {
             game.getCamera().position.x = player.getBody().getPosition().x;
@@ -198,9 +229,17 @@ public class GameStage extends Stage {
 
     private void setUpMusic() {
         SoundsUtils.getThemeM().setLooping(true);
-		SoundsUtils.getThemeM().play();
-		SoundsUtils.getThemeM().setVolume(0.2f);
+        SoundsUtils.getThemeM().play();
+        SoundsUtils.getThemeM().setVolume(0.2f);
         System.out.println("Musica Inicializada");
+    }
+
+    public MapLoader getMapLoader() {
+        return mapLoader;
+    }
+
+    public WorldUtils getWorldUtils() {
+        return world;
     }
 
     /**
