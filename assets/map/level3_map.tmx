@@ -61,6 +61,6 @@
   <object id="55" x="344" y="50.6667" width="184.333" height="5.66667"/>
  </objectgroup>
  <objectgroup id="6" name="SeaLevel">
-  <object id="56" x="0" y="144" width="1200" height="7.33333"/>
+  <object id="56" x="0" y="152" width="1200" height="7.33333"/>
  </objectgroup>
 </map>

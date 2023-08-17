@@ -26,9 +26,7 @@
   <object id="61" x="616.333" y="103.667" width="183.333" height="8"/>
  </objectgroup>
  <objectgroup id="6" name="SeaLevel">
-  <object id="55" x="530" y="144.333" width="269.333" height="6.33333"/>
-  <object id="56" x="233.667" y="144" width="295.333" height="6.66667"/>
-  <object id="57" x="0" y="144" width="232.667" height="7.33333"/>
+  <object id="57" x="0" y="152" width="800" height="7.33333"/>
  </objectgroup>
  <objectgroup id="5" name="Stairs">
   <object id="36" x="611.75" y="104.25" width="4.25" height="3.75"/>
