@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.br.grupolaz.neocontra.NeoContra;
 import com.br.grupolaz.neocontra.actors.Enemy;
+import com.br.grupolaz.neocontra.actors.Enemy_2;
 import com.br.grupolaz.neocontra.actors.GameActor;
 import com.br.grupolaz.neocontra.actors.Player;
 import com.br.grupolaz.neocontra.screens.GameScreen;
@@ -181,7 +182,7 @@ public class GameStage extends Stage {
      * <p>Esse método é reposnsavel por configurar o ator inimigo</p>
      */
     private void setUpEnemy() {
-        enemy = new Enemy(world, world.createPerson(world.getWorld(), Constants.ENEMY_X, Constants.ENEMY_Y), TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION), (Player) player);
+        enemy = new Enemy_2(world, world.createPerson(world.getWorld(), Constants.ENEMY_X, Constants.ENEMY_Y), TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION), (Player) player);
         addActor(enemy);
     }
 

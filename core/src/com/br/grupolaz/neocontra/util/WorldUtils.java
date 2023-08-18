@@ -8,8 +8,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import com.badlogic.gdx.physics.box2d.World;
 import com.br.grupolaz.neocontra.actors.GameActor;
 
@@ -205,5 +207,28 @@ public class WorldUtils {
      */
     public void dispose() {
         world.dispose();
+    }
+
+    public boolean rayCastObstacle(Vector2 start, Vector2 end, float raycastLength) {
+        final boolean[] hasObstacle = { false }; // Usando um array para armazenar o resultado
+
+        RayCastCallback rayCastCallback = new RayCastCallback() {
+            @Override
+            public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
+                // Verifica se a categoria do filtro da fixture é a de um obstáculo
+                if ((fixture.getFilterData().maskBits != Constants.STATIC_BODY)) {
+                    hasObstacle[0] = true; // Define como true se houver um obstáculo
+                    System.out.println("inimigo pula");
+                    return 0; // Interrompe o raycast
+                }
+                return 1; // Continua o raycast
+            }
+        };
+        // Faz o raycast a partir do ponto inicial com a direção horizontal
+        Vector2 rayDirection = end.cpy().sub(start).nor();
+        Vector2 rayEndHorizontal = start.cpy().add(rayDirection.scl(raycastLength));
+        world.rayCast(rayCastCallback, start, rayEndHorizontal);
+
+        return hasObstacle[0];
     }
 }
