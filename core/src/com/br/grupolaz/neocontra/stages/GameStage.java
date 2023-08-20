@@ -60,7 +60,7 @@ public class GameStage extends Stage {
     private WorldUtils world;
     private GameActor player;
     private GameActor enemy;
-    private int numEnemies = 2;
+    private int numEnemies = 3;
     ArrayList<Enemy_2> enemies = new ArrayList<>();
 
     private Box2DDebugRenderer b2dRenderer;
@@ -201,7 +201,7 @@ public class GameStage extends Stage {
     }
 
     private float getRandomX() {
-    float areaMinX = 2;
+    float areaMinX = 5;
     float areaMaxX = 10;
     return MathUtils.random(areaMinX, areaMaxX);
 }

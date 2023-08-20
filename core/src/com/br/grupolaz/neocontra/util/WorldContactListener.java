@@ -15,7 +15,7 @@ public class WorldContactListener implements ContactListener {
         Fixture fixtureA = contact.getFixtureA();
         Fixture fixtureB = contact.getFixtureB();
 
-        if (fixtureA.getUserData() == "bullet" || fixtureB.getUserData() == "bullet") {
+        if (fixtureA.getUserData() == "bullet" || fixtureB.getUserData() == "bullet01") {
             Fixture bullet = fixtureA.getUserData() == "bullet" ? fixtureA : fixtureB;
             Fixture enemy = bullet == fixtureA ? fixtureB : fixtureA;
 

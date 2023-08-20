@@ -326,24 +326,24 @@ public class Player extends GameActor {
                 projectiles.add(new Bullet(world.createProjectile(
                         body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER,
                         body.getPosition().y - 1.5f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS,
-                        new Vector2(-3f, 0), "bullet", Constants.BULLET_BIT)));
+                        new Vector2(-3f, 0), "bullet01", Constants.BULLET_BIT)));
             } else {
                 projectiles.add(new Bullet(world.createProjectile(
                         body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER,
                         body.getPosition().y + 2f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS,
-                        new Vector2(-3f, 0), "bullet", Constants.BULLET_BIT)));
+                        new Vector2(-3f, 0), "bullet01", Constants.BULLET_BIT)));
             }
         } else {
             if (currentState == ActorStates.CROUCHING) {
                 projectiles.add(new Bullet(world.createProjectile(
                         body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER,
                         body.getPosition().y - 1.5f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS,
-                        new Vector2(3f, 0), "bullet", Constants.BULLET_BIT)));
+                        new Vector2(3f, 0), "bullet01", Constants.BULLET_BIT)));
             } else {
                 projectiles.add(new Bullet(world.createProjectile(
                         body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER,
                         body.getPosition().y + 2f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS,
-                        new Vector2(3f, 0), "bullet", Constants.BULLET_BIT)));
+                        new Vector2(3f, 0), "bullet01", Constants.BULLET_BIT)));
             }
         }
         SoundsUtils.getShotSound().play();
@@ -351,10 +351,12 @@ public class Player extends GameActor {
 
     @Override
     public void collision() {
-        setHit(hit);
-        hit();
-        getLifeCount();
-        update(stateTime);
+        if(isHit()){            
+            setHit(hit);
+            hit();
+            getLifeCount();
+            update(stateTime);
+        }
     }
 
 }
