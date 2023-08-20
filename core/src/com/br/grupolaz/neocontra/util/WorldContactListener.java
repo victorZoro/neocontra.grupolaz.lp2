@@ -8,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.br.grupolaz.neocontra.actors.GameActor;
 
-
 public class WorldContactListener implements ContactListener {
 
     @Override
@@ -16,13 +15,13 @@ public class WorldContactListener implements ContactListener {
         Fixture fixtureA = contact.getFixtureA();
         Fixture fixtureB = contact.getFixtureB();
 
-        if(fixtureA.getUserData() == "bullet" || fixtureB.getUserData() == "bullet") {
+        if (fixtureA.getUserData() == "bullet" || fixtureB.getUserData() == "bullet") {
             Fixture bullet = fixtureA.getUserData() == "bullet" ? fixtureA : fixtureB;
             Fixture enemy = bullet == fixtureA ? fixtureB : fixtureA;
 
             System.out.println(enemy.getUserData().getClass());
 
-            if(enemy.getUserData() != null && GameActor.class.isAssignableFrom(enemy.getUserData().getClass())) {
+            if (enemy.getUserData() != null && GameActor.class.isAssignableFrom(enemy.getUserData().getClass())) {
                 ((GameActor) enemy.getUserData()).collision();
             }
         }
@@ -40,5 +39,5 @@ public class WorldContactListener implements ContactListener {
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
     }
-    
+
 }

@@ -1,5 +1,7 @@
 package com.br.grupolaz.neocontra.actors;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -9,6 +11,7 @@ import com.br.grupolaz.neocontra.util.Constants;
 import com.br.grupolaz.neocontra.util.SoundsUtils;
 import com.br.grupolaz.neocontra.util.TextureUtils;
 import com.br.grupolaz.neocontra.util.WorldUtils;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 
@@ -19,7 +22,7 @@ public class Enemy_2 extends GameActor {
     private Player player;
 
     // Velocidade de corrida do inimigo
-    public float runSpeed = 5.0f;
+    public float runSpeed = 2.0f;
 
     // variaveis para movimento do inimigo
     private Vector2 playerPos;
@@ -42,7 +45,8 @@ public class Enemy_2 extends GameActor {
     private float timeSinceAttack;
     private float attackDistance;
     private boolean canAttack;
-
+    ArrayList<Enemy_2> enemies = new ArrayList<>();
+    
     public Enemy_2(WorldUtils world, Body body, TextureRegion region, Player player) {
         super(world, body, region);
         this.body = body;
@@ -57,23 +61,24 @@ public class Enemy_2 extends GameActor {
         this.attackDistance = 1.5f;
         this.enemyPos = new Vector2(body.getPosition());
         this.playerPos = new Vector2(player.body.getPosition());
+        this.distanceToPlayer = 0;
+        this.direction = new Vector2();
     }
 
     public void facePlayer() {
         TextureRegion region = checkCurrentState();
-
-        if (player.getBody().getPosition().x > body.getPosition().x) {
-            if (region.isFlipX()) {
-                region.flip(true, false);
-                System.out.println("player na direita");
+        if (runningRight) {
+            if (player.getBody().getPosition().x > body.getPosition().x && !region.isFlipX()) {
+                if (region.isFlipX()) {
+                    region.flip(true, false);
+                    System.out.println("player na direita");
+                }
             }
-
-        } else if (player.getBody().getPosition().x < body.getPosition().x) {
-            if (!region.isFlipX()) {
+        } else if (!runningRight) {
+            if (player.getBody().getPosition().x < body.getPosition().x && region.isFlipX()) {
                 region.flip(true, false);
                 System.out.println("player na esquerda");
             }
-
         }
     }
 
@@ -83,7 +88,7 @@ public class Enemy_2 extends GameActor {
 
         switch (currentState) {
             case RUNNING: {
-                System.out.println("running in the 90s");
+                // System.out.println("running in the 90s");
                 resetSpriteSize(sprite);
                 region = actorRunning.getKeyFrame(stateTimer, true);
                 break;
@@ -133,30 +138,32 @@ public class Enemy_2 extends GameActor {
     @Override
     public void shoot() {
         if (runningRight) {
-            projectiles.add(new Bullet(world.createProjectile(
-                    body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER,
-                    body.getPosition().y + 2f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS,
-                    new Vector2(-3f, 0), "bullet", Constants.BULLET_BIT)));
-            SoundsUtils.getShotSound().play();
-            System.out.println("direita");
-            canAttack = false;
+            if (!destroyed) {
+                projectiles.add(new Bullet(world.createProjectile(
+                        body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER,
+                        body.getPosition().y + 4f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS,
+                        new Vector2(-3f, 0), "bullet", Constants.BULLET_BIT)));
+                SoundsUtils.getShotSound().play();
+                System.out.println("cra para direita, mas tiro para a esquerda");
+                canAttack = false;
+            }
 
-        } else {
-            projectiles.add(new Bullet(world.createProjectile(
-                    body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER,
-                    body.getPosition().y + 2f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS,
-                    new Vector2(3f, 0), "bullet", Constants.BULLET_BIT)));
-            SoundsUtils.getShotSound().play();
-            System.out.println("Esquerda");
-            canAttack = false;
+        } else if (!runningRight) {
+            if (!destroyed) {
+                projectiles.add(new Bullet(world.createProjectile(
+                        body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER,
+                        body.getPosition().y + 4f / Constants.PIXELS_PER_METER, Constants.PLAYER_BULLET_RADIUS,
+                        new Vector2(3f, 0), "bullet", Constants.BULLET_BIT)));
+                SoundsUtils.getShotSound().play();
+                System.out.println("cara para a esquerda mas dtiro direita");
+                canAttack = false;
+            }
 
         }
     }
 
     public void timeAttack(float delta, Vector2 posPlayer, List<Projectile> projectiles) {
-        posPlayer = new Vector2(player.body.getPosition().x, delta);
-
-        if (posPlayer.len() <= attackDistance && canAttack) {
+        if ((posPlayer.len() * (-1)) <= attackDistance && canAttack) {
             shoot();
             timeSinceAttack = 0;
             System.out.println("tiro");
@@ -175,11 +182,17 @@ public class Enemy_2 extends GameActor {
 
     public void update(float delta, Vector2 playerpos, List<Projectile> projectiles) {
 
+        if (destroyed) {
+            canAttack = false;
+        }
         // temporizador
         updateAttackTimer(delta);
 
         // verificação de ataque
         timeAttack(delta, playerpos, projectiles);
+        for (Enemy_2 enemy : enemies) {
+            enemy.act(delta);
+        }
     }
 
     @Override
@@ -192,7 +205,6 @@ public class Enemy_2 extends GameActor {
     public void enemyChasesPlayer(float delta) {
         playerPos = new Vector2(player.body.getPosition().x, delta);
         enemyPos = new Vector2(body.getPosition());
-        direction = new Vector2();
         direction.x = (playerPos.x + 40) - (enemyPos.x + 40);
         direction.y = (playerPos.y + 40) - (enemyPos.y + 40);
 
@@ -211,6 +223,7 @@ public class Enemy_2 extends GameActor {
             body.applyLinearImpulse(0, junpForce, body.getWorldCenter().x, body.getWorldCenter().y, true);
             isJumping = true;
         }
+
     }
 
     private boolean shouldEnemyJump(float delta) {
@@ -228,8 +241,9 @@ public class Enemy_2 extends GameActor {
             world.getWorld().destroyBody(body);
             currentState = ActorStates.DEAD;
             destroyed = true;
-            runSpeed = 0;
             stateTime = 0;
+            runSpeed = 0;
+
         }
     }
 
@@ -240,5 +254,9 @@ public class Enemy_2 extends GameActor {
         enemyDed(delta);
         facePlayer();
         update(delta, playerPos, null);
+    }
+
+    public Object getUserData() {
+        return null;
     }
 }
