@@ -2,7 +2,6 @@ package com.br.grupolaz.neocontra.stages;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -34,9 +33,9 @@ import com.br.grupolaz.neocontra.util.TextureUtils;
  */
 public class HudStage extends Stage {
 
-    private Sprite sprite;
-    private Player player;
-    private Table table;
+    private final Sprite sprite;
+    private final Player player;
+    private final Table table;
 
     /**
      * <h2>HudStage</h2>
@@ -49,10 +48,9 @@ public class HudStage extends Stage {
      * <p>Cria uma nova tabela (table) e a configura para preencher todo o espaço disponível no estágio.</p>
      * <p>Adiciona a tabela ao estágio usando o método addActor(table).</p>
      * <p>Cria um objeto Sprite com a textura da medalha de vida (TextureUtils.getLifeMedal()) e define seu tamanho para 64x64 pixels.</p>
-     * @param batch tipo SpriteBatch
      * @param player tipo Player
      */
-    public HudStage(SpriteBatch batch, Player player) {
+    public HudStage(Player player) {
         this.player = player;
         table = new Table();
         table.left().top();
@@ -85,11 +83,11 @@ public class HudStage extends Stage {
 
     /**
      * <h2>gameOver</h2>
-     * <p>O método gameOver é responsável 
-     * por exibir a tela de Game Over no HUD. 
+     * <p>O método gameOver é responsável
+     * por exibir a tela de Game Over no HUD.
      * <p>Ele não recebe parâmetros e retorna
      *  um valor booleano indicando se o jogo acabou.</p>
-     * 
+     *
      * <h4>Funções especificas</h4>
      * <P>Reposiciona a tabela na parte inferior da tela.</p>
      * <P>Define a textura do sprite como a textura do "Game Over".</p>

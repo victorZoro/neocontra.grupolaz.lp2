@@ -27,9 +27,8 @@ public class GameUtils {
      * <p>Esse metodo é responsável por avançar a 
      * simulação do mundo de física em um passo fixo</p>
      * @param world tipo World
-     * @param delta tipo float
      */
-    public static void fixTimeStep(World world, float delta) {
+    public static void fixTimeStep(World world) {
         //simulação é avançada em um passo de 1/60 segundos com 6 iterações de velocidade e 2 iterações de posição.
         world.step(1/60f, 6, 2);
     }
@@ -44,7 +43,7 @@ public class GameUtils {
      * @param player tipo Player
      * @param delta tipo float
      */
-    public static void createInputHandler(Player player, float delta) {
+    public static void createInputHandler(Player player) {
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             player.jump();
         }

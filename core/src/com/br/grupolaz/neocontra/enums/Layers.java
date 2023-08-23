@@ -1,8 +1,6 @@
 package com.br.grupolaz.neocontra.enums;
 
 public enum Layers {
-    BACKGROUND(0),
-    GROUND_TEXTURE(1),
     GROUND(2),
     STAIRS(3),
     PLATFORMS(4),

@@ -2,7 +2,6 @@ package com.br.grupolaz.neocontra.util;
 
 import com.badlogic.gdx.physics.box2d.*;
 import com.br.grupolaz.neocontra.actors.GameActor;
-import com.br.grupolaz.neocontra.interactive.Stairs;
 
 
 public class WorldContactListener implements ContactListener {
@@ -20,18 +19,6 @@ public class WorldContactListener implements ContactListener {
 
             if(enemy.getUserData() != null && GameActor.class.isAssignableFrom(enemy.getUserData().getClass())) {
                 ((GameActor) enemy.getUserData()).collision();
-            }
-        }
-
-        if((fixtureA.getUserData()  == "head") || (fixtureB.getUserData() == "head")) {
-            Fixture head = fixtureA.getUserData() == "head" ? fixtureA : fixtureB;
-            Fixture object = head == fixtureA ? fixtureB : fixtureA;
-
-            System.out.println(object.getUserData().getClass());
-
-
-            if(object.getUserData() != null && Stairs.class.isAssignableFrom(object.getUserData().getClass())) {
-                ((Stairs) object.getUserData()).onHeadHit();
             }
         }
 

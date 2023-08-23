@@ -9,9 +9,4 @@ public class Ceiling extends InteractiveTileObject {
         super(world, map, bounds);
         fixture.setUserData(this);
     }
-
-    @Override
-    public void onHeadHit() {
-
-    }
 }

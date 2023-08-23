@@ -2,21 +2,81 @@ package com.br.grupolaz.neocontra.actors;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.br.grupolaz.neocontra.enums.Bits;
+
+import static com.badlogic.gdx.physics.box2d.BodyDef.BodyType.KinematicBody;
 
 public abstract class Projectile extends Actor {
     protected Body body;
     protected Sprite sprite;
 
-    public Projectile(Body body) {
-        this.body = body;
+    protected World world;
+
+    public Projectile(World world, float x, float y, Vector2 velocity, float radius, String userData, short categoryBit) {
+        this.world = world;
+        this.body = createBody(x, y, velocity, radius, userData, categoryBit);
     }
 
-    public Body getBody() {
+    public Projectile(World world, Vector2 position, Vector2 velocity, float radius, String userData, short categoryBit) {
+        this.world = world;
+        this.body = createBody(position, velocity, radius, userData, categoryBit);
+    }
+
+    public Body createBody(float x, float y, Vector2 velocity, float radius, String userData, short categoryBit) {
+        BodyDef bodyDef = new BodyDef();
+
+        bodyDef.position.set(x, y);
+        bodyDef.type = KinematicBody;
+
+        FixtureDef fixtureDef = new FixtureDef();
+        CircleShape shape = new CircleShape();
+        shape.setRadius(radius);
+        fixtureDef.filter.categoryBits = categoryBit;
+        fixtureDef.filter.maskBits = (short) (Bits.PLAYER.getBitType() | Bits.ENEMY.getBitType());
+
+
+        fixtureDef.shape = shape;
+        fixtureDef.isSensor = true;
+
+        Body body = world.createBody(bodyDef);
+        body.createFixture(fixtureDef).setUserData(userData);
+        shape.dispose();
+
+        body.setLinearVelocity(velocity);
+
         return body;
     }
 
+    public Body createBody(Vector2 position, Vector2 velocity, float radius, String userData, short categoryBit) {
+        BodyDef bodyDef = new BodyDef();
+
+        bodyDef.position.set(position.x, position.y);
+        bodyDef.type = KinematicBody;
+
+        FixtureDef fixtureDef = new FixtureDef();
+        CircleShape shape = new CircleShape();
+        shape.setRadius(radius);
+        fixtureDef.filter.categoryBits = categoryBit;
+        fixtureDef.filter.maskBits = (short) (Bits.PLAYER.getBitType() | Bits.ENEMY.getBitType());
+
+
+        fixtureDef.shape = shape;
+        fixtureDef.isSensor = true;
+
+        Body body = world.createBody(bodyDef);
+        body.createFixture(fixtureDef).setUserData(userData);
+        shape.dispose();
+
+        body.setLinearVelocity(velocity);
+
+        return body;
+    }
+    public Body getBody() {
+        return body;
+    }
     @Override
     public void act(float delta) {
         super.act(delta);

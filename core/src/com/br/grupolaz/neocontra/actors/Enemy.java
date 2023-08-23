@@ -4,12 +4,12 @@ package com.br.grupolaz.neocontra.actors;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.br.grupolaz.neocontra.enums.ActorStates;
 import com.br.grupolaz.neocontra.enums.Bits;
 import com.br.grupolaz.neocontra.util.Constants;
 import com.br.grupolaz.neocontra.util.TextureUtils;
-import com.br.grupolaz.neocontra.util.WorldUtils;
 /**
  * <h2>Enemy</h2>
  * <P> a classe Enemy representa
@@ -30,7 +30,7 @@ import com.br.grupolaz.neocontra.util.WorldUtils;
  */
 public class Enemy extends GameActor {
 
-    private Player player;
+    private final Player player;
 
     /**
      * <h2>Enemy</h2>
@@ -45,13 +45,22 @@ public class Enemy extends GameActor {
      *  de textura que será usada para renderizar 
      * o inimigo.</p>
      * @param world tipo WorldUtils
-     * @param body tipo Body
      * @param region tipo TextureRegion
      */
     
     
-    public Enemy(WorldUtils world, Body body, TextureRegion region, Player player) {
-        super(world, body, region);
+    public Enemy(World world, TextureRegion region, Player player, float x, float y) {
+        super(world, region, x, y);
+        body.getFixtureList().get(0).setUserData(this);
+        setCategoryFilter(Bits.ENEMY.getBitType());
+        this.player = player;
+        setToDestroy = false;
+        destroyed = false;
+        setUpAnimations();
+    }
+
+    public Enemy(World world, TextureRegion region, Player player, Vector2 position) {
+        super(world, region, position);
         body.getFixtureList().get(0).setUserData(this);
         setCategoryFilter(Bits.ENEMY.getBitType());
         this.player = player;
@@ -88,7 +97,7 @@ public class Enemy extends GameActor {
     public void update(float delta) {
         stateTime += delta;
         if(setToDestroy && !destroyed) {
-            world.getWorld().destroyBody(body);
+            world.destroyBody(body);
             currentState = ActorStates.DEAD;
             destroyed = true;
             stateTime = 0;

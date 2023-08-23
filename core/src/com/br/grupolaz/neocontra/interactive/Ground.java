@@ -11,8 +11,4 @@ public class Ground extends InteractiveTileObject {
 
     }
 
-    @Override
-    public void onHeadHit() {
-
-    }
 }

@@ -32,7 +32,6 @@ import com.br.grupolaz.neocontra.enums.Bits;
 //Inspired by Martian Run and Brent Aureli Code
 public class WorldUtils {
 
-    private final MapLoader mapLoader;
     private final World world;
 
     /**
@@ -41,10 +40,8 @@ public class WorldUtils {
      * de criar uma nova instância do mundo do jogo usando
      * a gravidade definida em Constants.WORLD_GRAVITY</p>
      *
-     * @param mapLoader tipo MapLoader
      */
-    public WorldUtils(MapLoader mapLoader) {
-        this.mapLoader = mapLoader;
+    public WorldUtils() {
         this.world = new World(Constants.WORLD_GRAVITY, true);
     }
 
@@ -67,12 +64,12 @@ public class WorldUtils {
      * usando uma definição de fixação. O corpo é
      * então adicionado ao mundo do jogo e retornado.</p>
      *
+     * @deprecated
      * @param world tipo World
      * @param x     tipo float
      * @param y     tipo float
      * @return body
      */
-
     public Body createPerson(World world, float x, float y) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(x, y);
@@ -111,6 +108,7 @@ public class WorldUtils {
      * definida com base no vetor de velocidade
      * fornecido.</p>
      *
+     * @deprecated
      * @param x        tipo float
      * @param y        tipo float
      * @param radius   tipo float

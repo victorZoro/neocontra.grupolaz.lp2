@@ -11,8 +11,4 @@ public class SeaLevel extends InteractiveTileObject {
 
     }
 
-    @Override
-    public void onHeadHit() {
-
-    }
 }

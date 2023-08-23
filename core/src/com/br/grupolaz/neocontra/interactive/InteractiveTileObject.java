@@ -34,5 +34,4 @@ public abstract class InteractiveTileObject {
         fixture = body.createFixture(fixtureDef);
     }
 
-    public abstract void onHeadHit();
 }

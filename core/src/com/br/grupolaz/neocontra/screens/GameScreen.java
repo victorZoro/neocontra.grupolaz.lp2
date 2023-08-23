@@ -34,7 +34,7 @@ public class GameScreen implements Screen {
 
     GameStage gameStage;
 
-    private NeoContra game;
+    private final NeoContra game;
     /**
      * <h2> Costrutor GameScreen</h2>
      * <p>O Costrutor do GameScreen é responsável por criar e inicializar um 

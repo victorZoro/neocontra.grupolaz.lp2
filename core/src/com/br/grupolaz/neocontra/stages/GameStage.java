@@ -49,13 +49,13 @@ public class GameStage extends Stage {
 
     NeoContra game;
     Screen gameScreen;
-    private HudStage hud;
-    private MapLoader mapLoader;
-    private WorldUtils world;
+    private final HudStage hud;
+    private final MapLoader mapLoader;
+    private final WorldUtils world;
     private GameActor player;
     private GameActor enemy;
 
-    private Box2DDebugRenderer b2dRenderer;
+    private final Box2DDebugRenderer b2dRenderer;
 
     /**
      * <h2>GameStage</h2>
@@ -74,13 +74,13 @@ public class GameStage extends Stage {
         b2dRenderer = new Box2DDebugRenderer();
 //        b2dRenderer.setDrawBodies(false);
         this.mapLoader = new MapLoader(Constants.LEVEL1_MAP);
-        world = new WorldUtils(mapLoader);
+        world = new WorldUtils();
 
         setUpCharacters();
         setUpMap();
         setUpMusic();
 
-        hud = new HudStage(game.getSpriteBatch(), (Player) player);
+        hud = new HudStage((Player) player);
 
         world.getWorld().setContactListener(new WorldContactListener());
 
@@ -127,12 +127,11 @@ public class GameStage extends Stage {
      * <p>Verifica se os projéteis do jogador estão fora da câmera e os remove, se necessário.</p>
      * <P>Atualiza a visualização do mapa para a câmera atual.</p>
      *
-     * @param delta tipo float
      */
-    public void update(float delta) {
-        GameUtils.createInputHandler((Player) player, delta);
+    public void update() {
+        GameUtils.createInputHandler((Player) player);
 
-        GameUtils.fixTimeStep(world.getWorld(), delta);
+        GameUtils.fixTimeStep(world.getWorld());
 
         followPlayer();
 
@@ -163,7 +162,7 @@ public class GameStage extends Stage {
      */
     public void act(float delta) {
         super.act(delta);
-        update(delta);
+        update();
 
         mapLoader.getRenderer().render();
 
@@ -203,7 +202,7 @@ public class GameStage extends Stage {
             player.remove();
         }
 
-        player = new Player(world, world.createPerson(world.getWorld(), Constants.PLAYER_X, Constants.PLAYER_Y), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION));
+        player = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION), Constants.PLAYER_X, Constants.PLAYER_Y);
         addActor(player);
     }
 
@@ -212,18 +211,14 @@ public class GameStage extends Stage {
      * <p>Esse método é reposnsavel por configurar o ator inimigo</p>
      */
     private void setUpEnemy() {
-        enemy = new Enemy(world, world.createPerson(world.getWorld(), Constants.ENEMY_X, Constants.ENEMY_Y), TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION), (Player) player);
+        enemy = new Enemy(world.getWorld(), TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION), (Player) player, Constants.ENEMY_X, Constants.ENEMY_Y);
         addActor(enemy);
     }
 
     private void followPlayer() {
         if (player.getBody().getPosition().x <= 2.5f) {
             game.getCamera().position.x = 2.5f;
-        } else if (player.getBody().getPosition().x >= 23f) {
-            game.getCamera().position.x = 23f;
-        } else {
-            game.getCamera().position.x = player.getBody().getPosition().x;
-        }
+        } else game.getCamera().position.x = Math.min(player.getBody().getPosition().x, 23f);
 
     }
 
@@ -234,19 +229,6 @@ public class GameStage extends Stage {
         System.out.println("Musica Inicializada");
     }
 
-    public MapLoader getMapLoader() {
-        return mapLoader;
-    }
-
-    public WorldUtils getWorldUtils() {
-        return world;
-    }
-
-    /**
-     * <h2> dispose</h2>
-     * <p> Libera recursos utilizados pelo
-     * MapLoader, WorldUtils e Box2DDebugRenderer.</p>
-     */
     public void dispose() {
         mapLoader.dispose();
         world.dispose();
