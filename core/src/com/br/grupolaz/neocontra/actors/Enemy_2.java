@@ -72,13 +72,25 @@ public class Enemy_2 extends GameActor {
                 if (region.isFlipX()) {
                     region.flip(true, false);
                     System.out.println("player na direita");
+                    runningRight = true;
                 }
             }
         } else if (!runningRight) {
             if (player.getBody().getPosition().x < body.getPosition().x && region.isFlipX()) {
                 region.flip(true, false);
                 System.out.println("player na esquerda");
+                runningRight = false;
             }
+        }
+    }
+    @Override
+    protected void flipSprite(TextureRegion region) {
+        if ((body.getLinearVelocity().x > 0 || !runningRight) && !region.isFlipX()) {
+            region.flip(true, false);
+            runningRight = false;
+        } else if ((body.getLinearVelocity().x < 0 || runningRight) && region.isFlipX()) {
+            region.flip(true, false);
+            runningRight = true;
         }
     }
 
@@ -230,7 +242,7 @@ public class Enemy_2 extends GameActor {
         Vector2 currentPosition = body.getPosition();
         Vector2 rayStart = new Vector2(currentPosition.x + (face ? 1.0f : -1.0f), currentPosition.y + 0.5f);
         Vector2 rayEnd = new Vector2(rayStart.x + (face ? 2.0f : -2.0f), rayStart.y);
-        float raycastLength = 2.0f; // Ajuste conforme necessário
+        float raycastLength = 1.0f; // Ajuste conforme necessário
 
         return world.rayCastObstacle(rayStart, rayEnd, raycastLength);
     }

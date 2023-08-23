@@ -16,13 +16,17 @@ public class WorldContactListener implements ContactListener {
         Fixture fixtureB = contact.getFixtureB();
 
         if (fixtureA.getUserData() == "bullet" || fixtureB.getUserData() == "bullet01") {
-            Fixture bullet = fixtureA.getUserData() == "bullet" ? fixtureA : fixtureB;
+            Fixture bullet = fixtureA.getUserData() == "bullet01" ? fixtureA : fixtureB;
+            Fixture bullet01 = fixtureB.getUserData() == "bullet01" ? fixtureA : fixtureB;
             Fixture enemy = bullet == fixtureA ? fixtureB : fixtureA;
+            Fixture player = bullet01 == fixtureB ? fixtureA : fixtureB;
 
             System.out.println(enemy.getUserData().getClass());
+            System.out.println(player.getUserData());
 
             if (enemy.getUserData() != null && GameActor.class.isAssignableFrom(enemy.getUserData().getClass())) {
                 ((GameActor) enemy.getUserData()).collision();
+                ((GameActor) player.getUserData()).collision();
             }
         }
     }

@@ -232,8 +232,9 @@ public abstract class GameActor extends Actor {
 
     protected abstract TextureRegion checkCurrentState();
 
-    private void flipSprite(TextureRegion region) {
-        if ((body.getLinearVelocity().x > 0 || !runningRight) && !region.isFlipX()) {
+
+    protected void flipSprite(TextureRegion region) {
+        if ((body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
             region.flip(true, false);
             runningRight = false;
         } else if ((body.getLinearVelocity().x > 0 || runningRight) && region.isFlipX()) {
