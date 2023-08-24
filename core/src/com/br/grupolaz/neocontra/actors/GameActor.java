@@ -165,14 +165,18 @@ public abstract class GameActor extends Actor {
 
     /**
      * <h2>GameActor</h2>
-     * <p>O contrutor de GameActor é responsável por receber
-     *  e atribuir os objetos necessários ao ator do jogo, definir
+     * <p>
+     * O contrutor de GameActor é responsável por receber
+     * e atribuir os objetos necessários ao ator do jogo, definir
      * seu estado inicial, criar um objeto Sprite com base na região de
      * textura fornecida e inicializar outras variáveis de
      * instância relevantes
      * </p>
-     * <p>Ele recebe um objeto WorldUtils, um 
-     * objeto Body e uma região de textura region</p>
+     * <p>
+     * Ele recebe um objeto WorldUtils, um
+     * objeto Body e uma região de textura region
+     * </p>
+     * 
      * @param world  tipo WorldUtils
      * @param body   tipo Body
      * @param region tipo TextureRegion
@@ -192,18 +196,23 @@ public abstract class GameActor extends Actor {
 
     /**
      * <h2>setDrawRegion</h2>
-     * <p>O método setDrawRegion permite
-     *  definir a região de textura do sprite
-     *  do ator, especificando as coordenadas
-     *  de início (x, y) e as dimensões (width, height).</p> 
-     * <p>Isso permite que diferentes partes de 
-     * uma única textura sejam exibidas no sprite, 
-     * possibilitando animações, movimentos ou mudanças 
-     * de aparência.</p>
-     * @param x tipo int
-     * @param y tipo int 
-     * @param width  tipo int 
-     * @param height tipo int 
+     * <p>
+     * O método setDrawRegion permite
+     * definir a região de textura do sprite
+     * do ator, especificando as coordenadas
+     * de início (x, y) e as dimensões (width, height).
+     * </p>
+     * <p>
+     * Isso permite que diferentes partes de
+     * uma única textura sejam exibidas no sprite,
+     * possibilitando animações, movimentos ou mudanças
+     * de aparência.
+     * </p>
+     * 
+     * @param x      tipo int
+     * @param y      tipo int
+     * @param width  tipo int
+     * @param height tipo int
      */
     public void setDrawRegion(int x, int y, int width, int height) {
         sprite.setRegion(x, y, width, height);
@@ -223,7 +232,8 @@ public abstract class GameActor extends Actor {
 
     protected abstract TextureRegion checkCurrentState();
 
-    private void flipSprite(TextureRegion region) {
+
+    protected void flipSprite(TextureRegion region) {
         if ((body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
             region.flip(true, false);
             runningRight = false;
@@ -232,6 +242,7 @@ public abstract class GameActor extends Actor {
             runningRight = true;
         }
     }
+
 
     private float checkStateTimer(float delta) {
         if (currentState == previousState) {
@@ -250,9 +261,9 @@ public abstract class GameActor extends Actor {
             return ActorStates.FALLING;
         } else if (body.getLinearVelocity().x != 0) {
             return ActorStates.RUNNING;
-        } else if(setToDestroy) {
+        } else if (setToDestroy) {
             return ActorStates.DEAD;
-        } else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             return ActorStates.CROUCHING;
         } else {
             return ActorStates.STANDING;
@@ -295,7 +306,9 @@ public abstract class GameActor extends Actor {
     }
 
     protected abstract void setUpAnimations();
+
     public abstract void shoot();
+
     public abstract void collision();
 
     public Body getBody() {
@@ -312,9 +325,9 @@ public abstract class GameActor extends Actor {
 
     public boolean isOutOfBounds(Body body, OrthographicCamera camera) {
         if (body.getPosition().x <= camera.position.x - camera.viewportWidth / 2
-            || body.getPosition().x >= camera.position.x + camera.viewportWidth / 2 
-            || body.getPosition().y <= camera.position.y - camera.viewportHeight / 2
-            || body.getPosition().y >= camera.position.y + camera.viewportHeight / 2) {
+                || body.getPosition().x >= camera.position.x + camera.viewportWidth / 2
+                || body.getPosition().y <= camera.position.y - camera.viewportHeight / 2
+                || body.getPosition().y >= camera.position.y + camera.viewportHeight / 2) {
             return true;
         }
         return false;
@@ -325,8 +338,6 @@ public abstract class GameActor extends Actor {
         filter.categoryBits = filterBit;
         body.getFixtureList().get(0).setFilterData(filter);
     }
-
-
 
     @Override
     public void act(float delta) {

@@ -32,7 +32,7 @@ public class Enemy extends GameActor {
     private Player player;
 
     /**
-     * <h2>Enemy</h2>
+     * <h2getFixtureList>Enemy</h2getFixtureList>
      * <p>A função do construtor Enemy
      *  é criar uma instância da classe
      *  Enemy e inicializar seus atributos.</p>

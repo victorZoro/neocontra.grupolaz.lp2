@@ -2,11 +2,15 @@ package com.br.grupolaz.neocontra.stages;
 
 
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.br.grupolaz.neocontra.NeoContra;
 import com.br.grupolaz.neocontra.actors.Enemy;
+import com.br.grupolaz.neocontra.actors.Enemy_2;
 import com.br.grupolaz.neocontra.actors.GameActor;
 import com.br.grupolaz.neocontra.actors.Player;
 import com.br.grupolaz.neocontra.screens.GameScreen;
@@ -56,6 +60,8 @@ public class GameStage extends Stage {
     private WorldUtils world;
     private GameActor player;
     private GameActor enemy;
+    private int numEnemies = 3;
+    ArrayList<Enemy_2> enemies = new ArrayList<>();
 
     private Box2DDebugRenderer b2dRenderer;
     /**
@@ -140,11 +146,17 @@ public class GameStage extends Stage {
 
         game.getSpriteBatch().setProjectionMatrix(game.getCamera().combined);
         player.act(delta);
-        enemy.act(delta);
+        for(Enemy_2 enemy : enemies){
+            enemy.act(delta);
+            //setUpEnemy();
+        }
+        
 
         game.getSpriteBatch().begin();
         player.draw(game.getSpriteBatch(), 0);
-        enemy.draw(game.getSpriteBatch(), 0);
+        for(Enemy_2 enemy : enemies){
+            enemy.draw(game.getSpriteBatch(), 0);
+        }
         game.getSpriteBatch().end();
 
         game.getSpriteBatch().setProjectionMatrix(hud.getCamera().combined);
@@ -181,9 +193,18 @@ public class GameStage extends Stage {
      * <p>Esse método é reposnsavel por configurar o ator inimigo</p>
      */
     private void setUpEnemy() {
-        enemy = new Enemy(world, world.createPerson(world.getWorld(), Constants.ENEMY_X, Constants.ENEMY_Y), TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION), (Player) player);
-        addActor(enemy);
+        for(int i = 0 ;i < numEnemies; i++){
+            Enemy_2 enemy = new Enemy_2(world, world.createPerson(world.getWorld(), getRandomX(), Constants.ENEMY_Y), TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION), (Player) player);
+            enemies.add(enemy);
+            addActor(enemy);
+        }
     }
+
+    private float getRandomX() {
+    float areaMinX = 5;
+    float areaMaxX = 10;
+    return MathUtils.random(areaMinX, areaMaxX);
+}
 
     private void followPlayer() {
         if(player.getBody().getPosition().x <= 2.5f) {
