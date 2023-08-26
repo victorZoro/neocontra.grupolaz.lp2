@@ -307,8 +307,12 @@ public class Player extends GameActor {
 
     @Override
     public void collision() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'collision'");
+        if(isHit()){            
+            setHit(hit);
+            hit();
+            getLifeCount();
+            update(stateTime);
+        }
     }
 
 
