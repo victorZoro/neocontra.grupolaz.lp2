@@ -14,15 +14,18 @@ public abstract class InteractiveTileObject {
     protected Body body;
 
     protected Fixture fixture;
+    protected BodyDef bodyDef;
+    protected FixtureDef fixtureDef;
+    protected PolygonShape shape;
 
     public InteractiveTileObject(World world, TiledMap map, Rectangle bounds) {
         this.world = world;
         this.map = map;
         this.bounds = bounds;
 
-        BodyDef bodyDef = new BodyDef();
-        FixtureDef fixtureDef = new FixtureDef();
-        PolygonShape shape = new PolygonShape();
+        this.bodyDef = new BodyDef();
+        this.fixtureDef = new FixtureDef();
+        this.shape = new PolygonShape();
 
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set((bounds.getX() + bounds.getWidth() / 2) / Constants.PIXELS_PER_METER, (bounds.getY() + bounds.getHeight() / 2) / Constants.PIXELS_PER_METER);
@@ -32,6 +35,9 @@ public abstract class InteractiveTileObject {
         shape.setAsBox((bounds.getWidth() / 2) / Constants.PIXELS_PER_METER, (bounds.getHeight() / 2) / Constants.PIXELS_PER_METER);
         fixtureDef.shape = shape;
         fixture = body.createFixture(fixtureDef);
+
+        body.setUserData(this);
     }
 
+    public abstract void onPlayerCollision(Body player);
 }

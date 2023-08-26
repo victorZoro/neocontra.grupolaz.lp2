@@ -98,6 +98,7 @@ public class Enemy extends GameActor {
         stateTime += delta;
         if(setToDestroy && !destroyed) {
             world.destroyBody(body);
+            body.setUserData(null);
             currentState = ActorStates.DEAD;
             destroyed = true;
             stateTime = 0;

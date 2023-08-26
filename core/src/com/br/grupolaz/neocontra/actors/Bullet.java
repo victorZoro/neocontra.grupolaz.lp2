@@ -11,13 +11,13 @@ import com.br.grupolaz.neocontra.util.TextureUtils;
 public class Bullet extends Projectile {
 
     public Bullet(World world, float x, float y, Vector2 velocity) {
-        super(world, x, y, velocity, Constants.PLAYER_BULLET_RADIUS, "bullet", Bits.BULLET.getBitType());
+        super(world, x, y, velocity, Constants.PLAYER_BULLET_RADIUS, Bits.BULLET.getBitType());
         this.sprite = new Sprite(TextureUtils.getPlayerBullet());
         this.sprite.setSize(Constants.BULLET_SIZE, Constants.BULLET_SIZE);
     }
 
     public Bullet(World world, Vector2 position, Vector2 velocity) {
-        super(world, position, velocity, Constants.PLAYER_BULLET_RADIUS, "bullet", Bits.BULLET.getBitType());
+        super(world, position, velocity, Constants.PLAYER_BULLET_RADIUS, Bits.BULLET.getBitType());
         this.sprite = new Sprite(TextureUtils.getPlayerBullet());
         this.sprite.setSize(Constants.BULLET_SIZE, Constants.BULLET_SIZE);
     }
