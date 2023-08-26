@@ -177,6 +177,7 @@ public class Player extends GameActor {
         super.act(delta);
         update(delta);
         stayInBounds();
+        collision();
     }
 
     @Override
@@ -308,19 +309,10 @@ public class Player extends GameActor {
     @Override
     public void collision() {
         if(isHit()){            
-            setHit(hit);
             hit();
             getLifeCount();
             update(stateTime);
-        }
-    }
-
-    public void handleProjectileCollision(Projectile projectile){
-        if(isHit()){            
             setHit(hit);
-            hit();
-            getLifeCount();
-            update(stateTime);
         }
     }
 

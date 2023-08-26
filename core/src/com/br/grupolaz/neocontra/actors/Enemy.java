@@ -185,7 +185,6 @@ public class Enemy extends GameActor {
                         body.getPosition().y + 2f / Constants.PIXELS_PER_METER, new Vector2(-3f, 0)));
                 SoundsUtils.getShotSound().play();
                 canAttack = false;
-                System.out.println();
             } else if (!runningRight) {
                 if (!destroyed) {
                     projectiles.add(new Bullet(world,
