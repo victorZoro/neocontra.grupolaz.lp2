@@ -66,12 +66,6 @@ public class WorldContactListener implements ContactListener {
                 ((Player) object.getUserData()).collision();;
                 System.out.println("Player collision");
             }
-            // Não funcionou (?)
-            if(object.getUserData() instanceof InteractiveTileObject) {
-                Gdx.app.log("Collision", "Happened");
-                ((Projectile) projectile.getUserData()).setToDestroy();
-            }
-
         }
 
     }
@@ -88,6 +82,5 @@ public class WorldContactListener implements ContactListener {
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
     }
-
 
 }

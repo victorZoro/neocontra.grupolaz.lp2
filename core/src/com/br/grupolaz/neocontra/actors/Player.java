@@ -54,7 +54,6 @@ public class Player extends GameActor {
      * textura que representa a aparência do jogador.</p>
      *
      * @param world  tipo WorldUtils
-     * @param body   tipo Body
      * @param region tipo TextureRegion
      */
     public Player(World world, TextureRegion region, float x, float y) {
@@ -91,13 +90,6 @@ public class Player extends GameActor {
         body.setLinearVelocity(2f, 0);
     }
 
-    public void stayInBounds() {
-        if (body.getPosition().x < 0) {
-            body.setTransform(0, body.getPosition().y, body.getAngle());
-        } else if (body.getPosition().x >= 25.5f) {
-            body.setTransform(25.5f, body.getPosition().y, body.getAngle());
-        }
-    }
 
     public void hit() {
         hit = true;
@@ -176,7 +168,6 @@ public class Player extends GameActor {
     public void act(float delta) {
         super.act(delta);
         update(delta);
-        stayInBounds();
         collision();
     }
 

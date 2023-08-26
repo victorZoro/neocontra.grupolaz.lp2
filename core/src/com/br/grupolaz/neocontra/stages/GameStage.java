@@ -182,11 +182,12 @@ public class GameStage extends Stage {
      *
      */
     public void update() {
-        GameUtils.createInputHandler((Player) player);
+        GameUtils.createInputHandler((Player) player, level);
 
         GameUtils.fixTimeStep(world.getWorld());
 
         followPlayer();
+        stayInBounds();
 
         game.getCamera().update();
 
@@ -275,10 +276,24 @@ public class GameStage extends Stage {
             player.remove();
         }
 
-        // if(this.level.equals(Constants.LEVEL1_MAP)) {
-        player = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
-                Constants.PLAYER_X, Constants.PLAYER_Y);
-        // }
+        switch (level){
+            case Constants.LEVEL1_MAP:
+                player = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                        (-10f / Constants.PIXELS_PER_METER), (100f / Constants.PIXELS_PER_METER));
+                break;
+            case Constants.LEVEL2_MAP:
+                player = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                        (-20f/Constants.PIXELS_PER_METER), ( 150f /Constants.PIXELS_PER_METER));
+                break;
+            case Constants.LEVEL3_MAP:
+                player = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                        (1f/Constants.PIXELS_PER_METER), ( 10f /Constants.PIXELS_PER_METER));
+                break;
+            case Constants.LEVEL4_MAP:
+                player = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                        (-10f/Constants.PIXELS_PER_METER), ( 80f /Constants.PIXELS_PER_METER));
+                break;
+        }
 
         addActor(player);
     }
@@ -302,12 +317,35 @@ public class GameStage extends Stage {
         float areaMaxX = 10;
         return MathUtils.random(areaMinX, areaMaxX);
     }
+    public void stayInBounds() {
+        if (player.getBody().getPosition().x < 0) {
+            player.getBody().setTransform(0, player.getBody().getPosition().y, player.getBody().getAngle());
+        } else if (player.getBody().getPosition().x >= game.getCamera().position.x + 2.5f) {
+            player.getBody().setTransform(game.getCamera().position.x + 2.5f, player.getBody().getPosition().y, player.getBody().getAngle());
+        }
+    }
 
     private void followPlayer() {
         if (player.getBody().getPosition().x <= 2.5f) {
             game.getCamera().position.x = 2.5f;
         } else {
-            game.getCamera().position.x = Math.min(player.getBody().getPosition().x, 23f);
+
+            switch (level){
+                case Constants.LEVEL1_MAP:
+                    game.getCamera().position.x = Math.min(player.getBody().getPosition().x, 23f);
+                    break;
+                case Constants.LEVEL2_MAP:
+                    game.getCamera().position.x = Math.min(player.getBody().getPosition().x, 24f);
+                    break;
+                case Constants.LEVEL3_MAP:
+                    game.getCamera().position.x = Math.min(player.getBody().getPosition().x, 37f);
+                    break;
+                case Constants.LEVEL4_MAP:
+                    game.getCamera().position.x = Math.min(player.getBody().getPosition().x, 45f);
+                    break;
+            }
+            System.out.println(game.getCamera().position.x);
+
         }
 
         if (player.getBody().getPosition().y <= 3.5f) {
