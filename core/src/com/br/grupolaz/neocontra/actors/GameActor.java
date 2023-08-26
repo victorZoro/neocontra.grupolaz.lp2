@@ -322,6 +322,8 @@ public abstract class GameActor extends Actor {
 
         body.createFixture(fixtureDef);
 
+        body.setUserData(this);
+
         return body;
     }
 

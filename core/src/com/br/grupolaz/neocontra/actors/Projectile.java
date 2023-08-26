@@ -15,17 +15,17 @@ public abstract class Projectile extends Actor {
 
     protected World world;
 
-    public Projectile(World world, float x, float y, Vector2 velocity, float radius, String userData, short categoryBit) {
+    public Projectile(World world, float x, float y, Vector2 velocity, float radius, short categoryBit) {
         this.world = world;
-        this.body = createBody(x, y, velocity, radius, userData, categoryBit);
+        this.body = createBody(x, y, velocity, radius, categoryBit);
     }
 
-    public Projectile(World world, Vector2 position, Vector2 velocity, float radius, String userData, short categoryBit) {
+    public Projectile(World world, Vector2 position, Vector2 velocity, float radius, short categoryBit) {
         this.world = world;
-        this.body = createBody(position, velocity, radius, userData, categoryBit);
+        this.body = createBody(position, velocity, radius, categoryBit);
     }
 
-    public Body createBody(float x, float y, Vector2 velocity, float radius, String userData, short categoryBit) {
+    public Body createBody(float x, float y, Vector2 velocity, float radius, short categoryBit) {
         BodyDef bodyDef = new BodyDef();
 
         bodyDef.position.set(x, y);
@@ -42,15 +42,16 @@ public abstract class Projectile extends Actor {
         fixtureDef.isSensor = true;
 
         Body body = world.createBody(bodyDef);
-        body.createFixture(fixtureDef).setUserData(userData);
+        body.createFixture(fixtureDef);
         shape.dispose();
 
+        body.setUserData(this);
         body.setLinearVelocity(velocity);
 
         return body;
     }
 
-    public Body createBody(Vector2 position, Vector2 velocity, float radius, String userData, short categoryBit) {
+    public Body createBody(Vector2 position, Vector2 velocity, float radius, short categoryBit) {
         BodyDef bodyDef = new BodyDef();
 
         bodyDef.position.set(position.x, position.y);
@@ -67,9 +68,10 @@ public abstract class Projectile extends Actor {
         fixtureDef.isSensor = true;
 
         Body body = world.createBody(bodyDef);
-        body.createFixture(fixtureDef).setUserData(userData);
+        body.createFixture(fixtureDef);
         shape.dispose();
 
+        body.setUserData(this);
         body.setLinearVelocity(velocity);
 
         return body;
