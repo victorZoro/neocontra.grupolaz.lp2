@@ -96,18 +96,15 @@ public class Enemy extends GameActor {
         this.direction = new Vector2();
     }
 
-    /**
-     * public Enemy(World world, TextureRegion region, Player player, Vector2
-     * position) {
-     * super(world, region, position);
-     * body.getFixtureList().get(0).setUserData(this);
-     * setCategoryFilter(Bits.ENEMY.getBitType());
-     * this.player = player;
-     * setToDestroy = false;
-     * destroyed = false;
-     * setUpAnimations();
-     * }
-     */
+    public Enemy(World world, TextureRegion region, Player player, Vector2 position) {
+        super(world, region, position);
+        body.getFixtureList().get(0).setUserData(this);
+        setCategoryFilter(Bits.ENEMY.getBitType());
+        this.player = player;
+        setToDestroy = false;
+        destroyed = false;
+        setUpAnimations();
+    }
 
     /**
      * <h2>setUpAnimations</h2>
@@ -151,14 +148,13 @@ public class Enemy extends GameActor {
         }
     }
 
-    
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if (!destroyed | stateTime < 1f) {
             super.draw(batch, parentAlpha);
         }
     }
-    
+
     @Override
     protected void setUpAnimations() {
         actorStanding = TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION);
@@ -185,11 +181,12 @@ public class Enemy extends GameActor {
         if (runningRight) {
             if (!destroyed) {
                 projectiles.add(new Bullet(world,
-                body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER,
-                body.getPosition().y + 2f / Constants.PIXELS_PER_METER, new Vector2(-3f, 0)));
+                        body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER,
+                        body.getPosition().y + 2f / Constants.PIXELS_PER_METER, new Vector2(-3f, 0)));
                 SoundsUtils.getShotSound().play();
                 canAttack = false;
-            } else if(!runningRight){
+                System.out.println();
+            } else if (!runningRight) {
                 if (!destroyed) {
                     projectiles.add(new Bullet(world,
                             body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER,
@@ -218,7 +215,7 @@ public class Enemy extends GameActor {
             }
         }
     }
-    
+
     public void update(float delta, Vector2 playerpos, List<Projectile> projectiles) {
 
         if (destroyed) {
@@ -234,7 +231,6 @@ public class Enemy extends GameActor {
         }
     }
 
-
     @Override
     public void collision() {
         setToDestroy = true;
@@ -247,10 +243,10 @@ public class Enemy extends GameActor {
         enemyPos = new Vector2(body.getPosition());
         direction.x = (playerPos.x + 40) - (enemyPos.x + 40);
         direction.y = (playerPos.y + 40) - (enemyPos.y + 40);
-        
+
         distanceToPlayer = direction.len();
         desiredDistance = 1.5f;
-        
+
         if (distanceToPlayer > desiredDistance) {
             direction.nor();
             body.setLinearVelocity(direction.scl(runSpeed));
@@ -259,7 +255,7 @@ public class Enemy extends GameActor {
         }
 
     }
-    
+
     public void enemyDed(float delta) {
         stateTime += delta;
         if (setToDestroy && !destroyed) {

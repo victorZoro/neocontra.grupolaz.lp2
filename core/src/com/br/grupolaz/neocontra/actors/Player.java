@@ -315,5 +315,13 @@ public class Player extends GameActor {
         }
     }
 
+    public void handleProjectileCollision(Projectile projectile){
+        if(isHit()){            
+            setHit(hit);
+            hit();
+            getLifeCount();
+            update(stateTime);
+        }
+    }
 
 }
