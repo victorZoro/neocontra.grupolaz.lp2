@@ -1,10 +1,12 @@
 package com.br.grupolaz.neocontra.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.br.grupolaz.neocontra.NeoContra;
 import com.br.grupolaz.neocontra.stages.GameStage;
+import com.br.grupolaz.neocontra.util.Constants;
 
 //Inspired by Martian Run
 /**
@@ -35,6 +37,8 @@ public class GameScreen implements Screen {
     GameStage gameStage;
 
     private final NeoContra game;
+
+    private String level = Constants.LEVEL1_MAP;
     /**
      * <h2> Costrutor GameScreen</h2>
      * <p>O Costrutor do GameScreen é responsável por criar e inicializar um 
@@ -43,7 +47,7 @@ public class GameScreen implements Screen {
      */
     public GameScreen(NeoContra game) {
         this.game = game;
-        gameStage = new GameStage(game, this);
+        gameStage = new GameStage(game, this, level);
     }
     /**
      * <h2>show</h2>
@@ -67,6 +71,18 @@ public class GameScreen implements Screen {
 
         gameStage.act(delta);
         gameStage.draw();
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+            if(level.equals(Constants.LEVEL1_MAP)) {
+                level = Constants.LEVEL2_MAP;
+            } else if (level.equals(Constants.LEVEL2_MAP)) {
+                level = Constants.LEVEL3_MAP;
+            } else {
+                level = Constants.LEVEL4_MAP;
+            }
+            
+            gameStage = new GameStage(game, this, level);
+        }
     }
 
 

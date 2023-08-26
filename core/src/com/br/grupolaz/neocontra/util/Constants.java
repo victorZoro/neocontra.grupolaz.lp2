@@ -22,6 +22,10 @@ public class Constants {
 
     //Texture configuration
     public static final String LEVEL1_MAP = "map/level1_map.tmx";
+    public static final String LEVEL2_MAP = "map/level2_map.tmx";
+    public static final String LEVEL3_MAP = "map/level3_map.tmx";
+    public static final String LEVEL4_MAP = "map/level4_map.tmx";
+
     public static final String PLAYER_ATLAS = "atlases/player/player.atlas";
     public static final String PLAYER_STILL_REGION = "Parado/still_000";
     public static final String PLAYER_RUNNING_REGION = "Andando/walking_000";

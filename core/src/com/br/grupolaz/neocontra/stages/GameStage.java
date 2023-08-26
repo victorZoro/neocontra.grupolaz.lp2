@@ -54,6 +54,7 @@ public class GameStage extends Stage {
     private final WorldUtils world;
     private GameActor player;
     private GameActor enemy;
+    private final String level;
 
     private final Box2DDebugRenderer b2dRenderer;
 
@@ -65,15 +66,16 @@ public class GameStage extends Stage {
      * @param game       tipo NeoContra
      * @param gameScreen tipo GameScreen
      */
-    public GameStage(NeoContra game, GameScreen gameScreen) {
+    public GameStage(NeoContra game, GameScreen gameScreen, String level) {
         this.game = game;
         this.gameScreen = gameScreen;
+        this.level = level;
 
         game.alignCameraToWorldCenter();
 
         b2dRenderer = new Box2DDebugRenderer();
 //        b2dRenderer.setDrawBodies(false);
-        this.mapLoader = new MapLoader(Constants.LEVEL1_MAP);
+        this.mapLoader = new MapLoader(this.level);
         world = new WorldUtils();
 
         setUpCharacters();
@@ -90,11 +92,6 @@ public class GameStage extends Stage {
         for (RectangleMapObject object : mapLoader.getMap().getLayers().get(Layers.GROUND.getLayer()).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle r = object.getRectangle();
             new Ground(world.getWorld(), mapLoader.getMap(), r);
-        }
-
-        for (RectangleMapObject object : mapLoader.getMap().getLayers().get(Layers.WALLS.getLayer()).getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle r = object.getRectangle();
-            new Wall(world.getWorld(), mapLoader.getMap(), r);
         }
 
         for (RectangleMapObject object : mapLoader.getMap().getLayers().get(Layers.STAIRS.getLayer()).getObjects().getByType(RectangleMapObject.class)) {
@@ -202,7 +199,10 @@ public class GameStage extends Stage {
             player.remove();
         }
 
-        player = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION), Constants.PLAYER_X, Constants.PLAYER_Y);
+//        if(this.level.equals(Constants.LEVEL1_MAP)) {
+            player = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION), Constants.PLAYER_X, Constants.PLAYER_Y);
+//        }
+
         addActor(player);
     }
 
@@ -218,8 +218,18 @@ public class GameStage extends Stage {
     private void followPlayer() {
         if (player.getBody().getPosition().x <= 2.5f) {
             game.getCamera().position.x = 2.5f;
-        } else game.getCamera().position.x = Math.min(player.getBody().getPosition().x, 23f);
+        } else {
+            game.getCamera().position.x = Math.min(player.getBody().getPosition().x, 23f);
+        }
 
+        if(player.getBody().getPosition().y <= 3.5f) {
+            game.getCamera().position.y = 2f;
+        } else {
+            game.getCamera().position.y = 3f;
+        }
+
+//        game.getCamera().position.y = player.getBody().getPosition().y;
+        System.out.println(game.getCamera().position.y);
     }
 
     private void setUpMusic() {

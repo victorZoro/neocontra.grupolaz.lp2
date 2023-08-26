@@ -1,12 +1,10 @@
 package com.br.grupolaz.neocontra.enums;
 
 public enum Layers {
-    GROUND(2),
-    STAIRS(3),
-    PLATFORMS(4),
-    WALLS(5),
-    SEALEVEL(6),
-    CEILING(7)
+    GROUND(1),
+    STAIRS(2),
+    SEALEVEL(3),
+    CEILING(4)
     ;
 
     final int layer;
