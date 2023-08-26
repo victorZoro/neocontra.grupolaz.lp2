@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.br.grupolaz.neocontra.actors.Enemy;
 import com.br.grupolaz.neocontra.actors.GameActor;
 import com.br.grupolaz.neocontra.actors.Projectile;
+import com.br.grupolaz.neocontra.interactive.InteractiveTileObject;
 import com.br.grupolaz.neocontra.interactive.Stairs;
 
 
@@ -43,12 +44,22 @@ public class WorldContactListener implements ContactListener {
             }
         }
 
-        if((bodyA.getUserData() instanceof Enemy) || (bodyB.getUserData() instanceof Enemy)) {
-            Body enemy = bodyA.getUserData() instanceof Enemy ? bodyA : bodyB;
-            Body object = enemy == bodyA ? bodyB : bodyA;
 
-            if(object.getUserData() instanceof Projectile) {
-                ((Enemy) enemy.getUserData()).collision();
+        if((bodyA.getUserData() instanceof Projectile) || (bodyB.getUserData() instanceof Projectile)) {
+            Body projectile = bodyA.getUserData() instanceof Projectile ? bodyA : bodyB;
+            Body object = projectile == bodyA ? bodyB : bodyA;
+
+            System.out.println(object.getUserData());
+
+            if(object.getUserData() instanceof Enemy) {
+                ((Enemy) object.getUserData()).collision();
+                ((Projectile) projectile.getUserData()).setToDestroy();
+            }
+
+            // Não funcionou (?)
+            if(object.getUserData() instanceof InteractiveTileObject) {
+                Gdx.app.log("Collision", "Happened");
+                ((Projectile) projectile.getUserData()).setToDestroy();
             }
         }
 

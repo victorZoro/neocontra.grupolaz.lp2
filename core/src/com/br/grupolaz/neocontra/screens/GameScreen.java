@@ -73,12 +73,17 @@ public class GameScreen implements Screen {
         gameStage.draw();
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.W)) {
-            if(level.equals(Constants.LEVEL1_MAP)) {
-                level = Constants.LEVEL2_MAP;
-            } else if (level.equals(Constants.LEVEL2_MAP)) {
-                level = Constants.LEVEL3_MAP;
-            } else {
-                level = Constants.LEVEL4_MAP;
+
+            switch (level) {
+                case Constants.LEVEL1_MAP:
+                    level = Constants.LEVEL2_MAP;
+                    break;
+                case Constants.LEVEL2_MAP:
+                    level = Constants.LEVEL3_MAP;
+                    break;
+                case Constants.LEVEL3_MAP:
+                    level = Constants.LEVEL4_MAP;
+                    break;
             }
             
             gameStage = new GameStage(game, this, level);

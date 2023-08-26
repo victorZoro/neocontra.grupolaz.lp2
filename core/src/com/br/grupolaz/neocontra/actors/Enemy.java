@@ -129,14 +129,14 @@ public class Enemy extends GameActor {
         for(int i = 0; i < 5; i++) {
             frames.add(new TextureRegion(runningRegion, i * 48, 0, 32, 48));
         }
-        actorRunning = new Animation<TextureRegion>(0.15f, frames);
+        actorRunning = new Animation<>(0.15f, frames);
         frames.clear();
         
         TextureRegion dyingRegion = TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_DYING_REGION);
         for(int i = 0; i < 3; i++) {
             frames.add(new TextureRegion(dyingRegion, i * 48, 0, 48, 64));
         }
-        actorDying = new Animation<TextureRegion>(0.1f, frames);
+        actorDying = new Animation<>(0.1f, frames);
         frames.clear();
         System.out.println("Created dying region");
     }
@@ -157,7 +157,7 @@ public class Enemy extends GameActor {
 
         switch (currentState) {
             case RUNNING: {
-                System.out.println("running in the 90s");
+//                System.out.println("running in the 90s");
                 resetSpriteSize(sprite);
                 region = actorRunning.getKeyFrame(stateTimer, true);
                 break;

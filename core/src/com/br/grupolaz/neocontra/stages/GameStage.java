@@ -228,8 +228,6 @@ public class GameStage extends Stage {
             game.getCamera().position.y = 3f;
         }
 
-//        game.getCamera().position.y = player.getBody().getPosition().y;
-        System.out.println(game.getCamera().position.y);
     }
 
     private void setUpMusic() {

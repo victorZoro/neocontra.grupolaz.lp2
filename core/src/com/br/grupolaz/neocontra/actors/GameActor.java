@@ -177,12 +177,12 @@ public abstract class GameActor extends Actor {
         this.body = createBody(x, y);
         this.sprite = new Sprite(region);
         this.sprite.setSize(16f / Constants.PIXELS_PER_METER, 20f / Constants.PIXELS_PER_METER);
-        this.projectiles = new Array<Projectile>();
+        this.projectiles = new Array<>();
 
         currentState = previousState = ActorStates.STANDING;
         stateTimer = 0;
         runningRight = true;
-        frames = new Array<TextureRegion>();
+        frames = new Array<>();
     }
 
     public GameActor(World world, TextureRegion region, Vector2 position) {
@@ -190,12 +190,12 @@ public abstract class GameActor extends Actor {
         this.body = createBody(position);
         this.sprite = new Sprite(region);
         this.sprite.setSize(16f / Constants.PIXELS_PER_METER, 20f / Constants.PIXELS_PER_METER);
-        this.projectiles = new Array<Projectile>();
+        this.projectiles = new Array<>();
 
         currentState = previousState = ActorStates.STANDING;
         stateTimer = 0;
         runningRight = true;
-        frames = new Array<TextureRegion>();
+        frames = new Array<>();
     }
 
     public TextureRegion getFrame(float delta) {
@@ -274,7 +274,7 @@ public abstract class GameActor extends Actor {
     public void projectileOutOfBounds(OrthographicCamera camera) {
         int i = 0;
         for (Projectile projectile : projectiles) {
-            if (isOutOfBounds(projectile.getBody(), camera)) {
+            if (isOutOfBounds(projectile.getBody(), camera) || projectile.isSetToDestroy()) {
                 world.destroyBody(projectile.getBody());
                 projectiles.removeIndex(i);
             }
