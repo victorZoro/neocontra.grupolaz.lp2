@@ -58,7 +58,7 @@ public class Enemy extends GameActor {
         destroyed = false;
         setUpAnimations();
     }
-
+/** 
     public Enemy(World world, TextureRegion region, Player player, Vector2 position) {
         super(world, region, position);
         body.getFixtureList().get(0).setUserData(this);
@@ -67,7 +67,7 @@ public class Enemy extends GameActor {
         setToDestroy = false;
         destroyed = false;
         setUpAnimations();
-    }
+    }*/
 
     /**
      * <h2>setUpAnimations</h2>
