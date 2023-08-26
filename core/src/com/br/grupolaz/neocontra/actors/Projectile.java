@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.br.grupolaz.neocontra.enums.Bits;
 
 import static com.badlogic.gdx.physics.box2d.BodyDef.BodyType.KinematicBody;
 
@@ -15,17 +14,19 @@ public abstract class Projectile extends Actor {
 
     protected World world;
 
-    public Projectile(World world, float x, float y, Vector2 velocity, float radius, short categoryBit) {
+    protected boolean setToDestroy;
+
+    public Projectile(World world, float x, float y, Vector2 velocity, float radius) {
         this.world = world;
-        this.body = createBody(x, y, velocity, radius, categoryBit);
+        this.body = createBody(x, y, velocity, radius);
     }
 
-    public Projectile(World world, Vector2 position, Vector2 velocity, float radius, short categoryBit) {
+    public Projectile(World world, Vector2 position, Vector2 velocity, float radius) {
         this.world = world;
-        this.body = createBody(position, velocity, radius, categoryBit);
+        this.body = createBody(position, velocity, radius);
     }
 
-    public Body createBody(float x, float y, Vector2 velocity, float radius, short categoryBit) {
+    public Body createBody(float x, float y, Vector2 velocity, float radius) {
         BodyDef bodyDef = new BodyDef();
 
         bodyDef.position.set(x, y);
@@ -34,9 +35,6 @@ public abstract class Projectile extends Actor {
         FixtureDef fixtureDef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(radius);
-        fixtureDef.filter.categoryBits = categoryBit;
-        fixtureDef.filter.maskBits = (short) (Bits.PLAYER.getBitType() | Bits.ENEMY.getBitType());
-
 
         fixtureDef.shape = shape;
         fixtureDef.isSensor = true;
@@ -51,7 +49,7 @@ public abstract class Projectile extends Actor {
         return body;
     }
 
-    public Body createBody(Vector2 position, Vector2 velocity, float radius, short categoryBit) {
+    public Body createBody(Vector2 position, Vector2 velocity, float radius) {
         BodyDef bodyDef = new BodyDef();
 
         bodyDef.position.set(position.x, position.y);
@@ -60,9 +58,6 @@ public abstract class Projectile extends Actor {
         FixtureDef fixtureDef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(radius);
-        fixtureDef.filter.categoryBits = categoryBit;
-        fixtureDef.filter.maskBits = (short) (Bits.PLAYER.getBitType() | Bits.ENEMY.getBitType());
-
 
         fixtureDef.shape = shape;
         fixtureDef.isSensor = true;
@@ -78,6 +73,14 @@ public abstract class Projectile extends Actor {
     }
     public Body getBody() {
         return body;
+    }
+
+    public void setToDestroy() {
+        setToDestroy = true;
+    }
+
+    public boolean isSetToDestroy() {
+        return setToDestroy;
     }
     @Override
     public void act(float delta) {

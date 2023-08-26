@@ -1,10 +1,10 @@
 package com.br.grupolaz.neocontra.enums;
 
 public enum Layers {
-    GROUND(1),
-    STAIRS(2),
-    SEALEVEL(3),
-    CEILING(4)
+    GROUND(2),
+    STAIRS(3),
+    SEALEVEL(4),
+    CEILING(5)
     ;
 
     final int layer;
@@ -17,7 +17,4 @@ public enum Layers {
         return layer;
     }
 
-    public static int length() {
-        return 8;
-    }
 }
