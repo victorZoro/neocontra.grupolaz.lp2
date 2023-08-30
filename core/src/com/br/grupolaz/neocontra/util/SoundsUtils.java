@@ -25,6 +25,8 @@ public class SoundsUtils {
     private static Music themeMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/ThemeMusic.wav"));
     private static Sound shotSound = Gdx.audio.newSound(Gdx.files.internal("sounds/shot.wav"));
 
+    private static Sound introSong = Gdx.audio.newSound(Gdx.files.internal("sounds/Intro.ogg"));
+
     /**
      * <h2>getShotSound</h2>
      * <P>retorna o efeito sonoro do disparo/p>
@@ -41,6 +43,10 @@ public class SoundsUtils {
      */
     public static Music getThemeM(){
         return themeMusic;
+    }
+
+    public static Sound getIntroSong() {
+        return introSong;
     }
 }
 

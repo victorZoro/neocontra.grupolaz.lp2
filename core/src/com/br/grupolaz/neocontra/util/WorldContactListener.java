@@ -1,37 +1,17 @@
 package com.br.grupolaz.neocontra.util;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.physics.box2d.*;
 import com.br.grupolaz.neocontra.actors.Enemy;
 import com.br.grupolaz.neocontra.actors.GameActor;
 import com.br.grupolaz.neocontra.actors.Player;
 import com.br.grupolaz.neocontra.actors.Projectile;
-import com.br.grupolaz.neocontra.interactive.InteractiveTileObject;
 import com.br.grupolaz.neocontra.interactive.Stairs;
 
 public class WorldContactListener implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
-//        Fixture fixtureA = contact.getFixtureA();
-//        Fixture fixtureB = contact.getFixtureB();
-//
-//
-//        if((fixtureA.getUserData() == "bullet") || (fixtureB.getUserData() == "bullet")) {
-//            Fixture bullet = fixtureA.getUserData() == "bullet" ? fixtureA : fixtureB;
-//            Fixture enemy = bullet == fixtureA ? fixtureB : fixtureA;
-//
-//            System.out.println(enemy.getUserData());
-//
-//            if(enemy.getUserData() != null && GameActor.class.isAssignableFrom(enemy.getUserData().getClass())) {
-//                ((GameActor) enemy.getUserData()).collision();
-//            }
-//        }
 
         Body bodyA = contact.getFixtureA().getBody();
         Body bodyB = contact.getFixtureB().getBody();

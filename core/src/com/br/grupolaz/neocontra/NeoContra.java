@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.br.grupolaz.neocontra.screens.GameScreen;
+import com.br.grupolaz.neocontra.screens.MainMenu;
 import com.br.grupolaz.neocontra.util.Constants;
 
 /**
@@ -49,7 +49,7 @@ public class NeoContra extends Game {
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		viewport = new FitViewport(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, camera);
-		setScreen(new GameScreen(this));
+		setScreen(new MainMenu(this));
 	}
 	/**
 	 * <h2>getSpriteBatch</h2>

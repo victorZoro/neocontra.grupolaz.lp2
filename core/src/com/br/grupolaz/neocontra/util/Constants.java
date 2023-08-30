@@ -20,12 +20,16 @@ public class Constants {
     public static final int WINDOW_WIDTH = 160 / PIXELS_PER_METER;
     public static final int WINDOW_HEIGHT = 120 / PIXELS_PER_METER;
 
-    //Texture configuration
+    // Level configuration
     public static final String LEVEL1_MAP = "map/level1_map.tmx";
     public static final String LEVEL2_MAP = "map/level2_map.tmx";
     public static final String LEVEL3_MAP = "map/level3_map.tmx";
     public static final String LEVEL4_MAP = "map/level4_map.tmx";
 
+    //Main Menu configuration
+    public static final String GAME_TITLE_LOGO = "NeoContra.png";
+
+    //Texture configuration
     public static final String PLAYER_ATLAS = "atlases/player/player.atlas";
     public static final String PLAYER_STILL_REGION = "Parado/still_000";
     public static final String PLAYER_RUNNING_REGION = "Andando/walking_000";

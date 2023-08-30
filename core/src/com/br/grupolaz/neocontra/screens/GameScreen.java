@@ -38,16 +38,18 @@ public class GameScreen implements Screen {
 
     private final NeoContra game;
 
-    private String level = Constants.LEVEL1_MAP;
+    private String level;
     /**
      * <h2> Costrutor GameScreen</h2>
      * <p>O Costrutor do GameScreen é responsável por criar e inicializar um 
      * objeto GameStage dentro da classe GameScreen</p>
      * @param game tipo NeoContra
      */
-    public GameScreen(NeoContra game) {
+    public GameScreen(NeoContra game, String level) {
         this.game = game;
-        gameStage = new GameStage(game, this, level);
+        this.level = level;
+        gameStage = new GameStage(game, this, this.level);
+//        oldStage.dispose();
     }
     /**
      * <h2>show</h2>

@@ -145,10 +145,6 @@ public class Player extends GameActor {
         return lifeCount;
     }
 
-    public void climpUpStairs() {
-        body.setTransform(body.getPosition().x, body.getPosition().y + 8f / Constants.PIXELS_PER_METER, 0);
-    }
-
     public void update(float delta) {
         stateTime += delta;
 
@@ -258,7 +254,7 @@ public class Player extends GameActor {
         for (int i = 0; i < 6; i++) {
             frames.add(new TextureRegion(runningRegion, i * 48, 0, 32, 48));
         }
-        actorRunning = new Animation<TextureRegion>(0.15f, frames);
+        actorRunning = new Animation<>(0.15f, frames);
         frames.clear();
 
 
@@ -267,7 +263,7 @@ public class Player extends GameActor {
         for (int i = 0; i < 4; i++) {
             frames.add(new TextureRegion(jumpingRegion, i * 48, 0, 48, 48));
         }
-        actorJumping = new Animation<TextureRegion>(0.15f, frames);
+        actorJumping = new Animation<>(0.15f, frames);
         frames.clear();
 
         //Dying
@@ -275,7 +271,7 @@ public class Player extends GameActor {
         for (int i = 0; i < 5; i++) {
             frames.add(new TextureRegion(dyingRegion, i * 48, 0, 32, 48));
         }
-        actorDying = new Animation<TextureRegion>(0.25f, frames);
+        actorDying = new Animation<>(0.25f, frames);
         frames.clear();
     }
 
@@ -301,7 +297,7 @@ public class Player extends GameActor {
     public void collision() {
         if(isHit()){            
             hit();
-            getLifeCount();
+            getLifeCount(); // O resultado desse método é ignorado.
             update(stateTime);
             setHit(hit);
         }
