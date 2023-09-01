@@ -47,7 +47,7 @@ public class WorldContactListener implements ContactListener {
 
             if (object.getFixtureList().size > 1) {
                 if (object.getFixtureList().get(2).getUserData() == "stairsSensor") {
-                        ((Stairs) object.getUserData()).onPlayerCollision(player);
+                    ((Stairs) object.getUserData()).onPlayerCollision(player);
                 }
             }
         }
@@ -58,7 +58,7 @@ public class WorldContactListener implements ContactListener {
 
             System.out.println("Objeto instacia " + object.getUserData());
 
-            //Logica de tirro;
+            // Logica de tirro;
             if (object.getUserData() instanceof Enemy) {
                 if (bodyB.getUserData() instanceof Bullet) {
                     ((Enemy) object.getUserData()).collision();
@@ -67,12 +67,11 @@ public class WorldContactListener implements ContactListener {
                 }
 
             } else if (object.getUserData() instanceof Player) {
-                if(bodyB.getUserData() instanceof BulletEnemy){
-                    // ((Player) object.getUserData()).hit();
-                ((Player) object.getUserData()).isHit();
-                ((Player) object.getUserData()).collision();
-                ((Projectile) projectile.getUserData()).setToDestroy();
-                System.out.println("Colisão com o player instancia do objeto: " + projectile.getUserData());
+                if (bodyB.getUserData() instanceof BulletEnemy) {
+                    //((Player) object.getUserData()).hit();
+                    ((Projectile) projectile.getUserData()).setToDestroy();
+                    ((Player) object.getUserData()).collision();
+                    System.out.println("Colisão com o player instancia do objeto: " + projectile.getUserData());
                 }
             }
 

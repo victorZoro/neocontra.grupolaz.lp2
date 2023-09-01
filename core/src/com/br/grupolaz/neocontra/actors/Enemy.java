@@ -178,22 +178,23 @@ public class Enemy extends GameActor {
 
     @Override
     public void shoot() {
-        if (runningRight) {
-            if (!destroyed) {
-                projectiles.add(new BulletEnemy(world,
-                        body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER,
-                        body.getPosition().y + 2f / Constants.PIXELS_PER_METER, new Vector2(-3f, 0)));
-                SoundsUtils.getShotSound().play();
-                canAttack = false;
-            } else if (!runningRight) {
-                if (!destroyed) {
-                    projectiles.add(new BulletEnemy(world,
-                            body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER,
-                            body.getPosition().y + 2f / Constants.PIXELS_PER_METER, new Vector2(3f, 0)));
-                    SoundsUtils.getShotSound().play();
-                    canAttack = false;
-                }
+        if (!destroyed && canAttack) {
+            Vector2 bulletDirection;
+            
+            if (!runningRight) {
+                bulletDirection = new Vector2(3f, 0);
+                System.out.println("Direita");
+            } else {
+                bulletDirection = new Vector2(-3f, 0);
+                System.out.println("Esquerda");
             }
+            
+            projectiles.add(new BulletEnemy(world,
+                    body.getPosition().x + (runningRight ? Constants.PLAYER_RADIUS : -Constants.PLAYER_RADIUS) + bulletDirection.x / Constants.PIXELS_PER_METER,
+                    body.getPosition().y + 5f / Constants.PIXELS_PER_METER, bulletDirection));
+            
+            SoundsUtils.getShotSound().play();
+            canAttack = false;
         }
     }
 
