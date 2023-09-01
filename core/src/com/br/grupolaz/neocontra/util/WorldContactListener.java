@@ -47,7 +47,7 @@ public class WorldContactListener implements ContactListener {
 
             if (object.getFixtureList().size > 1) {
                 if (object.getFixtureList().get(2).getUserData() == "stairsSensor") {
-                    ((Stairs) object.getUserData()).onPlayerCollision(player);
+                        ((Stairs) object.getUserData()).onPlayerCollision(player);
                 }
             }
         }
@@ -56,24 +56,26 @@ public class WorldContactListener implements ContactListener {
             Body projectile = bodyA.getUserData() instanceof Projectile ? bodyA : bodyB;
             Body object = projectile == bodyA ? bodyB : bodyA;
 
-            System.out.println("Objeto instacia" + object.getUserData());
+            System.out.println("Objeto instacia " + object.getUserData());
 
-            if (projectile.getUserData() instanceof Enemy) {
-                ((Enemy) object.getUserData()).collision();
-                ((Projectile) projectile.getUserData()).setToDestroy();
-                System.out.println("instancia do objeto: " + object.getUserData());
+            //Logica de tirro;
+            if (object.getUserData() instanceof Enemy) {
+                if (bodyB.getUserData() instanceof Bullet) {
+                    ((Enemy) object.getUserData()).collision();
+                    ((Projectile) projectile.getUserData()).setToDestroy();
+                    System.out.println("instancia do objeto: " + object.getUserData());
+                }
 
-            } else if (projectile.getUserData() instanceof BulletEnemy) {
-                ((Player) object.getUserData()).hit(); 
-                ((Player) object.getUserData()).collision();
-                System.out.println("instancia do objeto: " + projectile.getUserData());
-            }
-
-            if(bodyA.getUserData() != null){
+            } else if (object.getUserData() instanceof Player) {
+                if(bodyB.getUserData() instanceof BulletEnemy){
+                    // ((Player) object.getUserData()).hit();
                 ((Player) object.getUserData()).isHit();
-                ((Player) object.getUserData()).collision();;
-                System.out.println("Player collision");
+                ((Player) object.getUserData()).collision();
+                ((Projectile) projectile.getUserData()).setToDestroy();
+                System.out.println("Colisão com o player instancia do objeto: " + projectile.getUserData());
+                }
             }
+
         }
 
     }

@@ -94,7 +94,7 @@ public class GameStage extends Stage {
 
     private final Box2DDebugRenderer b2dRenderer;
 
-    private int numEnemies = 1;
+    private int numEnemies = 2;
     ArrayList<Enemy> enemies = new ArrayList<>();
 
     /**

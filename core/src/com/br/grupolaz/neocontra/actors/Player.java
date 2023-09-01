@@ -165,7 +165,7 @@ public class Player extends GameActor {
         super.act(delta);
         update(delta);
         collision();
-        stayInBounds();
+        //stayInBounds();
         
     }
 
