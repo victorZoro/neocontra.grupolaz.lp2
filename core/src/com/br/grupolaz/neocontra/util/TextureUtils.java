@@ -1,6 +1,8 @@
 package com.br.grupolaz.neocontra.util;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 /**
  * <h2>TextureUtils</h2>
@@ -31,6 +33,8 @@ public class TextureUtils {
     private static final Texture lifeMedal = new Texture("life.png");
     private static final Texture gameOver = new Texture("gameover.png");
     private static final Texture playerBullet = new Texture("playerBullet.png");
+    private static final Texture gameTitleLogo = new Texture(Constants.GAME_TITLE_LOGO);
+    private static final BitmapFont gameFont = new BitmapFont(Gdx.files.internal("ps2p.fnt"));
 
     /**
      * <h2>getPlayerAtlas</h2>
@@ -70,5 +74,10 @@ public class TextureUtils {
     public static Texture getPlayerBullet(){
         return playerBullet;
     }
-
+    public static Texture getGameTitleLogo() {
+        return gameTitleLogo;
+    }
+    public static BitmapFont getGameFont() {
+        return gameFont;
+    }
 }

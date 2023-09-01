@@ -13,7 +13,6 @@ import com.br.grupolaz.neocontra.actors.Enemy;
 import com.br.grupolaz.neocontra.actors.GameActor;
 import com.br.grupolaz.neocontra.actors.Player;
 import com.br.grupolaz.neocontra.actors.Projectile;
-import com.br.grupolaz.neocontra.interactive.InteractiveTileObject;
 import com.br.grupolaz.neocontra.interactive.Stairs;
 
 public class WorldContactListener implements ContactListener {
@@ -70,6 +69,11 @@ public class WorldContactListener implements ContactListener {
                 System.out.println("instancia do objeto: " + projectile.getUserData());
             }
 
+            if(bodyA.getUserData() != null){
+                ((Player) object.getUserData()).isHit();
+                ((Player) object.getUserData()).collision();;
+                System.out.println("Player collision");
+            }
         }
 
     }

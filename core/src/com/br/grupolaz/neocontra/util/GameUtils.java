@@ -43,7 +43,7 @@ public class GameUtils {
      * @param player tipo Player
      * @param delta tipo float
      */
-    public static void createInputHandler(Player player) {
+    public static void createInputHandler(Player player, String level) {
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             player.jump();
         }
@@ -57,7 +57,22 @@ public class GameUtils {
 
         
         if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
-            player.getBody().setTransform(Constants.PLAYER_X, Constants.PLAYER_Y, player.getBody().getAngle());
+            switch (level){
+                case Constants.LEVEL1_MAP:
+                    player.getBody().setTransform(-10f/Constants.PIXELS_PER_METER, 100f/Constants.PIXELS_PER_METER, player.getBody().getAngle());
+                    break;
+                case Constants.LEVEL2_MAP:
+
+                    player.getBody().setTransform(-20f/Constants.PIXELS_PER_METER, 150f/Constants.PIXELS_PER_METER, player.getBody().getAngle());
+                    break;
+                case Constants.LEVEL3_MAP:
+                    player.getBody().setTransform(1f/Constants.PIXELS_PER_METER, 10f/Constants.PIXELS_PER_METER, player.getBody().getAngle());
+                    break;
+                case Constants.LEVEL4_MAP:
+                    player.getBody().setTransform(-10f/Constants.PIXELS_PER_METER, 80f/Constants.PIXELS_PER_METER, player.getBody().getAngle());
+                    break;
+            }
+
             player.spawn();
         }
 

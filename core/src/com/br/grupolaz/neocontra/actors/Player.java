@@ -54,7 +54,6 @@ public class Player extends GameActor {
      * textura que representa a aparência do jogador.</p>
      *
      * @param world  tipo WorldUtils
-     * @param body   tipo Body
      * @param region tipo TextureRegion
      */
     public Player(World world, TextureRegion region, float x, float y) {
@@ -91,13 +90,6 @@ public class Player extends GameActor {
         body.setLinearVelocity(2f, 0);
     }
 
-    public void stayInBounds() {
-        if (body.getPosition().x < 0) {
-            body.setTransform(0, body.getPosition().y, body.getAngle());
-        } else if (body.getPosition().x >= 25.5f) {
-            body.setTransform(25.5f, body.getPosition().y, body.getAngle());
-        }
-    }
 
     public void hit() {
         hit = true;
@@ -151,10 +143,6 @@ public class Player extends GameActor {
      */
     public int getLifeCount() {
         return lifeCount;
-    }
-
-    public void climpUpStairs() {
-        body.setTransform(body.getPosition().x, body.getPosition().y + 8f / Constants.PIXELS_PER_METER, 0);
     }
 
     public void update(float delta) {
@@ -268,7 +256,7 @@ public class Player extends GameActor {
         for (int i = 0; i < 6; i++) {
             frames.add(new TextureRegion(runningRegion, i * 48, 0, 32, 48));
         }
-        actorRunning = new Animation<TextureRegion>(0.15f, frames);
+        actorRunning = new Animation<>(0.15f, frames);
         frames.clear();
 
 
@@ -277,7 +265,7 @@ public class Player extends GameActor {
         for (int i = 0; i < 4; i++) {
             frames.add(new TextureRegion(jumpingRegion, i * 48, 0, 48, 48));
         }
-        actorJumping = new Animation<TextureRegion>(0.15f, frames);
+        actorJumping = new Animation<>(0.15f, frames);
         frames.clear();
 
         //Dying
@@ -285,7 +273,7 @@ public class Player extends GameActor {
         for (int i = 0; i < 5; i++) {
             frames.add(new TextureRegion(dyingRegion, i * 48, 0, 32, 48));
         }
-        actorDying = new Animation<TextureRegion>(0.25f, frames);
+        actorDying = new Animation<>(0.25f, frames);
         frames.clear();
     }
 
