@@ -68,13 +68,14 @@ public class WorldContactListener implements ContactListener {
 
             } else if (object.getUserData() instanceof Player) {
                 if (bodyB.getUserData() instanceof BulletEnemy) {
-                    //((Player) object.getUserData()).hit();
-                    ((Projectile) projectile.getUserData()).setToDestroy();
-                    ((Player) object.getUserData()).collision();
-                    System.out.println("Colisão com o player instancia do objeto: " + projectile.getUserData());
+                    if (projectile.getUserData() instanceof BulletEnemy) {
+                        ((Player) object.getUserData()).hit();
+                        ((Player) object.getUserData()).collision();
+                        ((Projectile) projectile.getUserData()).setToDestroy();
+                        System.out.println("Colisão com o player instancia do objeto: " + projectile.getUserData());
+                    }
                 }
             }
-
         }
 
     }

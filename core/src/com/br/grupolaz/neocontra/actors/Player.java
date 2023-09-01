@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import com.br.grupolaz.neocontra.enums.ActorStates;
 import com.br.grupolaz.neocontra.util.Constants;
@@ -90,7 +91,15 @@ public class Player extends GameActor {
         body.setLinearVelocity(2f, 0);
     }
 
-
+    public boolean collisionWithBulletEnemy() {
+    for (Fixture fixture : body.getFixtureList()) {
+        Object userData = fixture.getUserData();
+        if (userData instanceof BulletEnemy) {
+            return true;
+        }
+    }
+    return false;
+}
     public void hit() {
         hit = true;
         lifeCount--;
@@ -298,7 +307,9 @@ public class Player extends GameActor {
     @Override
     public void collision() {
         if(isHit()){  
-            hit();          
+            if(collisionWithBulletEnemy()){
+                hit();          
+            }
             setHit(hit);
             getLifeCount();
             update(stateTime);
