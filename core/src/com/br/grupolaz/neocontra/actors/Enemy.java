@@ -180,14 +180,14 @@ public class Enemy extends GameActor {
     public void shoot() {
         if (runningRight) {
             if (!destroyed) {
-                projectiles.add(new Bullet(world,
+                projectiles.add(new BulletEnemy(world,
                         body.getPosition().x - Constants.PLAYER_RADIUS - 1f / Constants.PIXELS_PER_METER,
                         body.getPosition().y + 2f / Constants.PIXELS_PER_METER, new Vector2(-3f, 0)));
                 SoundsUtils.getShotSound().play();
                 canAttack = false;
             } else if (!runningRight) {
                 if (!destroyed) {
-                    projectiles.add(new Bullet(world,
+                    projectiles.add(new BulletEnemy(world,
                             body.getPosition().x + Constants.PLAYER_RADIUS + 1f / Constants.PIXELS_PER_METER,
                             body.getPosition().y + 2f / Constants.PIXELS_PER_METER, new Vector2(3f, 0)));
                     SoundsUtils.getShotSound().play();

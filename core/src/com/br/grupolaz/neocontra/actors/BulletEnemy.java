@@ -7,22 +7,20 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.br.grupolaz.neocontra.util.Constants;
 import com.br.grupolaz.neocontra.util.TextureUtils;
 
-public class Bullet extends Projectile {
+public class BulletEnemy extends Projectile{
     public boolean tipebullet = true;
 
-    public Bullet(World world, float x, float y, Vector2 velocity) {
+    public BulletEnemy(World world, float x, float y, Vector2 velocity) {
         super(world, x, y, velocity, Constants.PLAYER_BULLET_RADIUS);
         this.sprite = new Sprite(TextureUtils.getPlayerBullet());
         this.sprite.setSize(Constants.BULLET_SIZE, Constants.BULLET_SIZE);
     }
 
-    public Bullet(World world, Vector2 position, Vector2 velocity) {
+    public BulletEnemy(World world, Vector2 position, Vector2 velocity) {
         super(world, position, velocity, Constants.PLAYER_BULLET_RADIUS);
         this.sprite = new Sprite(TextureUtils.getPlayerBullet());
         this.sprite.setSize(Constants.BULLET_SIZE, Constants.BULLET_SIZE);
     }
-
-
 
     @Override
     public void act(float delta) {
@@ -32,5 +30,4 @@ public class Bullet extends Projectile {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
     }
-    
 }
