@@ -1,7 +1,5 @@
 package com.br.grupolaz.neocontra.stages;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.MathUtils;
@@ -13,9 +11,14 @@ import com.br.grupolaz.neocontra.actors.Enemy;
 import com.br.grupolaz.neocontra.actors.GameActor;
 import com.br.grupolaz.neocontra.actors.Player;
 import com.br.grupolaz.neocontra.enums.Layers;
-import com.br.grupolaz.neocontra.interactive.*;
+import com.br.grupolaz.neocontra.interactive.Ceiling;
+import com.br.grupolaz.neocontra.interactive.Ground;
+import com.br.grupolaz.neocontra.interactive.SeaLevel;
+import com.br.grupolaz.neocontra.interactive.Stairs;
 import com.br.grupolaz.neocontra.screens.GameScreen;
 import com.br.grupolaz.neocontra.util.*;
+
+import java.util.ArrayList;
 
 /**
  * <h2>GameStage</h2>
@@ -89,6 +92,7 @@ public class GameStage extends Stage {
     private final MapLoader mapLoader;
     private final WorldUtils world;
     private GameActor player;
+    private GameActor player2;
     private GameActor enemy;
     private final String level;
 
@@ -96,6 +100,8 @@ public class GameStage extends Stage {
 
     private int numEnemies = 2;
     ArrayList<Enemy> enemies = new ArrayList<>();
+
+    private boolean singlePlayer;
 
     /**
      * <h2>GameStage</h2>
@@ -107,10 +113,11 @@ public class GameStage extends Stage {
      * @param game       tipo NeoContra
      * @param gameScreen tipo GameScreen
      */
-    public GameStage(NeoContra game, GameScreen gameScreen, String level) {
+    public GameStage(NeoContra game, GameScreen gameScreen, String level, boolean singlePlayer) {
         this.game = game;
         this.gameScreen = gameScreen;
         this.level = level;
+        this.singlePlayer = singlePlayer;
 
         game.alignCameraToWorldCenter();
 
@@ -123,7 +130,7 @@ public class GameStage extends Stage {
         setUpMap();
         setUpMusic();
 
-        hud = new HudStage((Player) player);
+        hud = new HudStage((Player) player, (Player) player2);
 
         world.getWorld().setContactListener(new WorldContactListener());
 
@@ -179,15 +186,19 @@ public class GameStage extends Stage {
      * <P>
      * Atualiza a visualização do mapa para a câmera atual.
      * </p>
-     *
      */
     public void update() {
-        GameUtils.createInputHandler((Player) player, level);
+        GameUtils.createInputHandler((Player) player, (Player) player2, level);
 
         GameUtils.fixTimeStep(world.getWorld());
 
-        followPlayer();
-        stayInBounds();
+        if (GameUtils.isKonamiCode()) {
+            ((Player) player).setLifeCount(9999);
+        }
+
+        startFollowPlayer();
+        stayInBounds((Player) player);
+        stayInBounds((Player) player2);
 
         game.getCamera().update();
 
@@ -236,13 +247,13 @@ public class GameStage extends Stage {
 
         game.getSpriteBatch().setProjectionMatrix(game.getCamera().combined);
         player.act(delta);
-        for(Enemy enemy: enemies){
+        for (Enemy enemy : enemies) {
             enemy.act(delta);
         }
 
         game.getSpriteBatch().begin();
         player.draw(game.getSpriteBatch(), 0);
-        for(Enemy enemy:enemies){            
+        for (Enemy enemy : enemies) {
             enemy.draw(game.getSpriteBatch(), 0);
         }
         game.getSpriteBatch().end();
@@ -261,8 +272,13 @@ public class GameStage extends Stage {
      * </p>
      */
     private void setUpCharacters() {
-        setUpPlayer();
-        setUpEnemy();
+        if(!singlePlayer) {
+            setUpPlayer();
+            setUpPlayer2();
+        } else {
+            setUpPlayer();
+        }
+//        setUpEnemy();
     }
 
     /**
@@ -276,26 +292,53 @@ public class GameStage extends Stage {
             player.remove();
         }
 
-        switch (level){
+        switch (level) {
             case Constants.LEVEL1_MAP:
                 player = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
                         (-10f / Constants.PIXELS_PER_METER), (100f / Constants.PIXELS_PER_METER));
                 break;
             case Constants.LEVEL2_MAP:
                 player = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
-                        (-20f/Constants.PIXELS_PER_METER), ( 150f /Constants.PIXELS_PER_METER));
+                        (-20f / Constants.PIXELS_PER_METER), (150f / Constants.PIXELS_PER_METER));
                 break;
             case Constants.LEVEL3_MAP:
                 player = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
-                        (1f/Constants.PIXELS_PER_METER), ( 10f /Constants.PIXELS_PER_METER));
+                        (1f / Constants.PIXELS_PER_METER), (10f / Constants.PIXELS_PER_METER));
                 break;
             case Constants.LEVEL4_MAP:
                 player = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
-                        (-10f/Constants.PIXELS_PER_METER), ( 80f /Constants.PIXELS_PER_METER));
+                        (-10f / Constants.PIXELS_PER_METER), (80f / Constants.PIXELS_PER_METER));
                 break;
         }
 
         addActor(player);
+    }
+
+    private void setUpPlayer2() {
+        if (player2 != null) {
+            player2.remove();
+        }
+
+        switch (level) {
+            case Constants.LEVEL1_MAP:
+                player2 = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                        (-12f / Constants.PIXELS_PER_METER), (100f / Constants.PIXELS_PER_METER));
+                break;
+            case Constants.LEVEL2_MAP:
+                player2 = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                        (-22f / Constants.PIXELS_PER_METER), (150f / Constants.PIXELS_PER_METER));
+                break;
+            case Constants.LEVEL3_MAP:
+                player2 = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                        (-1f / Constants.PIXELS_PER_METER), (10f / Constants.PIXELS_PER_METER));
+                break;
+            case Constants.LEVEL4_MAP:
+                player2 = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                        (-12f / Constants.PIXELS_PER_METER), (80f / Constants.PIXELS_PER_METER));
+                break;
+        }
+
+        addActor(player2);
     }
 
     /**
@@ -308,16 +351,18 @@ public class GameStage extends Stage {
         for (int i = 0; i < numEnemies; i++) {
             enemy = new Enemy(world.getWorld(), TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
                     (Player) player, getRandomX(), Constants.ENEMY_Y);
-                    enemies.add((Enemy) enemy);
+            enemies.add((Enemy) enemy);
             addActor(enemy);
         }
     }
+
     private float getRandomX() {
         float areaMinX = 9;
         float areaMaxX = 15;
         return MathUtils.random(areaMinX, areaMaxX);
     }
-    public void stayInBounds() {
+
+    public void stayInBounds(Player player1) {
         if (player.getBody().getPosition().x < 0) {
             player.getBody().setTransform(0, player.getBody().getPosition().y, player.getBody().getAngle());
         } else if (player.getBody().getPosition().x >= game.getCamera().position.x + 2.5f) {
@@ -325,35 +370,48 @@ public class GameStage extends Stage {
         }
     }
 
-    private void followPlayer() {
-        if (player.getBody().getPosition().x <= 2.5f) {
+    private void startFollowPlayer() {
+        float cameraCenter;
+
+        if (!singlePlayer) {
+            if (player.isAlive() && player2.isAlive()) {
+                cameraCenter = (player.getBody().getPosition().x + player2.getBody().getPosition().x) / 2;
+            } else if (!player.isAlive()) {
+                cameraCenter = player2.getBody().getPosition().x;
+            } else if (!player2.isAlive()) {
+                cameraCenter = player.getBody().getPosition().x;
+            } else {
+                cameraCenter = game.getCamera().position.x;
+            }
+        } else {
+            cameraCenter = player.getBody().getPosition().x;
+        }
+
+        followPlayer(cameraCenter);
+    }
+
+    public void followPlayer(float cameraCenter) {
+        if (cameraCenter <= 2.5f) {
             game.getCamera().position.x = 2.5f;
         } else {
-
-            switch (level){
+            switch (level) {
                 case Constants.LEVEL1_MAP:
-                    game.getCamera().position.x = Math.min(player.getBody().getPosition().x, 23f);
+                    game.getCamera().position.x = Math.min(cameraCenter, 23f);
                     break;
                 case Constants.LEVEL2_MAP:
-                    game.getCamera().position.x = Math.min(player.getBody().getPosition().x, 24f);
+                    game.getCamera().position.x = Math.min(cameraCenter, 24f);
                     break;
                 case Constants.LEVEL3_MAP:
-                    game.getCamera().position.x = Math.min(player.getBody().getPosition().x, 37f);
+                    game.getCamera().position.x = Math.min(cameraCenter, 37f);
                     break;
                 case Constants.LEVEL4_MAP:
-                    game.getCamera().position.x = Math.min(player.getBody().getPosition().x, 45f);
+                    game.getCamera().position.x = Math.min(cameraCenter, 45f);
                     break;
             }
-            System.out.println(game.getCamera().position.x);
-
-        }
-
-        if (player.getBody().getPosition().y <= 3.5f) {
-            game.getCamera().position.y = 2f;
-        } else {
-            game.getCamera().position.y = 3f;
         }
     }
+
+
 
     private void setUpMusic() {
         SoundsUtils.getThemeM().setLooping(true);

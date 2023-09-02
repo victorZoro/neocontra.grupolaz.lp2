@@ -94,7 +94,14 @@ public class MainMenuStage extends Stage {
     private void setUpInputListener() {
         singlePlayerButton.addListener(new InputListener() {
             public boolean touchDown(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new GameScreen(game, Constants.LEVEL1_MAP));
+                game.setScreen(new GameScreen(game, Constants.LEVEL1_MAP, true));
+                return true;
+            }
+        });
+
+        multiPlayerButton.addListener(new InputListener() {
+            public boolean touchDown(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer, int button) {
+                game.setScreen(new GameScreen(game, Constants.LEVEL1_MAP, false));
                 return true;
             }
         });

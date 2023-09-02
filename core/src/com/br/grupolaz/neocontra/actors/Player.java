@@ -42,8 +42,6 @@ public class Player extends GameActor {
     private boolean hit;
     private int lifeCount;
 
-    private Animation<TextureRegion> actorJumping;
-
     /**
      * <h2>player</h2>
      * A função do construtor Player é criar
@@ -108,7 +106,6 @@ public class Player extends GameActor {
 
     public void die() {
         setToDestroy = true;
-        System.out.println("FALHEI NA MISSÃO! ASPIRANTE MORTO");
     }
 
     /**
@@ -154,6 +151,10 @@ public class Player extends GameActor {
         return lifeCount;
     }
 
+    public void setLifeCount(int lifeCount) {
+        this.lifeCount = lifeCount;
+    }
+
     public void update(float delta) {
         stateTime += delta;
 
@@ -168,6 +169,7 @@ public class Player extends GameActor {
             stateTime = 0;
         }
     }
+
 
     @Override
     public void act(float delta) {
@@ -311,7 +313,7 @@ public class Player extends GameActor {
                 hit();          
             }
             setHit(hit);
-            getLifeCount();
+            getLifeCount(); //Essa linha ainda não tem utilidade...
             update(stateTime);
         }
     }

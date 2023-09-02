@@ -1,7 +1,5 @@
 package com.br.grupolaz.neocontra.actors;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -25,12 +23,12 @@ import com.br.grupolaz.neocontra.util.WorldUtils;
  * Essa classe pode ser estendida por atores específicos
  * do jogo para adicionar comportamentos e características adicionais
  * </p>
- * 
+ *
  * <h3>package</h3>
  * <p>
  * actors
  * </p>
- * 
+ *
  * <h3>variaveis</h3>
  * <p>
  * #world: {@link WorldUtils}
@@ -77,7 +75,7 @@ import com.br.grupolaz.neocontra.util.WorldUtils;
  * <p>
  * #projectiles: Array <Body>
  * </p>
- * 
+ *
  * <h3>Métodos</h3>
  * <p>
  * +GameActor(WorldUtils, Body, TextureRegion)
@@ -146,8 +144,9 @@ public abstract class GameActor extends Actor {
     protected ActorStates previousState;
 
     protected Animation<TextureRegion> actorRunning;
-//    protected Animation<TextureRegion> actorRunningAiming;
+    //    protected Animation<TextureRegion> actorRunningAiming;
     protected Animation<TextureRegion> actorDying;
+    protected Animation<TextureRegion> actorJumping;
     protected TextureRegion actorStanding;
     protected TextureRegion actorCrouching;
 
@@ -162,13 +161,14 @@ public abstract class GameActor extends Actor {
     /**
      * <h2>GameActor</h2>
      * <p>O contrutor de GameActor é responsável por receber
-     *  e atribuir os objetos necessários ao ator do jogo, definir
+     * e atribuir os objetos necessários ao ator do jogo, definir
      * seu estado inicial, criar um objeto Sprite com base na região de
      * textura fornecida e inicializar outras variáveis de
      * instância relevantes
      * </p>
-     * <p>Ele recebe um objeto WorldUtils, um 
+     * <p>Ele recebe um objeto WorldUtils, um
      * objeto Body e uma região de textura region</p>
+     *
      * @param world  tipo WorldUtils
      * @param region tipo TextureRegion
      */
@@ -210,7 +210,49 @@ public abstract class GameActor extends Actor {
         return region;
     }
 
-    protected abstract TextureRegion checkCurrentState();
+    protected TextureRegion checkCurrentState() {
+        TextureRegion region;
+
+        switch (currentState) {
+            case JUMPING: {
+                region = actorJumping.getKeyFrame(stateTimer, true);
+                sprite.setPosition(sprite.getX(), sprite.getY() - (2f / Constants.PIXELS_PER_METER));
+                break;
+            }
+
+            case RUNNING: {
+                resetSpriteSize(sprite);
+                region = actorRunning.getKeyFrame(stateTimer, true);
+                break;
+            }
+
+            case DEAD: {
+                sprite.setPosition(sprite.getX(), sprite.getY() - (5f / Constants.PIXELS_PER_METER));
+                region = actorDying.getKeyFrame(stateTimer, false);
+                break;
+            }
+
+            case CROUCHING: {
+                region = actorCrouching;
+                sprite.setSize(25f / Constants.PIXELS_PER_METER, 16f / Constants.PIXELS_PER_METER);
+                sprite.setPosition(sprite.getX(), sprite.getY() - (2f / Constants.PIXELS_PER_METER));
+                break;
+            }
+
+            // Next 3 cases are all the same,
+            // so we jump to the next one until
+            // we reach the default case.
+            case FALLING:
+            case STANDING:
+            default: {
+                region = actorStanding;
+                resetSpriteSize(sprite);
+                break;
+            }
+        }
+
+        return region;
+    }
 
     protected void flipSprite(TextureRegion region) {
         if ((body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
@@ -238,9 +280,9 @@ public abstract class GameActor extends Actor {
             return ActorStates.FALLING;
         } else if (body.getLinearVelocity().x != 0) {
             return ActorStates.RUNNING;
-        } else if(setToDestroy) {
+        } else if (setToDestroy) {
             return ActorStates.DEAD;
-        } else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        } else if(currentState == ActorStates.CROUCHING) {
             return ActorStates.CROUCHING;
         } else {
             return ActorStates.STANDING;
@@ -283,7 +325,9 @@ public abstract class GameActor extends Actor {
     }
 
     protected abstract void setUpAnimations();
+
     public abstract void shoot();
+
     public abstract void collision();
 
     public Body getBody() {
@@ -327,6 +371,15 @@ public abstract class GameActor extends Actor {
         return body;
     }
 
+    public void crouch() {
+        previousState = currentState;
+        currentState = ActorStates.CROUCHING;
+    }
+
+    public boolean isAlive() {
+        return !destroyed;
+    }
+
     public Body createBody(Vector2 position) {
         BodyDef bodyDef = new BodyDef();
         bodyDef.position.set(position.x, position.y);
@@ -344,6 +397,7 @@ public abstract class GameActor extends Actor {
 
         return body;
     }
+
     @Override
     public void act(float delta) {
         super.act(delta);

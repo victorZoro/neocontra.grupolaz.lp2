@@ -1,18 +1,8 @@
 package com.br.grupolaz.neocontra.util;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.Manifold;
-import com.br.grupolaz.neocontra.actors.Bullet;
-import com.br.grupolaz.neocontra.actors.BulletEnemy;
-import com.br.grupolaz.neocontra.actors.Enemy;
-import com.br.grupolaz.neocontra.actors.GameActor;
-import com.br.grupolaz.neocontra.actors.Player;
-import com.br.grupolaz.neocontra.actors.Projectile;
+import com.badlogic.gdx.physics.box2d.*;
+import com.br.grupolaz.neocontra.actors.*;
 import com.br.grupolaz.neocontra.interactive.Stairs;
 
 public class WorldContactListener implements ContactListener {
@@ -46,7 +36,9 @@ public class WorldContactListener implements ContactListener {
             Body object = actor == bodyA ? bodyB : bodyA;
 
             if (object.getFixtureList().size > 1) {
+                System.out.println("you can bet it is bigger than 1");
                 if (object.getFixtureList().get(2).getUserData() == "stairsSensor") {
+                    System.out.println("hit a staircase. better jump");
                     ((Stairs) object.getUserData()).onPlayerCollision(actor);
                 }
             }
