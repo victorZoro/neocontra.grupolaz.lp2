@@ -3,6 +3,7 @@ package com.br.grupolaz.neocontra.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.br.grupolaz.neocontra.NeoContra;
 import com.br.grupolaz.neocontra.stages.MainMenuStage;
 
@@ -15,9 +16,13 @@ public class MainMenu implements Screen {
         this.game = game;
         this.game.alignCameraToWorldCenter();
         mainMenuStage = new MainMenuStage(game, this);
-
     }
 
+    public MainMenu(NeoContra game, Stage oldStage) {
+        this.game = game;
+        this.game.alignCameraToWorldCenter();
+        mainMenuStage = new MainMenuStage(game, this, oldStage);
+    }
 
     @Override
     public void show() {

@@ -57,10 +57,6 @@ public class GameUtils {
 
         player2Inputs(player2, level);
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
-            spawnPlayers(player1, player2, level);
-        }
-
     }
 
     private static void player1Inputs(Player player1, String level) {
@@ -104,6 +100,11 @@ public class GameUtils {
         }
     }
 
+    /*
+    * spawnPlayers - Método responsável por spawnar os jogadores no mapa
+    * @deprecated
+    *
+    */
     private static void spawnPlayers(Player player1, Player player2, String level) {
         switch (level) {
             case Constants.LEVEL1_MAP:

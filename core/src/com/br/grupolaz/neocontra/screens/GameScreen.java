@@ -98,8 +98,11 @@ public class GameScreen implements Screen {
             
             gameStage = new GameStage(game, this, level, singlePlayer, oldStage);
         }
-    }
 
+        if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+            game.setScreen(new MainMenu(game, gameStage));
+        }
+    }
 
     /**
      * <h2>resize</h2>

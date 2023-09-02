@@ -48,6 +48,28 @@ public class MainMenuStage extends Stage {
         Gdx.input.setInputProcessor(this);
     }
 
+    public MainMenuStage(NeoContra game, MainMenu mainMenu, Stage oldStage) {
+        this.game = game;
+        this.mainMenu = mainMenu;
+        this.table = new Table();
+        this.teamLabel = new Label("Grupo LAZ Presents", new Label.LabelStyle(TextureUtils.getGameFont(), Color.WHITE));
+        this.titleSprite = new Sprite(TextureUtils.getGameTitleLogo());
+        this.skin = new Skin(Gdx.files.internal("uiSkin.json"));
+        oldStage.dispose();
+
+        game.alignCameraToWorldCenter();
+
+        setUpTable();
+        setUpGrupoLAZ();
+        setUpTitle();
+        setUpButtons();
+        setUpCopyrightText();
+        setUpInputListener();
+        setUpMusic();
+
+        Gdx.input.setInputProcessor(this);
+    }
+
     private void setUpTable() {
         this.table.setFillParent(true);
         this.table.center().pad(50f);
@@ -121,7 +143,6 @@ public class MainMenuStage extends Stage {
     @Override
     public void draw() {
         super.draw();
-
     }
 
     @Override

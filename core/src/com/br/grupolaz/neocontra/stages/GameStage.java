@@ -195,6 +195,9 @@ public class GameStage extends Stage {
 
         if (GameUtils.isKonamiCode()) {
             ((Player) player).setLifeCount(9999);
+            if(!singlePlayer) {
+                ((Player) player2).setLifeCount(9999);
+            }
         }
 
         startFollowPlayer();
@@ -425,5 +428,6 @@ public class GameStage extends Stage {
         mapLoader.dispose();
         world.dispose();
         b2dRenderer.dispose();
+        SoundsUtils.getThemeM().dispose();
     }
 }
