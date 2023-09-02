@@ -31,10 +31,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
  */
 //Inspired by Brent Aureli Code
 public class MapLoader {
-    
-    private TmxMapLoader loader;
+
     private TiledMap map;
-    private OrthogonalTiledMapRenderer renderer;
+    private final OrthogonalTiledMapRenderer renderer;
 
     /**
      * <h2>MapLoader</h2>
@@ -43,19 +42,11 @@ public class MapLoader {
      * @param path_to_map_file tipo String
      */
     public  MapLoader(String path_to_map_file) {
-        loader = new TmxMapLoader();
+        TmxMapLoader loader = new TmxMapLoader();
         map = loader.load(path_to_map_file);
         renderer = new OrthogonalTiledMapRenderer(map, 1f / Constants.PIXELS_PER_METER);
     }
 
-    /**
-     * <h2>getLoader</h2>
-     * <p>retorna o aqrivo do mapa caregado</p>
-     * @return loader tipo TmxMapLoader(get)
-     */
-    public TmxMapLoader getLoader() {
-        return loader;
-    }
 
     /**
      * <h2>getMap</h2>

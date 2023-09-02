@@ -1,15 +1,12 @@
 package com.br.grupolaz.neocontra.actors;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.br.grupolaz.neocontra.enums.ActorStates;
@@ -26,12 +23,12 @@ import com.br.grupolaz.neocontra.util.WorldUtils;
  * Essa classe pode ser estendida por atores específicos
  * do jogo para adicionar comportamentos e características adicionais
  * </p>
- * 
+ *
  * <h3>package</h3>
  * <p>
  * actors
  * </p>
- * 
+ *
  * <h3>variaveis</h3>
  * <p>
  * #world: {@link WorldUtils}
@@ -78,7 +75,7 @@ import com.br.grupolaz.neocontra.util.WorldUtils;
  * <p>
  * #projectiles: Array <Body>
  * </p>
- * 
+ *
  * <h3>Métodos</h3>
  * <p>
  * +GameActor(WorldUtils, Body, TextureRegion)
@@ -137,12 +134,9 @@ import com.br.grupolaz.neocontra.util.WorldUtils;
  */
 // Inspired by MartianRun
 public abstract class GameActor extends Actor {
-    protected WorldUtils world;
+    protected World world;
     protected Body body;
     protected Sprite sprite;
-    protected boolean crouching;
-    protected boolean alive;
-
     protected boolean setToDestroy;
     protected boolean destroyed;
 
@@ -150,8 +144,9 @@ public abstract class GameActor extends Actor {
     protected ActorStates previousState;
 
     protected Animation<TextureRegion> actorRunning;
-    protected Animation<TextureRegion> actorRunningAiming;
+    //    protected Animation<TextureRegion> actorRunningAiming;
     protected Animation<TextureRegion> actorDying;
+    protected Animation<TextureRegion> actorJumping;
     protected TextureRegion actorStanding;
     protected TextureRegion actorCrouching;
 
@@ -165,57 +160,42 @@ public abstract class GameActor extends Actor {
 
     /**
      * <h2>GameActor</h2>
-     * <p>
-     * O contrutor de GameActor é responsável por receber
+     * <p>O contrutor de GameActor é responsável por receber
      * e atribuir os objetos necessários ao ator do jogo, definir
      * seu estado inicial, criar um objeto Sprite com base na região de
      * textura fornecida e inicializar outras variáveis de
      * instância relevantes
      * </p>
-     * <p>
-     * Ele recebe um objeto WorldUtils, um
-     * objeto Body e uma região de textura region
-     * </p>
-     * 
+     * <p>Ele recebe um objeto WorldUtils, um
+     * objeto Body e uma região de textura region</p>
+     *
      * @param world  tipo WorldUtils
-     * @param body   tipo Body
      * @param region tipo TextureRegion
      */
-    public GameActor(WorldUtils world, Body body, TextureRegion region) {
+    public GameActor(World world, TextureRegion region, float x, float y) {
         this.world = world;
-        this.body = body;
+        this.body = createBody(x, y);
         this.sprite = new Sprite(region);
         this.sprite.setSize(16f / Constants.PIXELS_PER_METER, 20f / Constants.PIXELS_PER_METER);
-        this.projectiles = new Array<Projectile>();
+        this.projectiles = new Array<>();
 
         currentState = previousState = ActorStates.STANDING;
         stateTimer = 0;
         runningRight = true;
-        frames = new Array<TextureRegion>();
+        frames = new Array<>();
     }
 
-    /**
-     * <h2>setDrawRegion</h2>
-     * <p>
-     * O método setDrawRegion permite
-     * definir a região de textura do sprite
-     * do ator, especificando as coordenadas
-     * de início (x, y) e as dimensões (width, height).
-     * </p>
-     * <p>
-     * Isso permite que diferentes partes de
-     * uma única textura sejam exibidas no sprite,
-     * possibilitando animações, movimentos ou mudanças
-     * de aparência.
-     * </p>
-     * 
-     * @param x      tipo int
-     * @param y      tipo int
-     * @param width  tipo int
-     * @param height tipo int
-     */
-    public void setDrawRegion(int x, int y, int width, int height) {
-        sprite.setRegion(x, y, width, height);
+    public GameActor(World world, TextureRegion region, Vector2 position) {
+        this.world = world;
+        this.body = createBody(position);
+        this.sprite = new Sprite(region);
+        this.sprite.setSize(16f / Constants.PIXELS_PER_METER, 20f / Constants.PIXELS_PER_METER);
+        this.projectiles = new Array<>();
+
+        currentState = previousState = ActorStates.STANDING;
+        stateTimer = 0;
+        runningRight = true;
+        frames = new Array<>();
     }
 
     public TextureRegion getFrame(float delta) {
@@ -230,8 +210,49 @@ public abstract class GameActor extends Actor {
         return region;
     }
 
-    protected abstract TextureRegion checkCurrentState();
+    protected TextureRegion checkCurrentState() {
+        TextureRegion region;
 
+        switch (currentState) {
+            case JUMPING: {
+                region = actorJumping.getKeyFrame(stateTimer, true);
+                sprite.setPosition(sprite.getX(), sprite.getY() - (2f / Constants.PIXELS_PER_METER));
+                break;
+            }
+
+            case RUNNING: {
+                resetSpriteSize(sprite);
+                region = actorRunning.getKeyFrame(stateTimer, true);
+                break;
+            }
+
+            case DEAD: {
+                sprite.setPosition(sprite.getX(), sprite.getY() - (5f / Constants.PIXELS_PER_METER));
+                region = actorDying.getKeyFrame(stateTimer, false);
+                break;
+            }
+
+            case CROUCHING: {
+                region = actorCrouching;
+                sprite.setSize(25f / Constants.PIXELS_PER_METER, 16f / Constants.PIXELS_PER_METER);
+                sprite.setPosition(sprite.getX(), sprite.getY() - (2f / Constants.PIXELS_PER_METER));
+                break;
+            }
+
+            // Next 3 cases are all the same,
+            // so we jump to the next one until
+            // we reach the default case.
+            case FALLING:
+            case STANDING:
+            default: {
+                region = actorStanding;
+                resetSpriteSize(sprite);
+                break;
+            }
+        }
+
+        return region;
+    }
 
     protected void flipSprite(TextureRegion region) {
         if ((body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX()) {
@@ -243,15 +264,13 @@ public abstract class GameActor extends Actor {
         }
     }
 
-
-    private float checkStateTimer(float delta) {
+    private void checkStateTimer(float delta) {
         if (currentState == previousState) {
             stateTimer += delta;
         } else {
             stateTimer = 0;
         }
 
-        return stateTimer;
     }
 
     public ActorStates getState() {
@@ -263,7 +282,7 @@ public abstract class GameActor extends Actor {
             return ActorStates.RUNNING;
         } else if (setToDestroy) {
             return ActorStates.DEAD;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        } else if(currentState == ActorStates.CROUCHING) {
             return ActorStates.CROUCHING;
         } else {
             return ActorStates.STANDING;
@@ -297,8 +316,8 @@ public abstract class GameActor extends Actor {
     public void projectileOutOfBounds(OrthographicCamera camera) {
         int i = 0;
         for (Projectile projectile : projectiles) {
-            if (isOutOfBounds(projectile.getBody(), camera)) {
-                world.getWorld().destroyBody(projectile.getBody());
+            if (isOutOfBounds(projectile.getBody(), camera) || projectile.isSetToDestroy()) {
+                world.destroyBody(projectile.getBody());
                 projectiles.removeIndex(i);
             }
             i++;
@@ -315,28 +334,68 @@ public abstract class GameActor extends Actor {
         return body;
     }
 
-    public Array<Projectile> getProjectiles() {
-        return projectiles;
-    }
-
     public void resetSpriteSize(Sprite sprite) {
         sprite.setSize(16f / Constants.PIXELS_PER_METER, 20f / Constants.PIXELS_PER_METER);
     }
 
     public boolean isOutOfBounds(Body body, OrthographicCamera camera) {
-        if (body.getPosition().x <= camera.position.x - camera.viewportWidth / 2
+        return body.getPosition().x <= camera.position.x - camera.viewportWidth / 2
                 || body.getPosition().x >= camera.position.x + camera.viewportWidth / 2
                 || body.getPosition().y <= camera.position.y - camera.viewportHeight / 2
-                || body.getPosition().y >= camera.position.y + camera.viewportHeight / 2) {
-            return true;
-        }
-        return false;
+                || body.getPosition().y >= camera.position.y + camera.viewportHeight / 2;
     }
 
     public void setCategoryFilter(short filterBit) {
         Filter filter = new Filter();
         filter.categoryBits = filterBit;
         body.getFixtureList().get(0).setFilterData(filter);
+    }
+
+    public Body createBody(float x, float y) {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.position.set(x, y);
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        Body body = world.createBody(bodyDef);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        CircleShape shape = new CircleShape();
+        shape.setRadius(Constants.PLAYER_RADIUS);
+
+        fixtureDef.shape = shape;
+        fixtureDef.friction = 0.5f;
+
+        body.createFixture(fixtureDef);
+
+        body.setUserData(this);
+
+        return body;
+    }
+
+    public void crouch() {
+        previousState = currentState;
+        currentState = ActorStates.CROUCHING;
+    }
+
+    public boolean isAlive() {
+        return !destroyed;
+    }
+
+    public Body createBody(Vector2 position) {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.position.set(position.x, position.y);
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        Body body = world.createBody(bodyDef);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        CircleShape shape = new CircleShape();
+        shape.setRadius(Constants.PLAYER_RADIUS);
+
+        fixtureDef.shape = shape;
+        fixtureDef.friction = 0.5f;
+
+        body.createFixture(fixtureDef);
+
+        return body;
     }
 
     @Override

@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="libGDX Game" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.br.grupolaz.neocontra.DesktopLauncher" />
+    <module name="neocontra.grupolaz.lp2.desktop.main" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

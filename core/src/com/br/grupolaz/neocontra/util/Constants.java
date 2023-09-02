@@ -20,51 +20,36 @@ public class Constants {
     public static final int WINDOW_WIDTH = 160 / PIXELS_PER_METER;
     public static final int WINDOW_HEIGHT = 120 / PIXELS_PER_METER;
 
-    //Bits configuration
-    public static final short DEFAULT_BIT = 1;
-    public static final short PLAYER_BIT = 2;
-    public static final short ENEMY_BIT = 4;
-    public static final short BULLET_BIT = 8;
-    public static final short DEAD_BIT = 16;
+    // Level configuration
+    public static final String LEVEL1_MAP = "map/level1_map.tmx";
+    public static final String LEVEL2_MAP = "map/level2_map.tmx";
+    public static final String LEVEL3_MAP = "map/level3_map.tmx";
+    public static final String LEVEL4_MAP = "map/level4_map.tmx";
 
+    //Main Menu configuration
+    public static final String GAME_TITLE_LOGO = "NeoContra.png";
 
     //Texture configuration
-    public static final String LEVEL1_MAP = "map/level1_map.tmx";
     public static final String PLAYER_ATLAS = "atlases/player/player.atlas";
     public static final String PLAYER_STILL_REGION = "Parado/still_000";
     public static final String PLAYER_RUNNING_REGION = "Andando/walking_000";
     public static final String PLAYER_JUMPING_REGION = "Pulando/jump_000";
     public static final String PLAYER_CROUCHING_REGION = "ParadoAgachado/still-low_000";
-    public static final String PLAYER_RUNNING_AIMING_REGION = "AndandoMirando/walking-aiming_000";
+//    public static final String PLAYER_RUNNING_AIMING_REGION = "AndandoMirando/walking-aiming_000";
     public static final String PLAYER_DYING_REGION = "Morreu/died_000";
 
     public static final String ENEMY_ATLAS = "atlases/player/enemy.atlas";
     public static final String ENEMY_STILL_REGION = "enemy_aiming000";
     public static final String ENEMY_RUNNING_REGION = "enemy_walking000";
-    public static final String ENEMY_JUMPING_REGION = "enemy_walking006";
+//    public static final String ENEMY_JUMPING_REGION = "enemy_walking006";
     public static final String ENEMY_DYING_REGION = "explosion000";
-    
-    //PLayer texture configuration - coming soon
-    
-    //World Map Configuration
-    public static int BACKGROUND_LAYER = 0;
-    public static int GROUND_BLOCK_LAYER = 1;
-    public static int GROUND_LAYER = 2;
-    public static int STAIRS_LAYER = 3;
-    public static int PLATFORMS_LAYER = 4;
-    public static int WALLS_LAYER = 5;
-    public static int SEALEVEL_LAYER = 6;
-    public static int CEILING_LAYER = 7;
+
     
     //Box2D Bodies
     public static Vector2 WORLD_GRAVITY = new Vector2(0, -10);
-    public static int STATIC_BODY = 0;
-    public static int DYNAMIC_BODY = 1;
-    public static int KINEMATIC_BODY = 2;
+
     
-    //Player config 
-    public static final float PLAYER_X = -10f / PIXELS_PER_METER;
-    public static final float PLAYER_Y = 100f / PIXELS_PER_METER;
+    //Player config
     public static final float PLAYER_RADIUS = 6f / PIXELS_PER_METER;
     public static Vector2 PLAYER_JUMPING_LINEAR_IMPULSE = new Vector2(0, 5f);
     public static Vector2 PLAYER_RIGHT_LINEAR_IMPULSE = new Vector2(0.1f, 0);

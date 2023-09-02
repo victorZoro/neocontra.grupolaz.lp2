@@ -1,10 +1,13 @@
 package com.br.grupolaz.neocontra.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.br.grupolaz.neocontra.NeoContra;
 import com.br.grupolaz.neocontra.stages.GameStage;
+import com.br.grupolaz.neocontra.util.Constants;
 
 //Inspired by Martian Run
 /**
@@ -34,16 +37,23 @@ public class GameScreen implements Screen {
 
     GameStage gameStage;
 
-    private NeoContra game;
+    private final NeoContra game;
+
+    private String level;
+
+    private boolean singlePlayer;
     /**
      * <h2> Costrutor GameScreen</h2>
      * <p>O Costrutor do GameScreen é responsável por criar e inicializar um 
      * objeto GameStage dentro da classe GameScreen</p>
      * @param game tipo NeoContra
      */
-    public GameScreen(NeoContra game) {
+    public GameScreen(NeoContra game, String level, boolean singlePlayer, Stage oldStage) {
         this.game = game;
-        gameStage = new GameStage(game, this);
+        this.level = level;
+        this.singlePlayer = singlePlayer;
+        gameStage = new GameStage(game, this, this.level, this.singlePlayer, oldStage);
+//        oldStage.dispose();
     }
     /**
      * <h2>show</h2>
@@ -67,8 +77,32 @@ public class GameScreen implements Screen {
 
         gameStage.act(delta);
         gameStage.draw();
-    }
 
+        Stage oldStage;
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.L)) {
+
+            switch (level) {
+                case Constants.LEVEL1_MAP:
+                    level = Constants.LEVEL2_MAP;
+                    break;
+                case Constants.LEVEL2_MAP:
+                    level = Constants.LEVEL3_MAP;
+                    break;
+                case Constants.LEVEL3_MAP:
+                    level = Constants.LEVEL4_MAP;
+                    break;
+            }
+
+            oldStage = gameStage;
+            
+            gameStage = new GameStage(game, this, level, singlePlayer, oldStage);
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+            game.setScreen(new MainMenu(game, gameStage));
+        }
+    }
 
     /**
      * <h2>resize</h2>

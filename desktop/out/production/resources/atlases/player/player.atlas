@@ -1,0 +1,278 @@
+player.png
+size: 2048, 64
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Andando/walking_000
+  rotate: false
+  xy: 1, 1
+  size: 32, 48
+  orig: 18, 37
+  offset: 0, -11
+  index: -1
+Andando/walking_001
+  rotate: false
+  xy: 49, 1
+  size: 32, 48
+  orig: 21, 37
+  offset: 0, -11
+  index: -1
+Andando/walking_002
+  rotate: false
+  xy: 97, 1
+  size: 32, 48
+  orig: 22, 33
+  offset: 0, -15
+  index: -1
+Andando/walking_003
+  rotate: false
+  xy: 145, 1
+  size: 32, 48
+  orig: 18, 36
+  offset: 0, -12
+  index: -1
+Andando/walking_004
+  rotate: false
+  xy: 193, 1
+  size: 32, 48
+  orig: 20, 36
+  offset: 0, -12
+  index: -1
+Andando/walking_005
+  rotate: false
+  xy: 241, 1
+  size: 32, 48
+  orig: 22, 33
+  offset: 0, -15
+  index: -1
+AndandoMirando/walking-aiming_000
+  rotate: false
+  xy: 289, 1
+  size: 32, 48
+  orig: 25, 36
+  offset: 0, -12
+  index: -1
+AndandoMirando/walking-aiming_001
+  rotate: false
+  xy: 337, 1
+  size: 32, 48
+  orig: 27, 36
+  offset: 0, -12
+  index: -1
+AndandoMirando/walking-aiming_002
+  rotate: false
+  xy: 385, 1
+  size: 32, 48
+  orig: 27, 34
+  offset: 0, -14
+  index: -1
+AndandoMirando/walking-aiming_003
+  rotate: false
+  xy: 433, 1
+  size: 32, 48
+  orig: 25, 35
+  offset: 0, -13
+  index: -1
+AndandoMirando/walking-aiming_004
+  rotate: false
+  xy: 481, 1
+  size: 32, 48
+  orig: 27, 35
+  offset: 0, -13
+  index: -1
+AndandoMirando/walking-aiming_005
+  rotate: false
+  xy: 529, 1
+  size: 32, 48
+  orig: 27, 33
+  offset: 0, -15
+  index: -1
+AndandoMirandoBaixo/walking-aiming-low_000
+  rotate: false
+  xy: 577, 1
+  size: 32, 48
+  orig: 22, 36
+  offset: 0, -12
+  index: -1
+AndandoMirandoBaixo/walking-aiming-low_001
+  rotate: false
+  xy: 625, 1
+  size: 32, 48
+  orig: 23, 36
+  offset: 0, -12
+  index: -1
+AndandoMirandoBaixo/walking-aiming-low_002
+  rotate: false
+  xy: 673, 1
+  size: 32, 48
+  orig: 23, 34
+  offset: 0, -14
+  index: -1
+AndandoMirandoDiagonal/walking-aiming-diagonal_000
+  rotate: false
+  xy: 721, 1
+  size: 32, 48
+  orig: 18, 37
+  offset: 0, -11
+  index: -1
+AndandoMirandoDiagonal/walking-aiming-diagonal_001
+  rotate: false
+  xy: 769, 1
+  size: 32, 48
+  orig: 21, 37
+  offset: 0, -11
+  index: -1
+AndandoMirandoDiagonal/walking-aiming-diagonal_002
+  rotate: false
+  xy: 817, 1
+  size: 32, 48
+  orig: 22, 35
+  offset: 0, -13
+  index: -1
+AndandoNaAgua/swiming_000
+  rotate: false
+  xy: 865, 1
+  size: 16, 32
+  orig: 16, 18
+  offset: 0, -14
+  index: -1
+AndandoNaAgua/swiming_001
+  rotate: false
+  xy: 913, 1
+  size: 16, 32
+  orig: 16, 18
+  offset: 0, -14
+  index: -1
+Morreu/died_000
+  rotate: false
+  xy: 961, 1
+  size: 32, 32
+  orig: 25, 17
+  offset: 0, -15
+  index: -1
+Morreu/died_001
+  rotate: false
+  xy: 1009, 1
+  size: 32, 32
+  orig: 17, 25
+  offset: 0, -7
+  index: -1
+Morreu/died_002
+  rotate: false
+  xy: 1057, 1
+  size: 32, 32
+  orig: 25, 17
+  offset: 0, -15
+  index: -1
+Morreu/died_003
+  rotate: false
+  xy: 1105, 1
+  size: 32, 32
+  orig: 17, 25
+  offset: 0, -7
+  index: -1
+Morreu/died_004
+  rotate: false
+  xy: 1153, 1
+  size: 48, 16
+  orig: 34, 12
+  offset: 0, -4
+  index: -1
+NaAguaMirandoCima/swiming-aiming-top_000
+  rotate: false
+  xy: 1201, 1
+  size: 32, 32
+  orig: 19, 29
+  offset: 0, -3
+  index: -1
+NaAguaMirandoDiagonal/swiming-aiming-diagonal_000
+  rotate: false
+  xy: 1249, 1
+  size: 32, 32
+  orig: 21, 19
+  offset: 0, -13
+  index: -1
+NaAguaMirandoDireita/swiming-aiming-rightl_000
+  rotate: false
+  xy: 1297, 1
+  size: 32, 32
+  orig: 27, 18
+  offset: 0, -14
+  index: -1
+Parado/still_000
+  rotate: false
+  xy: 1345, 1
+  size: 32, 48
+  orig: 25, 36
+  offset: 0, -12
+  index: -1
+ParadoAgachado/still-low_000
+  rotate: false
+  xy: 1393, 1
+  size: 48, 32
+  orig: 34, 18
+  offset: 0, -14
+  index: -1
+ParadoAtirando/still-firing_000
+  rotate: false
+  xy: 1441, 1
+  size: 32, 48
+  orig: 25, 36
+  offset: 0, -12
+  index: -1
+ParadoAtirando/still-firing_001
+  rotate: false
+  xy: 1489, 1
+  size: 32, 48
+  orig: 25, 35
+  offset: 0, -13
+  index: -1
+ParadoAtirando/still-firing_002
+  rotate: false
+  xy: 1537, 1
+  size: 32, 48
+  orig: 25, 36
+  offset: 0, -12
+  index: -1
+ParadoAtirando/still-firing_003
+  rotate: false
+  xy: 1585, 1
+  size: 32, 48
+  orig: 25, 35
+  offset: 0, -13
+  index: -1
+ParadoCima/still-top_000
+  rotate: false
+  xy: 1633, 1
+  size: 16, 48
+  orig: 16, 44
+  offset: 0, -4
+  index: -1
+Pulando/jump_000
+  rotate: false
+  xy: 1681, 1
+  size: 32, 32
+  orig: 24, 30
+  offset: 0, -2
+  index: -1
+Pulando/jump_001
+  rotate: false
+  xy: 1729, 1
+  size: 32, 32
+  orig: 24, 30
+  offset: 0, -2
+  index: -1
+Pulando/jump_002
+  rotate: false
+  xy: 1777, 1
+  size: 32, 32
+  orig: 24, 30
+  offset: 0, -2
+  index: -1
+Pulando/jump_003
+  rotate: false
+  xy: 1825, 1
+  size: 32, 32
+  orig: 24, 30
+  offset: 0, -2
+  index: -1

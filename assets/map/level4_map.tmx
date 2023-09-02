@@ -35,10 +35,6 @@
   <object id="27" x="1040.09" y="179.273" width="23.9091" height="4.36364"/>
   <object id="28" x="1072" y="203.063" width="24.125" height="4.9375"/>
  </objectgroup>
- <objectgroup id="4" name="Ceiling">
-  <object id="31" x="111.818" y="112.909" width="48.1818" height="8.54545"/>
-  <object id="32" x="583.5" y="99.5" width="128.25" height="5"/>
- </objectgroup>
  <objectgroup id="5" name="Stairs">
   <object id="33" x="40" y="207.909" width="3.90909" height="3.90909"/>
   <object id="37" x="42.8182" y="212.091" width="1.27273" height="1"/>
@@ -64,5 +60,9 @@
  </objectgroup>
  <objectgroup id="6" name="SeaLevel">
   <object id="63" x="0" y="232.182" width="1440.5" height="8.09091"/>
+ </objectgroup>
+ <objectgroup id="4" name="Ceiling">
+  <object id="31" x="111.818" y="112.909" width="48.1818" height="8.54545"/>
+  <object id="32" x="583.5" y="99.5" width="128.25" height="5"/>
  </objectgroup>
 </map>

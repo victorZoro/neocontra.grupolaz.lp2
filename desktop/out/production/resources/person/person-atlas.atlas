@@ -1,0 +1,90 @@
+
+person-atlas.png
+size: 512, 128
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+player-dead
+  rotate: false
+  xy: 224, 16
+  size: 64, 16
+  orig: 64, 16
+  offset: 0, 0
+  index: -1
+player-idle
+  rotate: false
+  xy: 16, 16
+  size: 112, 16
+  orig: 112, 16
+  offset: 0, 0
+  index: -1
+player-run
+  rotate: false
+  xy: 16, 48
+  size: 128, 16
+  orig: 128, 16
+  offset: 0, 0
+  index: -1
+player-shoot
+  rotate: false
+  xy: 144, 16
+  size: 64, 16
+  orig: 64, 16
+  offset: 0, 0
+  index: -1
+player-swim
+  rotate: false
+  xy: 304, 16
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+runner-enemy-dead
+  rotate: false
+  xy: 320, 80
+  size: 64, 16
+  orig: 64, 16
+  offset: 0, 0
+  index: -1
+runner-enemy-idle
+  rotate: false
+  xy: 16, 80
+  size: 144, 16
+  orig: 144, 16
+  offset: 0, 0
+  index: -1
+runner-enemy-shoot
+  rotate: false
+  xy: 256, 48
+  size: 64, 16
+  orig: 64, 16
+  offset: 0, 0
+  index: -1
+runner-enemy-swim
+  rotate: false
+  xy: 336, 48
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+runner-enemy-walk
+  rotate: false
+  xy: 176, 80
+  size: 128, 16
+  orig: 128, 16
+  offset: 0, 0
+  index: -1
+sniper-enemy-dead
+  rotate: false
+  xy: 160, 48
+  size: 80, 16
+  orig: 80, 16
+  offset: 0, 0
+  index: -1
+sniper-enemy-shoot
+  rotate: false
+  xy: 400, 80
+  size: 64, 16
+  orig: 64, 16
+  offset: 0, 0
+  index: -1
