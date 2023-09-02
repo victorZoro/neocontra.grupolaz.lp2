@@ -35,7 +35,7 @@ public class Stairs extends InteractiveTileObject {
 
     @Override
     public void onPlayerCollision(Body actor) {
-        actor.applyLinearImpulse(0, 2f, actor.getWorldCenter().x, actor.getWorldCenter().y, true);
+        //actor.applyLinearImpulse(0, 2f, actor.getWorldCenter().x, actor.getWorldCenter().y, true);
         if(actor.getUserData() instanceof Enemy){
             actor.applyLinearImpulse(0, 10f, actor.getWorldCenter().x, actor.getWorldCenter().y, true);
 

@@ -42,12 +42,12 @@ public class WorldContactListener implements ContactListener {
         System.out.println(bodyA.getUserData() + " :" + bodyB.getUserData());
 
         if ((bodyA.getUserData() instanceof GameActor) || (bodyB.getUserData() instanceof GameActor)) {
-            Body player = bodyA.getUserData() instanceof GameActor ? bodyA : bodyB;
-            Body object = player == bodyA ? bodyB : bodyA;
+            Body actor = bodyA.getUserData() instanceof GameActor ? bodyA : bodyB;
+            Body object = actor == bodyA ? bodyB : bodyA;
 
             if (object.getFixtureList().size > 1) {
                 if (object.getFixtureList().get(2).getUserData() == "stairsSensor") {
-                    ((Stairs) object.getUserData()).onPlayerCollision(player);
+                    ((Stairs) object.getUserData()).onPlayerCollision(actor);
                 }
             }
         }
@@ -58,7 +58,7 @@ public class WorldContactListener implements ContactListener {
 
             System.out.println("Objeto instacia " + object.getUserData());
 
-            // Logica de tirro;
+            
             if (object.getUserData() instanceof Enemy) {
                 if (bodyB.getUserData() instanceof Bullet) {
                     ((Enemy) object.getUserData()).collision();

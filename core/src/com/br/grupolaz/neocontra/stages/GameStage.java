@@ -94,7 +94,7 @@ public class GameStage extends Stage {
 
     private final Box2DDebugRenderer b2dRenderer;
 
-    private int numEnemies = 1;
+    private int numEnemies = 2;
     ArrayList<Enemy> enemies = new ArrayList<>();
 
     /**
@@ -313,8 +313,8 @@ public class GameStage extends Stage {
         }
     }
     private float getRandomX() {
-        float areaMinX = 5;
-        float areaMaxX = 10;
+        float areaMinX = 9;
+        float areaMaxX = 15;
         return MathUtils.random(areaMinX, areaMaxX);
     }
     public void stayInBounds() {
