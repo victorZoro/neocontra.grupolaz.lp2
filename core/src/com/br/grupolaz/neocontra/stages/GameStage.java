@@ -113,11 +113,12 @@ public class GameStage extends Stage {
      * @param game       tipo NeoContra
      * @param gameScreen tipo GameScreen
      */
-    public GameStage(NeoContra game, GameScreen gameScreen, String level, boolean singlePlayer) {
+    public GameStage(NeoContra game, GameScreen gameScreen, String level, boolean singlePlayer, Stage oldStage) {
         this.game = game;
         this.gameScreen = gameScreen;
         this.level = level;
         this.singlePlayer = singlePlayer;
+        oldStage.dispose();
 
         game.alignCameraToWorldCenter();
 

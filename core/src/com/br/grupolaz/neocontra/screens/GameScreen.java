@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.br.grupolaz.neocontra.NeoContra;
 import com.br.grupolaz.neocontra.stages.GameStage;
 import com.br.grupolaz.neocontra.util.Constants;
@@ -47,11 +48,11 @@ public class GameScreen implements Screen {
      * objeto GameStage dentro da classe GameScreen</p>
      * @param game tipo NeoContra
      */
-    public GameScreen(NeoContra game, String level, boolean singlePlayer) {
+    public GameScreen(NeoContra game, String level, boolean singlePlayer, Stage oldStage) {
         this.game = game;
         this.level = level;
         this.singlePlayer = singlePlayer;
-        gameStage = new GameStage(game, this, this.level, this.singlePlayer);
+        gameStage = new GameStage(game, this, this.level, this.singlePlayer, oldStage);
 //        oldStage.dispose();
     }
     /**
@@ -77,6 +78,8 @@ public class GameScreen implements Screen {
         gameStage.act(delta);
         gameStage.draw();
 
+        Stage oldStage;
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.L)) {
 
             switch (level) {
@@ -90,8 +93,10 @@ public class GameScreen implements Screen {
                     level = Constants.LEVEL4_MAP;
                     break;
             }
+
+            oldStage = gameStage;
             
-            gameStage = new GameStage(game, this, level, singlePlayer);
+            gameStage = new GameStage(game, this, level, singlePlayer, oldStage);
         }
     }
 

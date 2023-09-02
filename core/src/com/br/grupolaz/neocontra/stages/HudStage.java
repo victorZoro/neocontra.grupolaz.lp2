@@ -146,7 +146,6 @@ public class HudStage extends Stage {
      * <p>Define o tamanho do sprite.</p>
      * <p>Cria uma imagem com o sprite do "Game Over" e adiciona à tabela.</p>
      *
-     * @return true tipo boolean
      */
     public void gameOver() {
         root.clear();

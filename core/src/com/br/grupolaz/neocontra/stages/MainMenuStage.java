@@ -82,7 +82,7 @@ public class MainMenuStage extends Stage {
         labels.add(new Label("TM AND COPYRIGHTED 2023", new Label.LabelStyle(TextureUtils.getGameFont(), Color.WHITE)));
         labels.add(new Label("GRUPO LAZ - INFO3", new Label.LabelStyle(TextureUtils.getGameFont(), Color.WHITE)));
         labels.add(new Label("LICENSED BY ALISSON R. S.", new Label.LabelStyle(TextureUtils.getGameFont(), Color.WHITE)));
-        labels.add(new Label("Meant for study uses. Non profitable.", new Label.LabelStyle(TextureUtils.getGameFont(), Color.WHITE)));
+        labels.add(new Label("Meant for studying. Non profitable.", new Label.LabelStyle(TextureUtils.getGameFont(), Color.WHITE)));
 
         for(Label label : labels) {
             label.setFontScale(0.35f);
@@ -94,14 +94,14 @@ public class MainMenuStage extends Stage {
     private void setUpInputListener() {
         singlePlayerButton.addListener(new InputListener() {
             public boolean touchDown(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new GameScreen(game, Constants.LEVEL1_MAP, true));
+                game.setScreen(new GameScreen(game, Constants.LEVEL1_MAP, true, MainMenuStage.this));
                 return true;
             }
         });
 
         multiPlayerButton.addListener(new InputListener() {
             public boolean touchDown(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new GameScreen(game, Constants.LEVEL1_MAP, false));
+                game.setScreen(new GameScreen(game, Constants.LEVEL1_MAP, false, MainMenuStage.this));
                 return true;
             }
         });
@@ -122,5 +122,12 @@ public class MainMenuStage extends Stage {
     public void draw() {
         super.draw();
 
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        skin.dispose();
+        SoundsUtils.getIntroSong().dispose();
     }
 }
