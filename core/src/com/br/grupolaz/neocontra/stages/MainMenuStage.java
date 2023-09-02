@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Array;
 import com.br.grupolaz.neocontra.NeoContra;
-import com.br.grupolaz.neocontra.screens.GameScreen;
+import com.br.grupolaz.neocontra.screens.LoadingScreen;
 import com.br.grupolaz.neocontra.screens.MainMenu;
 import com.br.grupolaz.neocontra.util.Constants;
 import com.br.grupolaz.neocontra.util.SoundsUtils;
@@ -116,14 +116,14 @@ public class MainMenuStage extends Stage {
     private void setUpInputListener() {
         singlePlayerButton.addListener(new InputListener() {
             public boolean touchDown(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new GameScreen(game, Constants.LEVEL1_MAP, true, MainMenuStage.this));
+                game.setScreen(new LoadingScreen(game, Constants.LEVEL1_MAP, true, MainMenuStage.this));
                 return true;
             }
         });
 
         multiPlayerButton.addListener(new InputListener() {
             public boolean touchDown(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new GameScreen(game, Constants.LEVEL1_MAP, false, MainMenuStage.this));
+                game.setScreen(new LoadingScreen(game, Constants.LEVEL1_MAP, false, MainMenuStage.this));
                 return true;
             }
         });

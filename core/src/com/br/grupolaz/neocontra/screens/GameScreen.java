@@ -78,7 +78,6 @@ public class GameScreen implements Screen {
         gameStage.act(delta);
         gameStage.draw();
 
-        Stage oldStage;
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.L)) {
 
@@ -93,10 +92,7 @@ public class GameScreen implements Screen {
                     level = Constants.LEVEL4_MAP;
                     break;
             }
-
-            oldStage = gameStage;
-            
-            gameStage = new GameStage(game, this, level, singlePlayer, oldStage);
+            game.setScreen(new LoadingScreen(game, level, singlePlayer, gameStage));
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
