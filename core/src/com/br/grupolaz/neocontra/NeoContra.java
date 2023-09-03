@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.br.grupolaz.neocontra.network.server.GameServer;
 import com.br.grupolaz.neocontra.screens.MainMenu;
 import com.br.grupolaz.neocontra.util.Constants;
 
@@ -100,5 +101,6 @@ public class NeoContra extends Game {
 	 * utilizados pelo jogo.</p>
 	 */
 	public void dispose () {
+		GameServer.shutDownServer();
 	}
 }

@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Array;
 import com.br.grupolaz.neocontra.NeoContra;
-import com.br.grupolaz.neocontra.screens.GameScreen;
+import com.br.grupolaz.neocontra.screens.LoadingScreen;
 import com.br.grupolaz.neocontra.screens.MainMenu;
 import com.br.grupolaz.neocontra.util.Constants;
 import com.br.grupolaz.neocontra.util.SoundsUtils;
@@ -16,14 +16,14 @@ import com.br.grupolaz.neocontra.util.TextureUtils;
 
 public class MainMenuStage extends Stage {
 
-    private final NeoContra game;
-    private final MainMenu mainMenu;
-    private final Table table;
-    private final Skin skin;
+    protected final NeoContra game;
+    protected final MainMenu mainMenu;
+    protected final Table table;
+    protected final Skin skin;
     private final Label teamLabel;
     private final Sprite titleSprite;
-    private TextButton singlePlayerButton;
-    private TextButton multiPlayerButton;
+    protected TextButton primaryButton;
+    protected TextButton secondaryButton;
 
 
     public MainMenuStage(NeoContra game, MainMenu mainMenu) {
@@ -34,16 +34,10 @@ public class MainMenuStage extends Stage {
         this.titleSprite = new Sprite(TextureUtils.getGameTitleLogo());
         this.skin = new Skin(Gdx.files.internal("uiSkin.json"));
 
+        createScene();
 
         game.alignCameraToWorldCenter();
 
-        setUpTable();
-        setUpGrupoLAZ();
-        setUpTitle();
-        setUpButtons();
-        setUpCopyrightText();
-        setUpInputListener();
-        setUpMusic();
 
         Gdx.input.setInputProcessor(this);
     }
@@ -59,6 +53,12 @@ public class MainMenuStage extends Stage {
 
         game.alignCameraToWorldCenter();
 
+        createScene();
+
+        Gdx.input.setInputProcessor(this);
+    }
+
+    protected void createScene() {
         setUpTable();
         setUpGrupoLAZ();
         setUpTitle();
@@ -66,36 +66,34 @@ public class MainMenuStage extends Stage {
         setUpCopyrightText();
         setUpInputListener();
         setUpMusic();
-
-        Gdx.input.setInputProcessor(this);
     }
 
-    private void setUpTable() {
+    protected void setUpTable() {
         this.table.setFillParent(true);
         this.table.center().pad(50f);
         addActor(table);
     }
 
-    private void setUpGrupoLAZ() {
+    protected void setUpGrupoLAZ() {
         teamLabel.setFontScale(0.25f);
         table.add(teamLabel).minHeight(25f);
         table.row();
     }
 
-    public void setUpTitle() {
+    protected void setUpTitle() {
         this.titleSprite.setSize(512f, 256f);
         Image titleImage = new Image(titleSprite);
         table.add(titleImage).size(titleSprite.getWidth(), titleSprite.getHeight());
         table.row();
     }
 
-    private void setUpButtons() {
-        singlePlayerButton = new TextButton("1 Player", skin);
-        multiPlayerButton = new TextButton("2 Players", skin);
+    protected void setUpButtons() {
+        primaryButton = new TextButton("1 Player", skin);
+        secondaryButton = new TextButton("2 Players", skin);
 
-        table.add(singlePlayerButton).width(10).minHeight(70f);
+        table.add(primaryButton).width(10).minHeight(70f);
         table.row();
-        table.add(multiPlayerButton).width(10).minHeight(70f);
+        table.add(secondaryButton).width(10).minHeight(70f);
         table.row();
     }
 
@@ -113,17 +111,17 @@ public class MainMenuStage extends Stage {
         }
     }
 
-    private void setUpInputListener() {
-        singlePlayerButton.addListener(new InputListener() {
+    protected void setUpInputListener() {
+        primaryButton.addListener(new InputListener() {
             public boolean touchDown(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new GameScreen(game, Constants.LEVEL1_MAP, true, MainMenuStage.this));
+                game.setScreen(new LoadingScreen(game, Constants.LEVEL1_MAP, true, MainMenuStage.this));
                 return true;
             }
         });
 
-        multiPlayerButton.addListener(new InputListener() {
+        secondaryButton.addListener(new InputListener() {
             public boolean touchDown(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new GameScreen(game, Constants.LEVEL1_MAP, false, MainMenuStage.this));
+                mainMenu.setStage(new OnlineMenuStage(game, mainMenu, MainMenuStage.this));
                 return true;
             }
         });
@@ -136,8 +134,6 @@ public class MainMenuStage extends Stage {
     @Override
     public void act() {
         super.act();
-        game.getCamera().update();
-        game.getSpriteBatch().setProjectionMatrix(game.getCamera().combined);
     }
 
     @Override
