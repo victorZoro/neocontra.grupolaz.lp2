@@ -98,10 +98,7 @@ public class GameStage extends Stage {
 
     private final Box2DDebugRenderer b2dRenderer;
 
-    private int numEnemies = 1; // Número inicial de inimigos permitidos
-    private int maxEnemies = 1; // Número máximo de inimigos permitidos
-    private int enemyCount = 0; // Número atual de inimigos em cena
-    private int cout = 0;
+    private int numEnemies = 1; 
     ArrayList<Enemy> enemies = new ArrayList<>();
 
     private boolean singlePlayer;
@@ -254,25 +251,16 @@ public class GameStage extends Stage {
 
         game.getSpriteBatch().setProjectionMatrix(game.getCamera().combined);
         player.act(delta);
-        if (player.getBody().getPosition().x > 0.1f) {
-            for (Enemy enemy : enemies) {
-                enemy.act(delta);
-            }
-        }
 
-        // Verifique se você pode gerar mais inimigos
-        if (enemyCount < maxEnemies) {
-            setUpEnemy();
-            cout++;
+        for (Enemy enemy : enemies) {
+            enemy.act(delta);
         }
-
 
         game.getSpriteBatch().begin();
         player.draw(game.getSpriteBatch(), 0);
-        if (player.getBody().getPosition().x >= 0.1f) {
-            for (Enemy enemy : enemies) {
-                enemy.draw(game.getSpriteBatch(), 0);
-            }
+
+        for (Enemy enemy : enemies) {
+            enemy.draw(game.getSpriteBatch(), 0);
         }
         game.getSpriteBatch().end();
 
@@ -280,6 +268,10 @@ public class GameStage extends Stage {
 
         hud.act(delta);
         hud.draw();
+
+        if(((Enemy)enemy).isWithinCameraBounds(game.getCamera())){
+            ((Enemy)enemy).updateAttackTimer(delta);
+        }
     }
 
     /**
@@ -296,7 +288,7 @@ public class GameStage extends Stage {
         } else {
             setUpPlayer();
         }
-        // setUpEnemy();
+        setUpEnemy();
     }
 
     /**
@@ -374,60 +366,50 @@ public class GameStage extends Stage {
      * </p>
      */
     private void setUpEnemy() {
-        if (cout < numEnemies) {
-            switch (level) {
-                case Constants.LEVEL1_MAP:
-                    if (player.getBody().getPosition().x >= 0.1f) {
-                        for (int i = 0; i < numEnemies; i++) {
-                            enemy = new Enemy(world.getWorld(),
-                                    TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
-                                    (Player) player, getRandomX(), Constants.ENEMY_Y);
-                            enemies.add((Enemy) enemy);
-                            addActor(enemy);
-                        }
-                    }
-                    break;
-                case Constants.LEVEL2_MAP:
-                    if (player.getBody().getPosition().x >= -0.1f) {
-                        for (int i = 0; i < numEnemies; i++) {
-                            enemy = new Enemy(world.getWorld(),
-                                    TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
-                                    (Player) player, getRandomX(), Constants.ENEMY_Y);
-                            enemies.add((Enemy) enemy);
-                            addActor(enemy);
-                        }
-                    }
-                    break;
-                case Constants.LEVEL3_MAP:
-                    if (player.getBody().getPosition().x >= -0.1f) {
-                        for (int i = 0; i < numEnemies; i++) {
-                            enemy = new Enemy(world.getWorld(),
-                                    TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
-                                    (Player) player, getRandomX(), Constants.ENEMY_Y);
-                            enemies.add((Enemy) enemy);
-                            addActor(enemy);
-                        }
-                    }
-                    break;
-                case Constants.LEVEL4_MAP:
-                    if (player.getBody().getPosition().x >= -0.1f) {
-                        for (int i = 0; i < numEnemies; i++) {
-                            enemy = new Enemy(world.getWorld(),
-                                    TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
-                                    (Player) player, getRandomX(), Constants.ENEMY_Y);
-                            enemies.add((Enemy) enemy);
-                            addActor(enemy);
-                        }
-                    }
-                    break;
-            }
-            enemyCount++;
+        switch (level) {
+            case Constants.LEVEL1_MAP:
+                for (int i = 0; i < numEnemies; i++) {
+                    enemy = new Enemy(world.getWorld(),
+                            TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
+                            (Player) player, getRandomX(), Constants.ENEMY_Y);
+                    enemies.add((Enemy) enemy);
+                    addActor(enemy);
+                }
+                break;
+            case Constants.LEVEL2_MAP:
+                for (int i = 0; i < numEnemies; i++) {
+                    enemy = new Enemy(world.getWorld(),
+                            TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
+                            (Player) player, getRandomX(), Constants.ENEMY_Y);
+                    enemies.add((Enemy) enemy);
+                    addActor(enemy);
+                }
+                break;
+            case Constants.LEVEL3_MAP:
+                for (int i = 0; i < numEnemies; i++) {
+                    enemy = new Enemy(world.getWorld(),
+                            TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
+                            (Player) player, getRandomX(), Constants.ENEMY_Y);
+                    enemies.add((Enemy) enemy);
+                    addActor(enemy);
+                }
+                break;
+            case Constants.LEVEL4_MAP:
+                for (int i = 0; i < numEnemies; i++) {
+                    enemy = new Enemy(world.getWorld(),
+                            TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
+                            (Player) player, getRandomX(), Constants.ENEMY_Y);
+                    enemies.add((Enemy) enemy);
+                    addActor(enemy);
+                }
+                break;
         }
+
     }
 
     private float getRandomX() {
-        float areaMinX = 2;
-        float areaMaxX = 10;
+        float areaMinX = 10;
+        float areaMaxX = 15;
         return MathUtils.random(areaMinX, areaMaxX);
     }
 

@@ -3,6 +3,7 @@ package com.br.grupolaz.neocontra.actors;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -213,12 +214,21 @@ public class Enemy extends GameActor {
     public void updateAttackTimer(float delta) {
         if (!canAttack) {
             timeSinceAttack += delta;
-
+            
             if (timeSinceAttack >= 3) {
                 canAttack = true;
             }
         }
     }
+
+    public boolean isWithinCameraBounds(OrthographicCamera camera) {
+    float enemyX = enemyPos.len(); // Obtém a coordenada x do inimigo
+    float cameraLeftX = camera.position.x - camera.viewportWidth / 2; // Limite esquerdo da câmera
+    float cameraRightX = camera.position.x + camera.viewportWidth / 2; // Limite direito da câmera
+
+    return enemyX >= cameraLeftX && enemyX <= cameraRightX;
+}
+
 
     public void update(float delta, Vector2 playerpos, List<Projectile> projectiles) {
 
