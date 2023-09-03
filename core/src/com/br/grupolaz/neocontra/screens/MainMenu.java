@@ -9,7 +9,7 @@ import com.br.grupolaz.neocontra.stages.MainMenuStage;
 
 public class MainMenu implements Screen {
 
-    private final MainMenuStage mainMenuStage;
+    private MainMenuStage mainMenuStage;
     private final NeoContra game;
 
     public MainMenu(NeoContra game) {
@@ -41,6 +41,10 @@ public class MainMenu implements Screen {
     @Override
     public void resize(int width, int height) {
         game.getViewport().update(width, height);
+    }
+
+    public void setStage(MainMenuStage stage) {
+        mainMenuStage = stage;
     }
 
     @Override

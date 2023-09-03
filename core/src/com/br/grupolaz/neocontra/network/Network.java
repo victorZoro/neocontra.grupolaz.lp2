@@ -4,20 +4,18 @@ import com.br.grupolaz.neocontra.network.packets.*;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 
-
 public class Network {
-    public static final int TCP_PORT = 54555;
-    public static final int UDP_PORT = 54777;
+    static public final int TCP_PORT = 54555;
+    static public final int UDP_PORT = 54777;
+    static public final int TIMEOUT = 5000;
 
-    static public void register(EndPoint endpoint) {
-        Kryo kryo = endpoint.getKryo();
+    static public void register(EndPoint endPoint) {
+        Kryo kryo = endPoint.getKryo();
 
         kryo.register(AddPlayer.class);
         kryo.register(RemovePlayer.class);
-        kryo.register(PlayersConnected.class);
-        kryo.register(PlayerPosition.class);
-        kryo.register(KeyPressed.class);
-        kryo.register(KeyReleased.class);
-        kryo.register(int[].class);
+        kryo.register(UpdatePlayer.class);
+        kryo.register(UpdatePosition.class);
+        kryo.register(ConnectionReady.class);
     }
 }

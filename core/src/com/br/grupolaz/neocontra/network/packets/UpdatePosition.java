@@ -1,7 +1,6 @@
 package com.br.grupolaz.neocontra.network.packets;
 
-public class PlayerPosition {
+public class UpdatePosition {
+    float x, y;
     public int id;
-    public float x;
-    public float y;
 }
