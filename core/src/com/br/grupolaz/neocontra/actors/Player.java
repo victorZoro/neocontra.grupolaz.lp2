@@ -189,62 +189,6 @@ public class Player extends GameActor {
     }
 
 
-    /**
-     * <h2>checkCurrentState</h2>
-     * <p>O método checkCurrentState()
-     * verifica o estado atual do jogador
-     * e retorna a região de textura correspondente
-     * para renderização. <p>Ele também realiza ajustes
-     * no tamanho e na posição do sprite do jogador
-     * com base no estado atual.</p>
-     *
-     * @return etorna a região de textura correspondente para renderização
-     */
-    @Override
-    protected TextureRegion checkCurrentState() {
-        TextureRegion region;
-
-        switch (currentState) {
-            case JUMPING: {
-                region = actorJumping.getKeyFrame(stateTimer, true);
-                sprite.setPosition(sprite.getX(), sprite.getY() - (2f / Constants.PIXELS_PER_METER));
-                break;
-            }
-
-            case RUNNING: {
-                resetSpriteSize(sprite);
-                region = actorRunning.getKeyFrame(stateTimer, true);
-                break;
-            }
-
-            case DEAD: {
-                sprite.setPosition(sprite.getX(), sprite.getY() - (5f / Constants.PIXELS_PER_METER));
-                region = actorDying.getKeyFrame(stateTimer, false);
-                break;
-            }
-
-            case CROUCHING: {
-                region = actorCrouching;
-                sprite.setSize(25f / Constants.PIXELS_PER_METER, 16f / Constants.PIXELS_PER_METER);
-                sprite.setPosition(sprite.getX(), sprite.getY() - (2f / Constants.PIXELS_PER_METER));
-                break;
-            }
-
-            // Next 3 cases are all the same,
-            // so we jump to the next one until
-            // we reach the default case.
-            case FALLING:
-            case STANDING:
-            default: {
-                region = actorStanding;
-                resetSpriteSize(sprite);
-                break;
-            }
-        }
-
-        return region;
-    }
-
 
     /**
      * <h2>SetUpAnimations</h2>

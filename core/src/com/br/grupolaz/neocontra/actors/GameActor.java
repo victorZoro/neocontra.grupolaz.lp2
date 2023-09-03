@@ -315,6 +315,18 @@ public abstract class GameActor extends Actor {
         }
     }
 
+    public boolean isWalking() {
+        return body.getLinearVelocity().x != 0;
+    }
+
+    public boolean isRunningRight() {
+        return runningRight;
+    }
+
+    public boolean isCrouching() {
+        return currentState == ActorStates.CROUCHING;
+    }
+
     public void projectileOutOfBounds(OrthographicCamera camera) {
         int i = 0;
         for (Projectile projectile : projectiles) {
