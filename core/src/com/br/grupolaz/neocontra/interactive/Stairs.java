@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
+import com.br.grupolaz.neocontra.actors.Enemy;
 import com.br.grupolaz.neocontra.util.Constants;
 
 public class Stairs extends InteractiveTileObject {
@@ -35,6 +36,10 @@ public class Stairs extends InteractiveTileObject {
     @Override
     public void onPlayerCollision(Body actor) {
         actor.applyLinearImpulse(0, 2f, actor.getWorldCenter().x, actor.getWorldCenter().y, true);
+        if(actor.getUserData() instanceof Enemy){
+                    actor.applyLinearImpulse(0, 5f, actor.getWorldCenter().x, actor.getWorldCenter().y, true);
+
+        }
 //        if(actor.getUserData() instanceof GameActor){
 //            actor.applyLinearImpulse(0, 2f, actor.getWorldCenter().x, actor.getWorldCenter().y, true);
         System.out.println("Houve colisao");
