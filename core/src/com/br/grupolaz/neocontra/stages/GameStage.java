@@ -208,6 +208,10 @@ public class GameStage extends Stage {
 
         player.projectileOutOfBounds(game.getCamera());
 
+        for(Enemy enemy : enemies) {
+            enemy.projectileOutOfBounds(game.getCamera());
+        }
+
         mapLoader.getRenderer().setView(game.getCamera());
     }
 
