@@ -15,6 +15,8 @@ import com.br.grupolaz.neocontra.interactive.Ceiling;
 import com.br.grupolaz.neocontra.interactive.Ground;
 import com.br.grupolaz.neocontra.interactive.SeaLevel;
 import com.br.grupolaz.neocontra.interactive.Stairs;
+import com.br.grupolaz.neocontra.network.client.GameClient;
+import com.br.grupolaz.neocontra.network.packets.UpdatePlayer;
 import com.br.grupolaz.neocontra.screens.GameScreen;
 import com.br.grupolaz.neocontra.util.*;
 
@@ -103,6 +105,8 @@ public class GameStage extends Stage {
 
     private boolean singlePlayer;
 
+    private GameClient client;
+
     /**
      * <h2>GameStage</h2>
      * <p>
@@ -135,6 +139,30 @@ public class GameStage extends Stage {
 
         world.getWorld().setContactListener(new WorldContactListener());
 
+    }
+
+    public GameStage(NeoContra game, GameScreen gameScreen, String level, GameClient client, Stage oldStage) {
+        this.game = game;
+        this.gameScreen = gameScreen;
+        this.level = level;
+        this.singlePlayer = false;
+        this.client = client;
+        oldStage.dispose();
+
+        game.alignCameraToWorldCenter();
+
+        b2dRenderer = new Box2DDebugRenderer();
+        // b2dRenderer.setDrawBodies(false);
+        this.mapLoader = new MapLoader(this.level);
+        world = new WorldUtils();
+
+        setUpCharacters();
+        setUpMap();
+        setUpMusic();
+
+        hud = new HudStage((Player) player, (Player) player2);
+
+        world.getWorld().setContactListener(new WorldContactListener());
     }
 
     private void setUpMap() {
@@ -193,6 +221,10 @@ public class GameStage extends Stage {
 
         GameUtils.fixTimeStep(world.getWorld());
 
+        if(client != null) {
+            updateConnection();
+        }
+
         if (GameUtils.isKonamiCode()) {
             ((Player) player).setLifeCount(9999);
             if(!singlePlayer) {
@@ -209,6 +241,20 @@ public class GameStage extends Stage {
         player.projectileOutOfBounds(game.getCamera());
 
         mapLoader.getRenderer().setView(game.getCamera());
+    }
+
+    public void updateConnection() {
+        if(player instanceof Player) {
+            UpdatePlayer updatePlayer = new UpdatePlayer();
+            updatePlayer.id = client.getClient().getID();
+            updatePlayer.playerClass = player.getClass().getSimpleName();
+            updatePlayer.walking = ((Player) player).isWalking();
+            updatePlayer.right = ((Player) player).isRunningRight();
+            updatePlayer.crouching = ((Player) player).isCrouching();
+            updatePlayer.lifeCount = ((Player) player).getLifeCount();
+
+            client.getClient().sendTCP(updatePlayer);
+        }
     }
 
     /**
@@ -323,21 +369,23 @@ public class GameStage extends Stage {
             player2.remove();
         }
 
+        TextureUtils tx = new TextureUtils();
+
         switch (level) {
             case Constants.LEVEL1_MAP:
-                player2 = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                player2 = new Player(world.getWorld(), tx.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
                         (-12f / Constants.PIXELS_PER_METER), (100f / Constants.PIXELS_PER_METER));
                 break;
             case Constants.LEVEL2_MAP:
-                player2 = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                player2 = new Player(world.getWorld(), tx.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
                         (-22f / Constants.PIXELS_PER_METER), (150f / Constants.PIXELS_PER_METER));
                 break;
             case Constants.LEVEL3_MAP:
-                player2 = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                player2 = new Player(world.getWorld(), tx.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
                         (-1f / Constants.PIXELS_PER_METER), (10f / Constants.PIXELS_PER_METER));
                 break;
             case Constants.LEVEL4_MAP:
-                player2 = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                player2 = new Player(world.getWorld(), tx.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
                         (-12f / Constants.PIXELS_PER_METER), (80f / Constants.PIXELS_PER_METER));
                 break;
         }
