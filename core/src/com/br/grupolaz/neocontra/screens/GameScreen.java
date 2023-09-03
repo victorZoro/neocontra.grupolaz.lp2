@@ -116,7 +116,7 @@ public class GameScreen implements Screen {
     public void pause() {
     }
 
-   /**
+    /**
     * <h2>resume</h2>
     */
     public void resume() {

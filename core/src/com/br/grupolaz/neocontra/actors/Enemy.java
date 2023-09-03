@@ -182,7 +182,7 @@ public class Enemy extends GameActor {
         }
         actorDying = new Animation<>(0.1f, frames);
         frames.clear();
-        System.out.println("Created dying region");
+
     }
 
     @Override
@@ -192,10 +192,10 @@ public class Enemy extends GameActor {
 
             if (!runningRight) {
                 bulletDirection = new Vector2(3f, 0);
-                System.out.println("Direita");
+
             } else {
                 bulletDirection = new Vector2(-3f, 0);
-                System.out.println("Esquerda");
+
             }
 
             projectiles.add(new BulletEnemy(world,
@@ -212,7 +212,6 @@ public class Enemy extends GameActor {
         if ((posPlayer.len() * (-1)) <= attackDistance && canAttack) {
             shoot();
             timeSinceAttack = 0;
-            System.out.println("tiro");
         }
     }
 
@@ -278,7 +277,6 @@ public class Enemy extends GameActor {
     public void hit() {
         hit = true;
         currentLifeCount--;
-        System.out.println("O inimigo tem agora: " + currentLifeCount + " vidas");
     }
     
     public boolean isHit() {
