@@ -163,7 +163,7 @@ public class Player extends GameActor {
             die();
         }
 
-        if (setToDestroy && !destroyed) {
+        if (setToDestroy && !destroyed && !world.isLocked()) {
             world.destroyBody(body);
             currentState = ActorStates.DEAD;
             destroyed = true;

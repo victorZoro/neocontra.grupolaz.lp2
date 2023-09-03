@@ -224,6 +224,8 @@ public class GameStage extends Stage {
     public void update() {
         GameUtils.createInputHandler((Player) player, (Player) player2, level);
 
+        GameUtils.fixTimeStep(world.getWorld());
+
         if(client != null) {
             updateConnection();
         }
@@ -321,8 +323,6 @@ public class GameStage extends Stage {
 
         hud.act(delta);
         hud.draw();
-        GameUtils.fixTimeStep(world.getWorld());
-
     }
 
     /**
