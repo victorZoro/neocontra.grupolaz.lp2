@@ -212,7 +212,7 @@ public class GameStage extends Stage {
         player.projectileOutOfBounds(game.getCamera());
 
         for (Enemy enemy : enemies) {
-            enemy.projectileOutOfBounds(game.getCamera());
+            enemy.projectileOutOfBoundsEnemy(game.getCamera());
         }
 
         mapLoader.getRenderer().setView(game.getCamera());
@@ -390,19 +390,19 @@ public class GameStage extends Stage {
                 for (int i = 0; i < numEnemies; i++) {
                     enemy = new Enemy(world.getWorld(),
                             TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
-                            (Player) player, getRandomX(areaMinX, areaMaxX), Constants.ENEMY_Y, 2);
+                            (Player) player, getRandomX(areaMinX, areaMaxX), Constants.ENEMY_Y*5, 2);
                     enemies.add((Enemy) enemy);
                     addActor(enemy);
                 }
                 break;
             case Constants.LEVEL3_MAP:
                 numEnemies = 6;
-                areaMinX = 16;
-                areaMaxX = 20;
+                areaMinX = 10;
+                areaMaxX = 19;
                 for (int i = 0; i < numEnemies; i++) {
                     enemy = new Enemy(world.getWorld(),
                             TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
-                            (Player) player, getRandomX(areaMinX, areaMaxX), Constants.ENEMY_Y, 3);
+                            (Player) player, getRandomX(areaMinX, areaMaxX), Constants.ENEMY_Y*5, 3);
                     enemies.add((Enemy) enemy);
                     addActor(enemy);
                 }

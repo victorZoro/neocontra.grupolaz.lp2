@@ -321,6 +321,18 @@ public abstract class GameActor extends Actor {
             if (isOutOfBounds(projectile.getBody(), camera) || projectile.isSetToDestroy()) {
                 world.destroyBody(projectile.getBody());
                 projectiles.removeIndex(i);
+                //SoundsUtils.getShotSound().stop();
+            }
+            i++;
+        }
+    }
+
+    public void projectileOutOfBoundsEnemy(OrthographicCamera camera) {
+        int i = 0;
+        for (Projectile projectile : projectiles) {
+            if (isOutOfBounds(projectile.getBody(), camera) || projectile.isSetToDestroy()) {
+                world.destroyBody(projectile.getBody());
+                projectiles.removeIndex(i);
                 SoundsUtils.getShotSound().stop();
             }
             i++;
