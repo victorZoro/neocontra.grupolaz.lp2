@@ -98,10 +98,13 @@ public class GameStage extends Stage {
 
     private final Box2DDebugRenderer b2dRenderer;
 
-    private int numEnemies = 1; 
+    private int numEnemies;
     ArrayList<Enemy> enemies = new ArrayList<>();
 
     private boolean singlePlayer;
+
+    float areaMinX;
+    float areaMaxX;
 
     /**
      * <h2>GameStage</h2>
@@ -208,7 +211,7 @@ public class GameStage extends Stage {
 
         player.projectileOutOfBounds(game.getCamera());
 
-        for(Enemy enemy : enemies) {
+        for (Enemy enemy : enemies) {
             enemy.projectileOutOfBounds(game.getCamera());
         }
 
@@ -273,9 +276,6 @@ public class GameStage extends Stage {
         hud.act(delta);
         hud.draw();
 
-        if(((Enemy)enemy).isWithinCameraBounds(game.getCamera())){
-            ((Enemy)enemy).updateAttackTimer(delta);
-        }
     }
 
     /**
@@ -372,37 +372,49 @@ public class GameStage extends Stage {
     private void setUpEnemy() {
         switch (level) {
             case Constants.LEVEL1_MAP:
+                numEnemies = 3;
+                areaMinX = 7;
+                areaMaxX = 11;
                 for (int i = 0; i < numEnemies; i++) {
                     enemy = new Enemy(world.getWorld(),
                             TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
-                            (Player) player, getRandomX(), Constants.ENEMY_Y);
+                            (Player) player, getRandomX(areaMinX, areaMaxX), Constants.ENEMY_Y, 1);
                     enemies.add((Enemy) enemy);
                     addActor(enemy);
                 }
                 break;
             case Constants.LEVEL2_MAP:
+                numEnemies = 4;
+                areaMinX = 10;
+                areaMaxX = 15;
                 for (int i = 0; i < numEnemies; i++) {
                     enemy = new Enemy(world.getWorld(),
                             TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
-                            (Player) player, getRandomX(), Constants.ENEMY_Y);
+                            (Player) player, getRandomX(areaMinX, areaMaxX), Constants.ENEMY_Y, 2);
                     enemies.add((Enemy) enemy);
                     addActor(enemy);
                 }
                 break;
             case Constants.LEVEL3_MAP:
+                numEnemies = 6;
+                areaMinX = 16;
+                areaMaxX = 20;
                 for (int i = 0; i < numEnemies; i++) {
                     enemy = new Enemy(world.getWorld(),
                             TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
-                            (Player) player, getRandomX(), Constants.ENEMY_Y);
+                            (Player) player, getRandomX(areaMinX, areaMaxX), Constants.ENEMY_Y, 3);
                     enemies.add((Enemy) enemy);
                     addActor(enemy);
                 }
                 break;
             case Constants.LEVEL4_MAP:
+                numEnemies = 10;
+                areaMinX = 18;
+                areaMaxX = 22;
                 for (int i = 0; i < numEnemies; i++) {
                     enemy = new Enemy(world.getWorld(),
                             TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
-                            (Player) player, getRandomX(), Constants.ENEMY_Y);
+                            (Player) player, getRandomX(areaMinX, areaMaxX), Constants.ENEMY_Y, 4);
                     enemies.add((Enemy) enemy);
                     addActor(enemy);
                 }
@@ -411,9 +423,7 @@ public class GameStage extends Stage {
 
     }
 
-    private float getRandomX() {
-        float areaMinX = 10;
-        float areaMaxX = 15;
+    private float getRandomX(float areaMinX, float areaMaxX) {
         return MathUtils.random(areaMinX, areaMaxX);
     }
 

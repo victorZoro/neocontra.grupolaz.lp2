@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
+import com.br.grupolaz.neocontra.NeoContra;
 import com.br.grupolaz.neocontra.enums.ActorStates;
 import com.br.grupolaz.neocontra.enums.Bits;
 import com.br.grupolaz.neocontra.util.Constants;
@@ -60,6 +62,7 @@ public class Enemy extends GameActor {
     public float runSpeed = 2.0f;
 
     private int lifeCount;
+    private int currentLifeCount;
     private boolean hit;
 
     /**
@@ -83,7 +86,7 @@ public class Enemy extends GameActor {
      * @param region tipo TextureRegion
      */
 
-    public Enemy(World world, TextureRegion region, Player player, float x, float y) {
+    public Enemy(World world, TextureRegion region, Player player, float x, float y, int lifeCount) {
         super(world, region, x, y);
         body.getFixtureList().get(0).setUserData(this);
         setCategoryFilter(Bits.ENEMY.getBitType());
@@ -98,7 +101,8 @@ public class Enemy extends GameActor {
         this.playerPos = new Vector2(player.body.getPosition());
         this.distanceToPlayer = 0;
         this.direction = new Vector2();
-        this.lifeCount = 1;
+        this.lifeCount = lifeCount;
+        this.currentLifeCount = lifeCount;
     }
 
     public Enemy(World world, TextureRegion region, Player player, Vector2 position) {
@@ -185,7 +189,7 @@ public class Enemy extends GameActor {
     public void shoot() {
         if (!destroyed && canAttack) {
             Vector2 bulletDirection;
-            
+
             if (!runningRight) {
                 bulletDirection = new Vector2(3f, 0);
                 System.out.println("Direita");
@@ -193,11 +197,12 @@ public class Enemy extends GameActor {
                 bulletDirection = new Vector2(-3f, 0);
                 System.out.println("Esquerda");
             }
-            
+
             projectiles.add(new BulletEnemy(world,
-                    body.getPosition().x + (runningRight ? Constants.PLAYER_RADIUS : -Constants.PLAYER_RADIUS) + bulletDirection.x / Constants.PIXELS_PER_METER,
+                    body.getPosition().x + (runningRight ? Constants.PLAYER_RADIUS : -Constants.PLAYER_RADIUS)
+                            + bulletDirection.x / Constants.PIXELS_PER_METER,
                     body.getPosition().y + 5f / Constants.PIXELS_PER_METER, bulletDirection));
-            
+
             SoundsUtils.getShotSound().play();
             canAttack = false;
         }
@@ -214,21 +219,12 @@ public class Enemy extends GameActor {
     public void updateAttackTimer(float delta) {
         if (!canAttack) {
             timeSinceAttack += delta;
-            
+
             if (timeSinceAttack >= 3) {
                 canAttack = true;
             }
         }
     }
-
-    public boolean isWithinCameraBounds(OrthographicCamera camera) {
-    float enemyX = enemyPos.len(); // Obtém a coordenada x do inimigo
-    float cameraLeftX = camera.position.x - camera.viewportWidth / 2; // Limite esquerdo da câmera
-    float cameraRightX = camera.position.x + camera.viewportWidth / 2; // Limite direito da câmera
-
-    return enemyX >= cameraLeftX && enemyX <= cameraRightX;
-}
-
 
     public void update(float delta, Vector2 playerpos, List<Projectile> projectiles) {
 
@@ -245,36 +241,72 @@ public class Enemy extends GameActor {
         }
     }
 
-    @Override
-    public void collision() {
-        setToDestroy = true;
-        System.out.println("Death Enemy muahahahaha");
+    private boolean collisionWithBulletEnemy() {
+        for (Fixture fixture : body.getFixtureList()) {
+            Object userData = fixture.getUserData();
+            if (userData instanceof Bullet) {
+                return true;
+            }
+        }
+        return false;
     }
 
+
+    @Override
+    public void collision() {
+        if (isHit()) {
+            if (collisionWithBulletEnemy()) {
+                hit();
+            }
+            if (!isAlive()) {
+                setToDestroy = true;
+                System.out.println("Death Enemy muahahahaha");
+            }
+            setHit(hit);
+        }
+    }
+
+    
     public void setHit(boolean hit) {
         this.hit = hit;
     }
-
+    
+    public boolean isAlive() {
+        return currentLifeCount > 0;
+    }
+    
     public void hit() {
         hit = true;
-        lifeCount--;
-        System.out.println("Voce so tem:" + lifeCount + "vidas");
+        currentLifeCount--;
+        System.out.println("O inimigo tem agora: " + currentLifeCount + " vidas");
     }
-
-    public void die() {
-        setToDestroy = true;
-    }
-
+    
     public boolean isHit() {
         return hit;
     }
-
+    
     public int getLifeCount() {
-        return lifeCount;
+        return currentLifeCount;
     }
-
+    
     public void setLifeCount(int lifeCount) {
-        this.lifeCount = lifeCount;
+        this.currentLifeCount = lifeCount;
+    }
+    
+    public void resetLife() {
+        currentLifeCount = lifeCount;
+    }
+    
+    public void enemyDed(float delta) {
+        stateTime += delta;
+        if (setToDestroy && !destroyed) {
+            world.destroyBody(body);
+            body.setUserData(null);
+            currentState = ActorStates.DEAD;
+            destroyed = true;
+            stateTime = 0;
+            runSpeed = 0;
+        }
     }
 
     // Método para fazer o inimigo seguir o jogador
@@ -296,25 +328,13 @@ public class Enemy extends GameActor {
 
     }
 
-    public void enemyDed(float delta) {
-        stateTime += delta;
-        if (setToDestroy && !destroyed) {
-            world.destroyBody(body);
-            body.setUserData(null);
-            currentState = ActorStates.DEAD;
-            destroyed = true;
-            stateTime = 0;
-            runSpeed = 0;
-        }
-    }
-
     @Override
     protected TextureRegion checkCurrentState() {
         TextureRegion region;
 
         switch (currentState) {
             case RUNNING: {
-//                System.out.println("running in the 90s");
+                // System.out.println("running in the 90s");
                 resetSpriteSize(sprite);
                 region = actorRunning.getKeyFrame(stateTimer, true);
                 break;

@@ -89,7 +89,7 @@ public class Player extends GameActor {
         body.setLinearVelocity(2f, 0);
     }
 
-    public boolean collisionWithBulletEnemy() {
+    private boolean collisionWithBulletEnemy() {
     for (Fixture fixture : body.getFixtureList()) {
         Object userData = fixture.getUserData();
         if (userData instanceof BulletEnemy) {

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.br.grupolaz.neocontra.enums.ActorStates;
 import com.br.grupolaz.neocontra.util.Constants;
+import com.br.grupolaz.neocontra.util.SoundsUtils;
 import com.br.grupolaz.neocontra.util.WorldUtils;
 
 /**
@@ -154,6 +155,7 @@ public abstract class GameActor extends Actor {
     protected float stateTimer;
     protected float stateTime;
 
+    
     protected Array<TextureRegion> frames;
 
     protected Array<Projectile> projectiles;
@@ -319,10 +321,12 @@ public abstract class GameActor extends Actor {
             if (isOutOfBounds(projectile.getBody(), camera) || projectile.isSetToDestroy()) {
                 world.destroyBody(projectile.getBody());
                 projectiles.removeIndex(i);
+                SoundsUtils.getShotSound().stop();
             }
             i++;
         }
     }
+
 
     protected abstract void setUpAnimations();
 

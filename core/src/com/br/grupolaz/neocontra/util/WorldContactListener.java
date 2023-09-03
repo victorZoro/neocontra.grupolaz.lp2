@@ -50,12 +50,15 @@ public class WorldContactListener implements ContactListener {
 
             System.out.println("Objeto instacia " + object.getUserData());
 
-            
             if (object.getUserData() instanceof Enemy) {
                 if (bodyB.getUserData() instanceof Bullet) {
-                    ((Enemy) object.getUserData()).collision();
-                    ((Projectile) projectile.getUserData()).setToDestroy();
-                    System.out.println("instancia do objeto: " + object.getUserData());
+                    if (projectile.getUserData() instanceof Bullet) {
+                        ((Enemy) object.getUserData()).hit();
+                        ((Enemy) object.getUserData()).collision();
+                        ((Projectile) projectile.getUserData()).setToDestroy();
+                        System.out.println("instancia do objeto: " + object.getUserData());
+                    }
+
                 }
 
             } else if (object.getUserData() instanceof Player) {
@@ -75,7 +78,7 @@ public class WorldContactListener implements ContactListener {
     @Override
     public void endContact(Contact contact) {
         Gdx.app.log("End Contact", "test");
-        
+
     }
 
     @Override
