@@ -37,6 +37,7 @@ public class Stairs extends InteractiveTileObject {
         actor.applyLinearImpulse(0, 2f, actor.getWorldCenter().x, actor.getWorldCenter().y, true);
 //        if(actor.getUserData() instanceof GameActor){
 //            actor.applyLinearImpulse(0, 2f, actor.getWorldCenter().x, actor.getWorldCenter().y, true);
+        System.out.println("Houve colisao");
 //        }
     }
 
