@@ -58,6 +58,9 @@ public class Enemy extends GameActor {
     private float desiredDistance;
     public float runSpeed = 2.0f;
 
+    private int lifeCount;
+    private boolean hit;
+
     /**
      * <h2>Enemy</h2>
      * <p>
@@ -94,6 +97,7 @@ public class Enemy extends GameActor {
         this.playerPos = new Vector2(player.body.getPosition());
         this.distanceToPlayer = 0;
         this.direction = new Vector2();
+        this.lifeCount = 1;
     }
 
     public Enemy(World world, TextureRegion region, Player player, Vector2 position) {
@@ -235,6 +239,32 @@ public class Enemy extends GameActor {
     public void collision() {
         setToDestroy = true;
         System.out.println("Death Enemy muahahahaha");
+    }
+
+    public void setHit(boolean hit) {
+        this.hit = hit;
+    }
+
+    public void hit() {
+        hit = true;
+        lifeCount--;
+        System.out.println("Voce so tem:" + lifeCount + "vidas");
+    }
+
+    public void die() {
+        setToDestroy = true;
+    }
+
+    public boolean isHit() {
+        return hit;
+    }
+
+    public int getLifeCount() {
+        return lifeCount;
+    }
+
+    public void setLifeCount(int lifeCount) {
+        this.lifeCount = lifeCount;
     }
 
     // Método para fazer o inimigo seguir o jogador

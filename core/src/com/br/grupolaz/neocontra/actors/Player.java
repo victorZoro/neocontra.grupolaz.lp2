@@ -156,7 +156,8 @@ public class Player extends GameActor {
     }
 
     public void update(float delta) {
-        stateTime += delta;
+        stateTime += delta; 
+        
 
         if (lifeCount <= 0) {
             die();

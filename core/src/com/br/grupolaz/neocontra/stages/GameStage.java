@@ -98,7 +98,10 @@ public class GameStage extends Stage {
 
     private final Box2DDebugRenderer b2dRenderer;
 
-    private int numEnemies = 2;
+    private int numEnemies = 1; // Número inicial de inimigos permitidos
+    private int maxEnemies = 1; // Número máximo de inimigos permitidos
+    private int enemyCount = 0; // Número atual de inimigos em cena
+    private int cout = 0;
     ArrayList<Enemy> enemies = new ArrayList<>();
 
     private boolean singlePlayer;
@@ -195,7 +198,7 @@ public class GameStage extends Stage {
 
         if (GameUtils.isKonamiCode()) {
             ((Player) player).setLifeCount(9999);
-            if(!singlePlayer) {
+            if (!singlePlayer) {
                 ((Player) player2).setLifeCount(9999);
             }
         }
@@ -251,14 +254,25 @@ public class GameStage extends Stage {
 
         game.getSpriteBatch().setProjectionMatrix(game.getCamera().combined);
         player.act(delta);
-        for (Enemy enemy : enemies) {
-            enemy.act(delta);
+        if (player.getBody().getPosition().x > 0.1f) {
+            for (Enemy enemy : enemies) {
+                enemy.act(delta);
+            }
         }
+
+        // Verifique se você pode gerar mais inimigos
+        if (enemyCount < maxEnemies) {
+            setUpEnemy();
+            cout++;
+        }
+
 
         game.getSpriteBatch().begin();
         player.draw(game.getSpriteBatch(), 0);
-        for (Enemy enemy : enemies) {
-            enemy.draw(game.getSpriteBatch(), 0);
+        if (player.getBody().getPosition().x >= 0.1f) {
+            for (Enemy enemy : enemies) {
+                enemy.draw(game.getSpriteBatch(), 0);
+            }
         }
         game.getSpriteBatch().end();
 
@@ -276,13 +290,13 @@ public class GameStage extends Stage {
      * </p>
      */
     private void setUpCharacters() {
-        if(!singlePlayer) {
+        if (!singlePlayer) {
             setUpPlayer();
             setUpPlayer2();
         } else {
             setUpPlayer();
         }
-//        setUpEnemy();
+        // setUpEnemy();
     }
 
     /**
@@ -298,19 +312,23 @@ public class GameStage extends Stage {
 
         switch (level) {
             case Constants.LEVEL1_MAP:
-                player = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                player = new Player(world.getWorld(),
+                        TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
                         (-10f / Constants.PIXELS_PER_METER), (100f / Constants.PIXELS_PER_METER));
                 break;
             case Constants.LEVEL2_MAP:
-                player = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                player = new Player(world.getWorld(),
+                        TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
                         (-20f / Constants.PIXELS_PER_METER), (150f / Constants.PIXELS_PER_METER));
                 break;
             case Constants.LEVEL3_MAP:
-                player = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                player = new Player(world.getWorld(),
+                        TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
                         (1f / Constants.PIXELS_PER_METER), (10f / Constants.PIXELS_PER_METER));
                 break;
             case Constants.LEVEL4_MAP:
-                player = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                player = new Player(world.getWorld(),
+                        TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
                         (-10f / Constants.PIXELS_PER_METER), (80f / Constants.PIXELS_PER_METER));
                 break;
         }
@@ -325,20 +343,24 @@ public class GameStage extends Stage {
 
         switch (level) {
             case Constants.LEVEL1_MAP:
-                player2 = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
-                        (-12f / Constants.PIXELS_PER_METER), (100f / Constants.PIXELS_PER_METER));
+                player2 = new Player(world.getWorld(),
+                        TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                        (-0.1f / Constants.PIXELS_PER_METER), (100f / Constants.PIXELS_PER_METER));
                 break;
             case Constants.LEVEL2_MAP:
-                player2 = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                player2 = new Player(world.getWorld(),
+                        TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
                         (-22f / Constants.PIXELS_PER_METER), (150f / Constants.PIXELS_PER_METER));
                 break;
             case Constants.LEVEL3_MAP:
-                player2 = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                player2 = new Player(world.getWorld(),
+                        TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
                         (-1f / Constants.PIXELS_PER_METER), (10f / Constants.PIXELS_PER_METER));
                 break;
             case Constants.LEVEL4_MAP:
-                player2 = new Player(world.getWorld(), TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
-                        (-12f / Constants.PIXELS_PER_METER), (80f / Constants.PIXELS_PER_METER));
+                player2 = new Player(world.getWorld(),
+                        TextureUtils.getPlayerAtlas().findRegion(Constants.PLAYER_STILL_REGION),
+                        (-0.1f / Constants.PIXELS_PER_METER), (80f / Constants.PIXELS_PER_METER));
                 break;
         }
 
@@ -352,17 +374,60 @@ public class GameStage extends Stage {
      * </p>
      */
     private void setUpEnemy() {
-        for (int i = 0; i < numEnemies; i++) {
-            enemy = new Enemy(world.getWorld(), TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
-                    (Player) player, getRandomX(), Constants.ENEMY_Y);
-            enemies.add((Enemy) enemy);
-            addActor(enemy);
+        if (cout < numEnemies) {
+            switch (level) {
+                case Constants.LEVEL1_MAP:
+                    if (player.getBody().getPosition().x >= 0.1f) {
+                        for (int i = 0; i < numEnemies; i++) {
+                            enemy = new Enemy(world.getWorld(),
+                                    TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
+                                    (Player) player, getRandomX(), Constants.ENEMY_Y);
+                            enemies.add((Enemy) enemy);
+                            addActor(enemy);
+                        }
+                    }
+                    break;
+                case Constants.LEVEL2_MAP:
+                    if (player.getBody().getPosition().x >= -0.1f) {
+                        for (int i = 0; i < numEnemies; i++) {
+                            enemy = new Enemy(world.getWorld(),
+                                    TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
+                                    (Player) player, getRandomX(), Constants.ENEMY_Y);
+                            enemies.add((Enemy) enemy);
+                            addActor(enemy);
+                        }
+                    }
+                    break;
+                case Constants.LEVEL3_MAP:
+                    if (player.getBody().getPosition().x >= -0.1f) {
+                        for (int i = 0; i < numEnemies; i++) {
+                            enemy = new Enemy(world.getWorld(),
+                                    TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
+                                    (Player) player, getRandomX(), Constants.ENEMY_Y);
+                            enemies.add((Enemy) enemy);
+                            addActor(enemy);
+                        }
+                    }
+                    break;
+                case Constants.LEVEL4_MAP:
+                    if (player.getBody().getPosition().x >= -0.1f) {
+                        for (int i = 0; i < numEnemies; i++) {
+                            enemy = new Enemy(world.getWorld(),
+                                    TextureUtils.getEnemyAtlas().findRegion(Constants.ENEMY_STILL_REGION),
+                                    (Player) player, getRandomX(), Constants.ENEMY_Y);
+                            enemies.add((Enemy) enemy);
+                            addActor(enemy);
+                        }
+                    }
+                    break;
+            }
+            enemyCount++;
         }
     }
 
     private float getRandomX() {
-        float areaMinX = 9;
-        float areaMaxX = 15;
+        float areaMinX = 2;
+        float areaMaxX = 10;
         return MathUtils.random(areaMinX, areaMaxX);
     }
 
@@ -370,7 +435,8 @@ public class GameStage extends Stage {
         if (player.getBody().getPosition().x < 0) {
             player.getBody().setTransform(0, player.getBody().getPosition().y, player.getBody().getAngle());
         } else if (player.getBody().getPosition().x >= game.getCamera().position.x + 2.5f) {
-            player.getBody().setTransform(game.getCamera().position.x + 2.5f, player.getBody().getPosition().y, player.getBody().getAngle());
+            player.getBody().setTransform(game.getCamera().position.x + 2.5f, player.getBody().getPosition().y,
+                    player.getBody().getAngle());
         }
     }
 
@@ -414,8 +480,6 @@ public class GameStage extends Stage {
             }
         }
     }
-
-
 
     private void setUpMusic() {
         SoundsUtils.getThemeM().setLooping(true);
